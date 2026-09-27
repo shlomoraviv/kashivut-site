@@ -13,6 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="assets/js/icons.js" defer></script>
+  <script src="assets/js/landscape.js" defer></script>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -39,9 +41,11 @@
 
 <main>
   <section class="page-hero bg-lilac" data-petals="8">
+    <div class="hero-landscape" aria-hidden="true"></div>
+    <div class="hero-veil" aria-hidden="true"></div>
     <div class="container">
       <nav class="crumbs" aria-label="ניווט"><a href="index.html">בית</a><span>›</span><span>קורס העמקה</span></nav>
-      <span class="kicker">🌸 לבוגרות MBSR</span>
+      <span class="kicker"><span data-ico="flower"></span>לבוגרות MBSR</span>
       <h1>קורס העמקה ב-Mindfulness</h1>
       <p class="lead">כבר טעמת את התרגול — ועכשיו הגיע הזמן לשזור אותו עמוק בחיים. קורס המשך אינטימי לבוגרות קורסי MBSR, ברוח המקורית של קשיבות.</p>
       <div class="hero-actions" style="margin-top:1.6rem;">
@@ -57,7 +61,7 @@
         <img src="assets/img/course-deep.webp" alt="מרחב טבע בצבעים רכים" loading="lazy" width="960" height="624">
       </figure>
       <div class="reveal d1">
-        <span class="kicker">על קורס ההעמקה</span>
+        <span class="kicker"><span data-ico="leaf"></span>על קורס ההעמקה</span>
         <h2>מתרגלת לחיה מתרגלת</h2>
         <p>אחרי קורס MBSR רבות מאיתנו מרגישות שהתרגול מתערער בין המטבח לילדים לבין היומיום העמוס. קורס ההעמקה נועד בדיוק בשביל זה: להחזיר עטיפה, סדר ועומק — עם קבוצה שמכירה את השפה.</p>
         <p>נצלול יחד לתרגולים ארוכים ועדינים יותר, נרחיב את קשת הכלים, ונעמיק את היכולת להישאר נוכחות — גם ברגעים הפחות נוחים.</p>
@@ -78,9 +82,9 @@
         <h2>הקסם של המשך דרך</h2>
       </div>
       <div class="grid grid-3">
-        <div class="card tint-pink reveal"><div class="card-icon" aria-hidden="true">🔁</div><h3>התמדה שנשארת</h3><p>קבוצה קבועה ומסגרת קבועה — הדלק שמחזיק תרגול חי לאורך זמן.</p></div>
-        <div class="card tint-lilac reveal d1"><div class="card-icon" aria-hidden="true">🌌</div><h3>עומק ועדינות</h3><p>תרגולים מתקדמים יותר, בקצב נשי ומכיל — בלי לדרוך על העולם הפנימי.</p></div>
-        <div class="card tint-green reveal d2"><div class="card-icon" aria-hidden="true">🫂</div><h3>קהילה תומכת</h3><p>נשים שדוברות את אותה שפה — ממשיכות יחד גם בין הקורסים.</p></div>
+        <div class="card tint-pink reveal rv-scale"><div class="card-icon" data-ico="loop"></div><h3>התמדה שנשארת</h3><p>קבוצה קבועה ומסגרת קבועה — הדלק שמחזיק תרגול חי לאורך זמן.</p></div>
+        <div class="card tint-lilac reveal rv-scale d1"><div class="card-icon" data-ico="calm"></div><h3>עומק ועדינות</h3><p>תרגולים מתקדמים יותר, בקצב נשי ומכיל — בלי לדרוך על העולם הפנימי.</p></div>
+        <div class="card tint-green reveal rv-scale d2"><div class="card-icon" data-ico="hands"></div><h3>קהילה תומכת</h3><p>נשים שדוברות את אותה שפה — ממשיכות יחד גם בין הקורסים.</p></div>
       </div>
     </div>
   </section>
@@ -88,7 +92,7 @@
   <section class="section bg-pink">
     <div class="container split">
       <div class="reveal">
-        <span class="kicker">פרטי הקורס</span>
+        <span class="kicker"><span data-ico="check"></span>פרטי הקורס</span>
         <h2>כל מה שחשוב לדעת</h2>
         <table class="details-table" style="margin-top:1.4rem;">
           <tbody>
@@ -99,7 +103,7 @@
             <tr><th>עלות</th><td>מידע על מחיר יימסר בשיחה אישית</td></tr>
           </tbody>
         </table>
-        <p style="margin-top:1.1rem; font-size:.9rem; color:var(--muted);">✦ עדכונים על תאריכים, תוכן ומבנה — מוזמנת להשאיר פרטים ונשמור לך מקום.</p>
+        <p class="spark-line" style="margin-top:1.1rem;"><span data-ico="spark"></span>עדכונים על תאריכים, תוכן ומבנה — מוזמנת להשאיר פרטים ונשמור לך מקום.</p>
       </div>
       <figure class="split-media tall arch reveal d1">
         <img src="assets/img/about-visual.webp" alt="פרחים באור רך" loading="lazy" width="800" height="960">
@@ -141,7 +145,7 @@
         </ul>
       </div>
       <form class="form-card reveal d1" data-formspree action="#" aria-label="טופס הרשמה לקורס העמקה">
-        <h3 style="margin-bottom:1rem;">השאירי פרטים 🌷</h3>
+        <h3 style="margin-bottom:1rem;"><span data-ico="flower"></span>השאירי פרטים</h3>
         <div class="form-grid">
           <div class="field"><label for="d-name">שם מלא <span class="req">*</span></label><input id="d-name" name="name" required autocomplete="name"></div>
           <div class="field"><label for="d-phone">טלפון <span class="req">*</span></label><input id="d-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel"></div>
@@ -198,7 +202,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2025 קשיבות — בית הספר למיינדפולנס לנשים. כל הזכויות שמורות.</span>
-      <span>נבנה באהבה ובקשיבות 🌸</span>
+      <span>נבנה באהבה ובקשיבות <span data-ico="heart"></span></span>
     </div>
   </div>
 </footer>

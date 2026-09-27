@@ -13,6 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="assets/js/icons.js" defer></script>
+  <script src="assets/js/landscape.js" defer></script>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -39,9 +41,11 @@
 
 <main>
   <section class="page-hero bg-pink" data-petals="8">
+    <div class="hero-landscape" aria-hidden="true"></div>
+    <div class="hero-veil" aria-hidden="true"></div>
     <div class="container">
       <nav class="crumbs" aria-label="ניווט"><a href="index.html">בית</a><span>›</span><span>קורס MBSR</span></nav>
-      <span class="kicker">🌸 הקורס המרכזי</span>
+      <span class="kicker"><span data-ico="flower"></span>הקורס המרכזי</span>
       <h1>Mindfulness בגישת MBSR</h1>
       <p class="lead">המסע המרכזי של בית הספר — תהליך מוכר ומחקרי, שנלמד ברחבי העולם, בגרסה שנועדה במיוחד לך: קבוצה קטנה, חמימה ונשית.</p>
       <div class="hero-actions" style="margin-top:1.6rem;">
@@ -73,21 +77,21 @@
   <section class="section bg-green" id="syllabus">
     <div class="wash w-a" style="background-image:url('assets/img/wash-c.webp')" aria-hidden="true"></div>
     <div class="container">
-      <div class="section-head center reveal">
-        <span class="kicker">מסע בן תשעה מפגשים</span>
+      <div class="section-head center reveal rv-fade">
+        <span class="kicker"><span data-ico="branch"></span>מסע בן תשעה מפגשים</span>
         <h2>מה נלמד בדרך?</h2>
         <p class="lead">כל מפגש בנוי על קודמו — כך נבנה תהליך רציף, מעמיק ומרגיש. נושאי המפגשים ניתנים לעדכון לפי קצב הקבוצה.</p>
       </div>
       <div class="grid grid-3">
-        <div class="card reveal"><div class="card-icon" aria-hidden="true">🌱</div><h3>מפגש 1 — התחלה</h3><p>היכרות עם הקשיבות, מה היא ומה לא, ותרגול ראשון של התבוננות בנשימה.</p></div>
-        <div class="card reveal d1"><div class="card-icon" aria-hidden="true">🫧</div><h3>מפגש 2 — תשומת לב</h3><p>כיצד התודעה נודדת ומה קורה כשמקשיבים — באמת — למה שמתרחש עכשיו.</p></div>
-        <div class="card reveal d2"><div class="card-icon" aria-hidden="true">🍃</div><h3>מפגש 3 — בגוף</h3><p>שכונת הגוף: תרגולי גוף עדינים וגילוי הקשר בין גוף, נשימה ורגשות.</p></div>
-        <div class="card reveal"><div class="card-icon" aria-hidden="true">🌀</div><h3>מפגש 4 — מתח ותגובה</h3><p>מזהים מתח, לומדות להקשיב לו ולבחור תגובה במקום רפלקס.</p></div>
-        <div class="card reveal d1"><div class="card-icon" aria-hidden="true">💐</div><h3>מפגש 5 — חמלה</h3><p>יחס עדין כלפי עצמנו — תרגולים של חמלה עצמית וקבלה.</p></div>
-        <div class="card reveal d2"><div class="card-icon" aria-hidden="true">🕊️</div><h3>מפגש 6 — בין אנשים</h3><p>קשיבות בתקשורת, בזוגיות ובהורות — להקשיב גם לאחרת.</p></div>
-        <div class="card reveal"><div class="card-icon" aria-hidden="true">🌿</div><h3>מפגש 7 — היומיום</h3><p>שזירת התרגול בשגרה — בית, תפקידים, מטבח וזמן משפחה.</p></div>
-        <div class="card reveal d1"><div class="card-icon" aria-hidden="true">🌼</div><h3>מפגש 8 — החיים שבחרתי</h3><p>מה נשמר לי מהתהליך? בניית תרגול אישי להמשך הדרך.</p></div>
-        <div class="card reveal d2"><div class="card-icon" aria-hidden="true">🦋</div><h3>מפגש 9 — שיא והמשך</h3><p>חגיגה של התהליך, סיכום אישי ושיתופים — והמשך הדרך בקהילה.</p></div>
+        <div class="card reveal rv-scale"><div class="card-icon" data-ico="leaf"></div><h3>מפגש 1 — התחלה</h3><p>היכרות עם הקשיבות, מה היא ומה לא, ותרגול ראשון של התבוננות בנשימה.</p></div>
+        <div class="card reveal rv-scale d1"><div class="card-icon" data-ico="drop"></div><h3>מפגש 2 — תשומת לב</h3><p>כיצד התודעה נודדת ומה קורה כשמקשיבים — באמת — למה שמתרחש עכשיו.</p></div>
+        <div class="card reveal rv-scale d2"><div class="card-icon" data-ico="calm"></div><h3>מפגש 3 — בגוף</h3><p>שכונת הגוף: תרגולי גוף עדינים וגילוי הקשר בין גוף, נשימה ורגשות.</p></div>
+        <div class="card reveal rv-scale"><div class="card-icon" data-ico="loop"></div><h3>מפגש 4 — מתח ותגובה</h3><p>מזהים מתח, לומדות להקשיב לו ולבחור תגובה במקום רפלקס.</p></div>
+        <div class="card reveal rv-scale d1"><div class="card-icon" data-ico="heart"></div><h3>מפגש 5 — חמלה</h3><p>יחס עדין כלפי עצמנו — תרגולים של חמלה עצמית וקבלה.</p></div>
+        <div class="card reveal rv-scale d2"><div class="card-icon" data-ico="chat"></div><h3>מפגש 6 — בין אנשים</h3><p>קשיבות בתקשורת, בזוגיות ובהורות — להקשיב גם לאחרת.</p></div>
+        <div class="card reveal rv-scale"><div class="card-icon" data-ico="home"></div><h3>מפגש 7 — היומיום</h3><p>שזירת התרגול בשגרה — בית, תפקידים, מטבח וזמן משפחה.</p></div>
+        <div class="card reveal rv-scale d1"><div class="card-icon" data-ico="flower"></div><h3>מפגש 8 — החיים שבחרתי</h3><p>מה נשמר לי מהתהליך? בניית תרגול אישי להמשך הדרך.</p></div>
+        <div class="card reveal rv-scale d2"><div class="card-icon" data-ico="bird"></div><h3>מפגש 9 — שיא והמשך</h3><p>חגיגה של התהליך, סיכום אישי ושיתופים — והמשך הדרך בקהילה.</p></div>
       </div>
     </div>
   </section>
@@ -99,7 +103,7 @@
         <img src="assets/img/hero-1280.webp" alt="פרפר על פרח" loading="lazy" width="1280" height="844">
       </figure>
       <div class="reveal d1">
-        <span class="kicker">פרטי הקורס</span>
+        <span class="kicker"><span data-ico="check"></span>פרטי הקורס</span>
         <h2>כל מה שחשוב לדעת</h2>
         <table class="details-table" style="margin-top:1.4rem;">
           <tbody>
@@ -111,7 +115,7 @@
             <tr><th>עלות</th><td>מידע על מחיר ומלגות יימסר בשיחה אישית</td></tr>
           </tbody>
         </table>
-        <p style="margin-top:1.1rem; font-size:.9rem; color:var(--muted);">✦ תיאום קבוצה נוחה ושאלות נוספות — בשיחה קצרה וללא התחייבות.</p>
+        <p class="spark-line" style="margin-top:1.1rem;"><span data-ico="spark"></span>תיאום קבוצה נוחה ושאלות נוספות — בשיחה קצרה וללא התחייבות.</p>
       </div>
     </div>
   </section>
@@ -150,7 +154,7 @@
         </ul>
       </div>
       <form class="form-card reveal d1" data-formspree action="#" aria-label="טופס הרשמה לקורס MBSR">
-        <h3 style="margin-bottom:1rem;">השאירי פרטים 🌷</h3>
+        <h3 style="margin-bottom:1rem;"><span data-ico="flower"></span>השאירי פרטים</h3>
         <div class="form-grid">
           <div class="field"><label for="m-name">שם מלא <span class="req">*</span></label><input id="m-name" name="name" required autocomplete="name"></div>
           <div class="field"><label for="m-phone">טלפון <span class="req">*</span></label><input id="m-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel"></div>
@@ -207,7 +211,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2025 קשיבות — בית הספר למיינדפולנס לנשים. כל הזכויות שמורות.</span>
-      <span>נבנה באהבה ובקשיבות 🌸</span>
+      <span>נבנה באהבה ובקשיבות <span data-ico="heart"></span></span>
     </div>
   </div>
 </footer>

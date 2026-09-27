@@ -108,8 +108,37 @@
     addPetals(host, parseInt(host.getAttribute("data-petals"), 10) || 6);
   });
 
+  /* ---------- פרלקסה עדינה לאלמנטים מסומנים ---------- */
+  var parEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+  var tick2 = false;
+  function parallax2() {
+    var vh = window.innerHeight;
+    parEls.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -120 || r.top > vh + 120) return;
+      var p = (r.top + r.height / 2 - vh / 2) / vh;
+      el.style.transform = "translate3d(0," + (p * parseFloat(el.getAttribute("data-parallax")) * 100).toFixed(1) + "px,0)";
+    });
+    tick2 = false;
+  }
+  if (parEls.length && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.addEventListener("scroll", function () {
+      if (!tick2) { requestAnimationFrame(parallax2); tick2 = true; }
+    }, { passive: true });
+    parallax2();
+  }
+
+  /* ---------- דירוג הופעה מדורג בתוך גרידים ---------- */
+  document.querySelectorAll(".grid, .faq-list").forEach(function (group) {
+    group.querySelectorAll(".reveal").forEach(function (el, i) {
+      if (!/(^|\s)d[1-3](\s|$)/.test(el.className)) {
+        el.style.transitionDelay = Math.min(i * 110, 480) + "ms";
+      }
+    });
+  });
+
   /* ---------- Formspree AJAX ---------- */
-  var FORM_ACTION = "https://formspree.io/f/YOUR_FORM_ID"; // ← החליפי לכתובת ה-Formspree שלך
+  var FORM_ACTION = "https://formspree.io/f/xkjgppkz"; // כתובת הטופס ב-Formspree (מחובר)
 
   document.querySelectorAll("form[data-formspree]").forEach(function (form) {
     if (form.getAttribute("action") === "#") form.setAttribute("action", FORM_ACTION);
@@ -138,7 +167,7 @@
         headers: { "Accept": "application/json" }
       }).then(function (res) {
         if (res.ok) {
-          show("ok", "תודה רבה! הפרטים נשלחו בהצלחה — נחזור אליך בקרוב 🌸");
+          show("ok", "תודה רבה! הפרטים נשלחו בהצלחה — נחזור אליך בקרוב");
           form.reset();
         } else {
           res.json().catch(function () { return {}; }).then(function (data) {
