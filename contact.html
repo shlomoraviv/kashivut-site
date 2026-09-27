@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>צור קשר והרשמה | קשיבות — בית הספר למיינדפולנס לנשים</title>
+  <meta name="description" content="השאירי פרטים ונחזור אליך בשיחה רגועה וללא התחייבות. קורס MBSR, קורס העמקה או כל שאלה — נשמח לענות.">
+  <meta property="og:title" content="צור קשר והרשמה | קשיבות">
+  <meta property="og:description" content="השאירי פרטים ונחזור אליך בשיחה רגועה וללא התחייבות.">
+  <meta property="og:image" content="assets/img/og.jpg">
+  <link rel="icon" type="image/png" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-bar">
+    <a class="brand" href="index.html" aria-label="קשיבות — לדף הבית">
+      <img src="assets/img/logo-192.webp" alt="לוגו קשיבות" width="46" height="46">
+      <span class="brand-name">קשיבות<span class="brand-sub">בית הספר למיינדפולנס</span></span>
+    </a>
+    <nav aria-label="ניווט ראשי">
+      <button class="nav-toggle" aria-label="פתיחת תפריט" aria-expanded="false"><span></span></button>
+      <ul class="nav-links">
+        <li><a href="index.html">בית</a></li>
+        <li><a href="mbsr.html">קורס MBSR</a></li>
+        <li><a href="deepening.html">קורס העמקה</a></li>
+        <li><a href="about.html">אודות</a></li>
+        <li><a href="faq.html">שאלות נפוצות</a></li>
+        <li class="nav-cta"><a class="btn btn-primary" href="contact.html">לפרטים והרשמה</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero bg-pink" data-petals="8">
+    <div class="container">
+      <nav class="crumbs" aria-label="ניווט"><a href="index.html">בית</a><span>›</span><span>צור קשר</span></nav>
+      <span class="kicker">🌷 נשמח להכיר</span>
+      <h1>נשמח לשמוע ממך</h1>
+      <p class="lead">מעוניינת בקורס? יש לך שאלה? מלאי את הטופס ונחזור אליך בשיחה רגועה, אישית וללא שום התחייבות.</p>
+    </div>
+  </section>
+
+  <section class="section bg-cream">
+    <div class="container contact-grid">
+      <aside class="contact-side">
+        <div class="card tint-pink reveal">
+          <h3>מה קורה אחרי השליחה?</h3>
+          <p>יעל חוזרת אליך אישית — בשיחה קצרה ונעימה, בזמן שנוח לך. נענה על כל שאלה, נספר על הקבוצות הקרובות ונבחר יחד את הדרך המתאימה לך. בלי לחץ, בלי התחייבות.</p>
+        </div>
+        <div class="card reveal d1">
+          <h3>דברו איתנו ישירות</h3>
+          <p class="contact-line" style="margin-bottom:.8em;">
+            <span class="ico" aria-hidden="true">📞</span>
+            <a href="tel:+972555535964">055-5535964</a>
+          </p>
+          <p class="contact-line" style="margin-bottom:.8em;">
+            <span class="ico" aria-hidden="true">✉️</span>
+            <a href="mailto:kashivut@gmail.com">kashivut@gmail.com</a>
+          </p>
+          <p style="font-size:.9rem; color:var(--muted);">ניתן ליצור קשר גם בוואטסאפ [מספר וואטסאפ — יושלם].</p>
+        </div>
+        <div class="card tint-green reveal d2">
+          <h3>פרטיות מלאה</h3>
+          <p>הפרטים שתשאירי נשלחים ישירות למייל שלנו, נשמרים בדיסקרטיות מלאה ולא מועברים לשום גורם אחר.</p>
+        </div>
+      </aside>
+
+      <form class="form-card reveal d1" data-formspree action="#" aria-label="טופס יצירת קשר והרשמה">
+        <h3 style="margin-bottom:1rem;">השאירי פרטים 🌸</h3>
+        <div class="form-grid">
+          <div class="field"><label for="c-name">שם מלא <span class="req">*</span></label><input id="c-name" name="name" required autocomplete="name"></div>
+          <div class="field"><label for="c-phone">טלפון <span class="req">*</span></label><input id="c-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel"></div>
+          <div class="field full"><label for="c-email">מייל</label><input id="c-email" name="email" type="email" autocomplete="email"></div>
+          <div class="field full">
+            <label for="c-course">מה מעניין אותך?</label>
+            <select id="c-course" name="course">
+              <option value="קורס MBSR">קורס Mindfulness בגישת MBSR</option>
+              <option value="קורס העמקה">קורס העמקה ב-Mindfulness</option>
+              <option value="עדיין לא יודעת">עדיין לא יודעת — שיחת היכרות</option>
+            </select>
+          </div>
+          <div class="field full"><label for="c-note">הודעה</label><textarea id="c-note" name="message" placeholder="כאן אפשר לכתוב שאלה, זמנים נוחים לחזרה…"></textarea></div>
+        </div>
+        <button class="btn btn-primary" type="submit" style="margin-top:1.2rem; width:100%;">שליחת פרטים</button>
+        <p class="form-status" role="status"></p>
+        <p class="form-note">הפרטים יישלחו אלינו במייל ויישמרו בדיסקרטיות מלאה.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="kicker">לפני שממלאות</span>
+        <h2>רגע של רוגע 🌿</h2>
+      </div>
+      <div class="quote-strip" style="padding-top:0;">
+        <div class="reveal">
+          <blockquote>
+            “נשימה אחת מודעת יכולה לשנות רגע. רגע יכול לשנות יום.”
+            <cite>— מוזמנת לקחת נשימה לפני המילוי 😊</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer bg-deep">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/img/logo-192.webp" alt="לוגו קשיבות" width="58" height="58" loading="lazy">
+        <h4 style="margin-bottom:.2em;">קשיבות</h4>
+        <p>בית הספר למיינדפולנס לנשים מהציבור הדתי והחרדי. תרגול מקצועי באווירה חמה, ביתית ואישית.</p>
+      </div>
+      <nav aria-label="קישורי אתר">
+        <h4>ניווט</h4>
+        <ul>
+          <li><a href="mbsr.html">קורס MBSR</a></li>
+          <li><a href="deepening.html">קורס העמקה</a></li>
+          <li><a href="about.html">אודות</a></li>
+          <li><a href="faq.html">שאלות נפוצות</a></li>
+          <li><a href="contact.html">צור קשר</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>ליצירת קשר ולפרטים נוספים:</h4>
+        <ul>
+          <li><a href="tel:+972555535964" dir="ltr">055-5535964</a></li>
+          <li><a href="mailto:kashivut@gmail.com">kashivut@gmail.com</a></li>
+          <li><a href="contact.html">השארת פרטים באתר</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 קשיבות — בית הספר למיינדפולנס לנשים. כל הזכויות שמורות.</span>
+      <span>נבנה באהבה ובקשיבות 🌸</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>
