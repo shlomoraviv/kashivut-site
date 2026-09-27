@@ -11,15 +11,16 @@
   --blue-ink: #1e2a6e;
   --ink: #2a3040;
   --muted: #5b6273;
-  --lilac: #b9a7e6;
-  --lilac-soft: #e6defa;
+  /* פלטת 3 צבעי יסוד: כחול כהה, ורוד, שמנת. הווריאציות הן גוונים שקופים של השלושה בלבד */
+  --lilac: #8fa1de;          /* כחול רך — גוון של הכחול */
+  --lilac-soft: #e3e9f8;     /* שמנת-כחול בהיר */
   --pink: #f2b7dc;
   --pink-soft: #fbe3f2;
   --pink-petal: #f7cfe6;
   --pink-hot: #f26bb5;
-  --green: #7fae7a;
-  --green-soft: #dff0d5;
-  --green-bright: #d9f2a8;
+  --green: #e8b7cf;          /* ורוד מעושן (החלפת הירוק) */
+  --green-soft: #faeee0;     /* שמנת חמימה */
+  --green-bright: #cdd8f3;   /* כחול בהיר */
   --cream: #fbf7ef;
   --white: #ffffff;
 
@@ -193,7 +194,7 @@ ul.plain li::before {
   background:
     radial-gradient(58% 68% at 82% 12%, rgba(185, 167, 230, .35), transparent 70%),
     radial-gradient(50% 60% at 10% 90%, rgba(242, 183, 220, .4), transparent 70%),
-    linear-gradient(160deg, #eef3e4 0%, #fdeef7 55%, #f3f0fd 100%);
+    linear-gradient(160deg, #f9f1e3 0%, #fdeef7 55%, #f3f0fd 100%);
   overflow: hidden;
 }
 .hero-inner {
@@ -313,25 +314,26 @@ ul.plain li::before {
 
 /* ---------------- Backgrounds (variety between sections) ---------------- */
 .bg-cream { background: var(--cream); }
-.bg-white { background: #fff; }
+.bg-white { background: var(--cream); }
+/* כל רקע בהיר נפתח ונסגר בשמנת — כך כל שני אזורים נפגשים באותו צבע והמעבר חלק */
 .bg-green {
   background:
-    radial-gradient(46% 60% at 88% 10%, rgba(127, 174, 122, .18), transparent 70%),
-    linear-gradient(165deg, #f4f9ec 0%, #e9f4df 100%);
+    radial-gradient(46% 50% at 86% 44%, rgba(143, 161, 222, .13), transparent 72%),
+    linear-gradient(180deg, #fbf7ef 0%, #f9ecdf 32%, #f9ecdf 68%, #fbf7ef 100%);
 }
 .bg-pink {
   background:
-    radial-gradient(52% 62% at 10% 16%, rgba(242, 107, 181, .12), transparent 72%),
-    linear-gradient(160deg, #fdf0f8 0%, #fbe3f2 100%);
+    radial-gradient(46% 50% at 12% 50%, rgba(242, 107, 181, .13), transparent 72%),
+    linear-gradient(180deg, #fbf7ef 0%, #fbe3f2 32%, #fbe3f2 68%, #fbf7ef 100%);
 }
 .bg-lilac {
   background:
-    radial-gradient(50% 60% at 90% 20%, rgba(185, 167, 230, .22), transparent 70%),
-    linear-gradient(165deg, #f3effd 0%, #e9e3fb 100%);
+    radial-gradient(46% 50% at 88% 40%, rgba(143, 161, 222, .14), transparent 72%),
+    linear-gradient(180deg, #fbf7ef 0%, #e9eefa 32%, #e9eefa 68%, #fbf7ef 100%);
 }
 .bg-deep {
   background:
-    radial-gradient(60% 70% at 80% 0%, rgba(185, 167, 230, .25), transparent 72%),
+    radial-gradient(60% 70% at 80% 0%, rgba(143, 161, 222, .28), transparent 72%),
     radial-gradient(50% 60% at 8% 100%, rgba(242, 107, 181, .2), transparent 70%),
     linear-gradient(160deg, var(--blue-deep) 0%, var(--blue-ink) 60%, #17205c 100%);
   color: #eef1ff;
@@ -339,7 +341,7 @@ ul.plain li::before {
 .bg-deep h2, .bg-deep h3 { color: #fff; }
 .bg-deep p { color: #dde4ff; }
 
-/* Washes: soft floating photo-blur textures */
+/* Washes: soft floating color-blur textures (פלטה בלבד) */
 .wash {
   position: absolute; z-index: 0; pointer-events: none;
   background-size: cover; background-position: center;
@@ -348,6 +350,16 @@ ul.plain li::before {
   filter: saturate(.9);
   animation: washFloat 26s ease-in-out infinite alternate;
   will-change: transform;
+}
+.wash.w-a {
+  background:
+    radial-gradient(closest-side at 62% 38%, rgba(242,183,220,.5), transparent 72%),
+    radial-gradient(closest-side at 34% 66%, rgba(205,216,243,.55), transparent 76%);
+}
+.wash.w-b {
+  background:
+    radial-gradient(closest-side at 40% 42%, rgba(205,216,243,.55), transparent 74%),
+    radial-gradient(closest-side at 66% 62%, rgba(242,183,220,.45), transparent 76%);
 }
 .wash.w-a { width: 480px; height: 480px; top: -160px; inset-inline-end: -120px; opacity: .38; }
 .wash.w-b { width: 420px; height: 420px; bottom: -140px; inset-inline-start: -110px; animation-duration: 32s; }
@@ -553,7 +565,7 @@ ul.plain li::before {
   outline: none;
   border-color: var(--lilac);
   background: #fff;
-  box-shadow: 0 0 0 4px rgba(185, 167, 230, .22);
+  box-shadow: 0 0 0 4px rgba(143, 161, 222, .25);
 }
 .form-note { font-size: .84rem; color: var(--muted); margin-top: 1rem; }
 .form-status {
@@ -563,7 +575,7 @@ ul.plain li::before {
   border-radius: var(--radius-sm);
   font-weight: 600; font-size: .95rem;
 }
-.form-status.ok { display: block; background: var(--green-soft); color: #2e5c2a; border: 1px solid #b9dcae; }
+.form-status.ok { display: block; background: var(--green-soft); color: var(--blue-ink); border: 1px solid #c9d4f2; }
 .form-status.err { display: block; background: var(--pink-soft); color: #8f2059; border: 1px solid #f3c1de; }
 
 /* ---------------- Contact layout ---------------- */
@@ -586,6 +598,7 @@ ul.plain li::before {
 .site-footer {
   position: relative;
   margin-top: 4rem;
+  border-radius: 2.8rem 2.8rem 0 0;
   padding: clamp(2.4rem, 5vw, 3.6rem) 0 1.6rem;
   color: #dfe6ff;
   overflow: hidden;
@@ -755,7 +768,7 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 /* נוף פתיחה */
 .hero {
   padding: clamp(5rem, 11vh, 7.5rem) 0 clamp(4rem, 9vh, 6rem);
-  background: linear-gradient(180deg, #fbf3e8 0%, #f4e9f6 45%, #ece7fa 100%);
+  background: linear-gradient(180deg, #fbf3e8 0%, #f7e7f1 45%, #fbf6ec 100%);
 }
 .hero-landscape { position: absolute; inset: 0; z-index: 0; }
 .hero-landscape svg { width: 100%; height: 100%; display: block; }
@@ -786,7 +799,7 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 .breath {
   position: absolute; inset: 0;
   border-radius: 50%;
-  border: 1.5px solid rgba(185, 167, 230, .6);
+  border: 1.5px solid rgba(143, 161, 222, .6);
   animation: breathe 9s ease-in-out infinite;
 }
 .breath.b2 { animation-delay: -4.5s; border-color: rgba(242, 183, 220, .55); }
@@ -827,3 +840,30 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
   from { transform: translate(0, 0); }
   to { transform: translate(60px, -22px); }
 }
+
+/* ענף בוטני נכנס מהצד במעברים בין אזורים — מחבר את החוויה */
+.flora-branch { position: relative; }
+.flora-branch::after {
+  content: "";
+  position: absolute;
+  top: 2.2rem; inset-inline-end: -24px;
+  width: 250px; height: 120px;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='120' viewBox='0 0 250 120'><path d='M4 116C60 84 130 60 246 44' stroke='%238fa1de' stroke-width='2.5' fill='none' opacity='.55'/><path d='M60 92q14-18 30-20-8 18-30 20Z' fill='%23f2b7dc' opacity='.6'/><path d='M120 70q14-18 30-20-8 18-30 20Z' fill='%238fa1de' opacity='.45'/><path d='M178 56q14-18 30-20-8 18-30 20Z' fill='%23f2b7dc' opacity='.5'/></svg>") no-repeat center / contain;
+  pointer-events: none;
+}
+.flora-branch.flip::after {
+  inset-inline-end: auto; inset-inline-start: -24px;
+  transform: scaleX(-1);
+}
+@media (max-width: 700px) { .flora-branch::after { width: 150px; opacity: .6; } }
+/* וריאנט ל-host שאינו section (למשל section-head) */
+.flora-branch-host::after {
+  content: "";
+  position: relative;
+  display: block;
+  height: 110px;
+  margin-top: 1.4rem;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='120' viewBox='0 0 250 120'><path d='M4 116C60 84 130 60 246 44' stroke='%238fa1de' stroke-width='2.5' fill='none' opacity='.55'/><path d='M60 92q14-18 30-20-8 18-30 20Z' fill='%23f2b7dc' opacity='.6'/><path d='M120 70q14-18 30-20-8 18-30 20Z' fill='%238fa1de' opacity='.45'/><path d='M178 56q14-18 30-20-8 18-30 20Z' fill='%23f2b7dc' opacity='.5'/></svg>") no-repeat right top / 250px 120px;
+  pointer-events: none;
+}
+@media (max-width: 700px) { .flora-branch-host::after { width: 150px; background-size: 150px 72px; opacity: .6; } }

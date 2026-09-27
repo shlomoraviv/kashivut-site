@@ -16,10 +16,10 @@
     '<radialGradient id="sunglow" cx=".5" cy=".5" r=".5">' +
     '<stop offset="0" stop-color="#ffe9b8" stop-opacity=".95"/><stop offset=".55" stop-color="#ffd9e8" stop-opacity=".4"/><stop offset="1" stop-color="#ffd9e8" stop-opacity="0"/>' +
     "</radialGradient>" +
-    '<linearGradient id="h1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe3c2"/><stop offset="1" stop-color="#b8d4ab"/></linearGradient>' +
-    '<linearGradient id="h2g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3d3f2"/><stop offset="1" stop-color="#cfc0ec"/></linearGradient>' +
+    '<linearGradient id="h1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#faf1de"/><stop offset="1" stop-color="#f1e0c4"/></linearGradient>' +
+    '<linearGradient id="h2g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9eefa"/><stop offset="1" stop-color="#d3ddf6"/></linearGradient>' +
     '<linearGradient id="h3g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7d9ec"/><stop offset="1" stop-color="#eec3e2"/></linearGradient>' +
-    '<linearGradient id="h4g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbefd9"/><stop offset="1" stop-color="#f3ddc4"/></linearGradient>' +
+    '<linearGradient id="h4g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5e6cc"/><stop offset="1" stop-color="#ead2ab"/></linearGradient>' +
     "</defs>";
 
   var BIRD =
@@ -27,11 +27,11 @@
 
   function hills() {
     return (
-      /* שכבת גבעות רחוקה (סגול-לילך) */
+      /* שכבת גבעות רחוקה (כחול רך) */
       '<g data-parallax="0.05"><path d="M0 470 C150 420 280 440 420 410 C560 380 700 430 840 415 C980 400 1100 430 1200 415 L1200 620 0 620Z" fill="url(#h2g)" opacity=".75"/></g>' +
       /* גבעות אמצע (ורוד) */
       '<g data-parallax="0.09"><path d="M0 520 C170 480 320 505 470 480 C620 455 760 505 910 490 C1030 478 1130 495 1200 488 L1200 620 0 620Z" fill="url(#h3g)" opacity=".85"/></g>' +
-      /* גבעות קדמיות (ירוק רך) */
+      /* גבעות קדמיות (שמנת רכה) */
       '<g data-parallax="0.14"><path d="M0 575 C190 540 360 560 540 545 C720 530 900 555 1080 545 C1140 542 1180 546 1200 544 L1200 620 0 620Z" fill="url(#h1g)"/></g>' +
       /* גבעת חול רכה בקצה */
       '<path d="M0 620 L0 600 C220 585 480 596 700 592 C900 588 1080 596 1200 592 L1200 620Z" fill="url(#h4g)" opacity=".9"/>'

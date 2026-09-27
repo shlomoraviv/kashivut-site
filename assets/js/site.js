@@ -71,7 +71,7 @@
     var configs = [
       { top: "12%", color: "#8f9fe0", dur: 34, delay: 0, scale: 0.7, flip: false },
       { top: "26%", color: "#d9a3cf", dur: 44, delay: -14, scale: 0.5, flip: true },
-      { top: "64%", color: "#a8c39f", dur: 52, delay: -30, scale: 0.42, flip: false }
+      { top: "64%", color: "#e8b7cf", dur: 52, delay: -30, scale: 0.42, flip: false }
     ];
     configs.forEach(function (c) {
       var b = document.createElement("div");
