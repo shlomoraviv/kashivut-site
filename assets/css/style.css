@@ -228,7 +228,7 @@ ul.plain li::before {
 .hero-arch img { width: 100%; height: 100%; object-fit: cover; }
 .hero-arch::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0) 62%, rgba(251,247,239,.35) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0) 78%, rgba(251,247,239,.28) 100%);
 }
 .hero-blob {
   position: absolute; z-index: 1;
@@ -784,6 +784,7 @@ ul.plain li::before {
     transition-duration: .01ms !important;
   }
   .reveal { opacity: 1; transform: none; }
+  .sprout { opacity: .7 !important; transform: none !important; }
 }
 
 /* ============================================================
@@ -817,10 +818,71 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 .icobox .ico { width: 22px; height: 22px; }
 
 /* וריאציות חשיפה בגלילה */
-.reveal.rv-left { transform: translate3d(34px, 0, 0); }
-.reveal.rv-right { transform: translate3d(-34px, 0, 0); }
-.reveal.rv-scale { transform: scale(.94); }
+/* וריאציות ״עדינות של טבע״ — צומחות ונחשפות ברכות */
+/* חשוב: מצב ההתחלה מוגדר רק לפני החשיפה (:not(.in)) — כך .reveal.in תמיד מנצח ומחזיר ל-none */
+.reveal.rv-left:not(.in) { transform: translate3d(34px, 0, 0); }
+.reveal.rv-right:not(.in) { transform: translate3d(-34px, 0, 0); }
+.reveal.rv-scale:not(.in) { transform: scale(.94); }
 .reveal.rv-fade { transform: none; }
+.reveal.rv-rise:not(.in) { transform: translate3d(0, 44px, 0) scale(.985); }
+.reveal.rv-grow:not(.in) { transform: scale(.86); transform-origin: 50% 82%; }
+.reveal.rv-sway:not(.in) { transform: translate3d(0, 30px, 0) rotate(1.6deg); transform-origin: 50% 100%; }
+.reveal.rv-bloom:not(.in) { transform: scale(.72) translateY(20px); }
+.reveal.rv-float:not(.in) { transform: translate3d(0, 18px, 0); filter: blur(6px); }
+.reveal.rv-bloom.in { transition-duration: 1.5s; }
+.reveal.rv-float.in {
+  transition: opacity 1.5s cubic-bezier(.22,.61,.36,1), transform 1.5s cubic-bezier(.22,.61,.36,1), filter 1.5s ease;
+  transition-delay: var(--rd, 0s);
+  filter: blur(0);
+}
+/* דיליי מדורג מבוסס CSS — כל אלמנט מגיע אחרי חברו כמו פריחה בשרשרת */
+.reveal.in { transition-delay: var(--rd, 0s); }
+.reveal.d1 { transition-delay: .12s; }
+.reveal.d2 { transition-delay: .24s; }
+.reveal.d3 { transition-delay: .36s; }
+/* אחרי שהחשיפה הושלמה (rv-done — JS) חוזר קצב ה-hover המתוכנן */
+.rv-done.hx-1, .rv-done.hx-2, .rv-done.hx-3, .rv-done.hx-4 {
+  transition: transform .45s cubic-bezier(.34,1.56,.64,1), box-shadow .45s ease;
+}
+.rv-done.course-card, .rv-done.card { transition: transform .35s ease, box-shadow .35s ease; }
+
+/* ---------- נבטים ופרחים שצצים בגלילה (נשתלים ב-JS) ---------- */
+.sprout {
+  position: absolute; bottom: -14px; z-index: 0;
+  width: var(--s, 64px); height: var(--s, 64px);
+  pointer-events: none;
+  opacity: 0; transform: translateY(26px) scale(.4);
+  transform-origin: 50% 100%;
+  transition: opacity 1.3s cubic-bezier(.22,.61,.36,1), transform 1.5s cubic-bezier(.22,.61,.36,1);
+  transition-delay: var(--rd, 0s);
+}
+.sprout.in { opacity: var(--o, .7); transform: translateY(0) scale(1); }
+.sprout svg { width: 100%; height: 100%; display: block; animation: sproutSway var(--sway, 9s) ease-in-out infinite alternate; transform-origin: 50% 100%; }
+@keyframes sproutSway {
+  from { transform: rotate(-2.4deg) skewX(1.2deg); }
+  to   { transform: rotate(2.4deg) skewX(-1.2deg); }
+}
+.sprout.s-flower { color: var(--pink-hot); }
+.sprout.s-stem  { color: var(--lilac); }
+.sprout.s-leafy { color: var(--green); }
+.sprout.s-mimosa{ color: var(--pink-petal); }
+
+/* זרעים נודדים (מעין סוכריות פרח) — רכים ולא מפריעים */
+.seed {
+  position: absolute; z-index: 1;
+  border-radius: 48% 52% 46% 54% / 62% 58% 42% 38%;
+  background: radial-gradient(circle at 38% 34%, rgba(255,255,255,.95), rgba(247,207,230,.9) 58%, rgba(143,161,222,.55));
+  box-shadow: 0 0 12px rgba(255,255,255,.6);
+  opacity: 0; pointer-events: none;
+}
+.seed.in { animation: seedDrift var(--dur, 26s) linear infinite; animation-delay: var(--delay, 0s); }
+@keyframes seedDrift {
+  0%   { opacity: 0; transform: translate3d(0, 4vh, 0) rotate(0deg) scale(.7); }
+  12%  { opacity: var(--o, .65); }
+  50%  { transform: translate3d(4vw, -18vh, 0) rotate(160deg) scale(1); }
+  88%  { opacity: var(--o, .65); }
+  100% { opacity: 0; transform: translate3d(-3vw, -34vh, 0) rotate(340deg) scale(.8); }
+}
 
 /* נוף פתיחה */
 .hero {
@@ -840,8 +902,8 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 /* תמונת פתיחה אמיתית בעמוד הבית */
 .hero-photo {
   position: absolute; inset: 0; z-index: 0;
-  background-image: url("../img/hero-sunset-1600.webp");
-  background-size: cover; background-position: center 34%;
+  background-image: url("../img/hero-dreamy-1600.webp");
+  background-size: cover; background-position: center 42%;
   animation: heroKen 44s ease-in-out infinite alternate;
 }
 @keyframes heroKen { from { transform: scale(1); } to { transform: scale(1.055) translateY(-.8%); } }
@@ -849,21 +911,21 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 .hero.has-photo .breath-wrap { display: none; }
 .hero.has-photo .hero-veil {
   background:
-    radial-gradient(62% 74% at 72% 46%, rgba(251, 247, 239, .82), rgba(251, 247, 239, .38) 58%, transparent 80%),
-    linear-gradient(180deg, rgba(251, 247, 239, .95) 0%, rgba(251, 247, 239, .5) 20%, rgba(251, 247, 239, .12) 46%, rgba(251, 247, 239, .8) 86%, #fbf7ef 100%);
+    radial-gradient(64% 78% at 66% 44%, rgba(251, 247, 239, .74), rgba(251, 247, 239, .3) 60%, transparent 82%),
+    linear-gradient(180deg, rgba(251, 247, 239, .9) 0%, rgba(251, 247, 239, .4) 18%, rgba(251, 247, 239, .05) 48%, rgba(251, 247, 239, .72) 84%, #fbf7ef 100%);
 }
 .hero.has-photo .hero-copy .kicker { background: rgba(255,255,255,.8); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 .hero.has-photo .hero-badges span { background: rgba(255,255,255,.75); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-.hero.has-photo .hero h1,
-.hero.has-photo .hero .lead { text-shadow: 0 1px 18px rgba(251,247,239,.95), 0 0 3px rgba(255,255,255,.65); }
+.hero.has-photo h1,
+.hero.has-photo .lead { text-shadow: 0 1px 18px rgba(251,247,239,.95), 0 0 3px rgba(255,255,255,.65); }
 .hero-mark {
   position: absolute; inset-inline-end: 6%; top: 9%;
   width: clamp(90px, 11vw, 150px); height: auto;
-  opacity: .38; z-index: 2; pointer-events: none;
-  filter: drop-shadow(0 2px 14px rgba(255, 255, 255, .7));
+  opacity: .55; z-index: 2; pointer-events: none;
+  filter: drop-shadow(0 2px 16px rgba(255, 255, 255, .85));
 }
 @media (max-width: 1020px) {
-  .hero-photo { background-image: url("../img/hero-sunset-960.webp"); }
+  .hero-photo { background-image: url("../img/hero-dreamy-960.webp"); }
   .hero-mark { width: 76px; top: 5%; }
 }
 

@@ -35,6 +35,14 @@
         if (en.isIntersecting) {
           en.target.classList.add("in");
           io.unobserve(en.target);
+          /* אחרי החשיפה מנקים את השהיית המעבר ומחזירים קצב hover מהיר */
+          (function (el) {
+            setTimeout(function () {
+              el.style.transitionDelay = "";
+              el.style.removeProperty("--rd");
+              el.classList.add("rv-done");
+            }, 2400);
+          })(en.target);
         }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
@@ -146,7 +154,97 @@
     });
   });
 
-  /* ---------- Formspree AJAX ---------- */
+  /* ---------- דיליי מדורג אוטומטי לכל ה-reveal בסקשן (פריחה בשרשרת) ---------- */
+  document.querySelectorAll(".section, .page-hero, footer.site-footer").forEach(function (sec) {
+    sec.querySelectorAll(".reveal").forEach(function (el, i) {
+      if (!/(^|\s)d[1-3](\s|$)/.test(el.className)) el.style.setProperty("--rd", Math.min(i * 130, 650) + "ms");
+    });
+  });
+
+  /* ---------- נבטים ופרחים שצצים בגלילה ---------- */
+  var SPROUTS = {
+    flower: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path d="M32 62C32 46 29 38 22 33" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".5"/>'
+      + '<path d="M24 37c-7 1-11-2-12-8 7-1 11 2 12 8Z" fill="currentColor" opacity=".45"/>'
+      + '<path d="M27 32c-1-7 2-12 8-13 1 7-2 12-8 13Z" fill="currentColor" opacity=".35"/>'
+      + '<g fill="currentColor" opacity=".9">'
+      + '<ellipse cx="32" cy="15" rx="4.6" ry="7.2"/>'
+      + '<ellipse cx="32" cy="15" rx="4.6" ry="7.2" transform="rotate(72 32 15)"/>'
+      + '<ellipse cx="32" cy="15" rx="4.6" ry="7.2" transform="rotate(144 32 15)"/>'
+      + '<ellipse cx="32" cy="15" rx="4.6" ry="7.2" transform="rotate(216 32 15)"/>'
+      + '<ellipse cx="32" cy="15" rx="4.6" ry="7.2" transform="rotate(288 32 15)"/>'
+      + '</g><circle cx="32" cy="15" r="3.4" fill="#fff" opacity=".9"/></svg>',
+    stem: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path d="M32 62C32 44 30 34 24 26" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".6"/>'
+      + '<path d="M27 32c-8 0-12-4-13-11 8 0 12 4 13 11Z" fill="currentColor" opacity=".4"/>'
+      + '<path d="M29 24c-1-8 3-13 10-14 0 8-4 13-10 14Z" fill="currentColor" opacity=".3"/>'
+      + '<circle cx="23" cy="24" r="3.2" fill="currentColor" opacity=".55"/>'
+      + '<circle cx="18" cy="19" r="2.2" fill="currentColor" opacity=".4"/></svg>',
+    leafy: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path d="M30 62C30 46 32 38 38 32" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>'
+      + '<path d="M36 36c2-9 9-13 17-12-2 9-9 13-17 12Z" fill="currentColor" opacity=".45"/>'
+      + '<path d="M33 44c-8 2-14-1-16-8 8-2 14 1 16 8Z" fill="currentColor" opacity=".35"/></svg>',
+    mimosa: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path d="M32 62V36" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>'
+      + '<g fill="currentColor" opacity=".8">'
+      + '<circle cx="32" cy="30" r="5"/>'
+      + '<circle cx="24" cy="24" r="4"/>'
+      + '<circle cx="40" cy="24" r="4"/>'
+      + '<circle cx="28" cy="17" r="3.4"/>'
+      + '<circle cx="37" cy="16" r="3"/></g>'
+      + '<circle cx="32" cy="30" r="1.8" fill="#fff" opacity=".85"/></svg>'
+  };
+  var sproutIO = ("IntersectionObserver" in window) ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add("in"); sproutIO.unobserve(en.target); }
+    });
+  }, { threshold: 0.05, rootMargin: "0px 0px -10px 0px" }) : null;
+  (function plantSprouts() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var kinds = ["flower", "stem", "leafy", "mimosa"];
+    var types = ["s-flower", "s-stem", "s-leafy", "s-mimosa"];
+    document.querySelectorAll(".section:not(.hero), footer.site-footer").forEach(function (sec, si) {
+      if (sec.querySelector(".sprout")) return;
+      var side = si % 2 === 0;
+      for (var k = 0; k < 2; k++) {
+        var i = (si * 2 + k) % 4;
+        var s = document.createElement("div");
+        s.className = "sprout " + types[i];
+        s.setAttribute("aria-hidden", "true");
+        var sz = 46 + Math.round(Math.random() * 34);
+        s.style.setProperty("--s", sz + "px");
+        s.style.setProperty("--o", (0.4 + Math.random() * 0.3).toFixed(2));
+        s.style.setProperty("--sway", (8 + Math.random() * 6).toFixed(1) + "s");
+        s.style.setProperty("--rd", (k * 0.35).toFixed(2) + "s");
+        s.style.insetInlineEnd = side ? (2 + Math.random() * 6).toFixed(1) + "%" : "auto";
+        s.style.insetInlineStart = side ? "auto" : (2 + Math.random() * 6).toFixed(1) + "%";
+        s.style.bottom = (-6 - Math.random() * 10).toFixed(0) + "px";
+        s.innerHTML = SPROUTS[kinds[i]];
+        sec.appendChild(s);
+        if (sproutIO) sproutIO.observe(s); else s.classList.add("in");
+      }
+    });
+  })();
+
+  /* זרעים נודדים עדינים ברקע הפרחים של ה-hero */
+  (function addSeeds() {
+    var host = document.querySelector(".hero.has-photo .birds");
+    if (!host || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    for (var i = 0; i < 4; i++) {
+      var seed = document.createElement("span");
+      seed.className = "seed in";
+      seed.setAttribute("aria-hidden", "true");
+      var ss = 9 + Math.random() * 8;
+      seed.style.width = ss.toFixed(0) + "px";
+      seed.style.height = (ss * 0.82).toFixed(0) + "px";
+      seed.style.insetInlineStart = (12 + Math.random() * 74).toFixed(0) + "%";
+      seed.style.bottom = "8%";
+      seed.style.setProperty("--dur", (24 + Math.random() * 16).toFixed(1) + "s");
+      seed.style.setProperty("--delay", (-Math.random() * 26).toFixed(1) + "s");
+      seed.style.setProperty("--o", (0.5 + Math.random() * 0.25).toFixed(2));
+      host.appendChild(seed);
+    }
+  })();
   var FORM_ACTION = "https://formspree.io/f/xkjgppkz"; // כתובת הטופס ב-Formspree (מחובר)
 
   document.querySelectorAll("form[data-formspree]").forEach(function (form) {
