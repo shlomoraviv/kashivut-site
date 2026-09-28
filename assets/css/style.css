@@ -224,6 +224,7 @@ ul.plain li::before {
   position: relative;
   z-index: 2;
 }
+.hero-arch { aspect-ratio: 4 / 4.6; }
 .hero-arch img { width: 100%; height: 100%; object-fit: cover; }
 .hero-arch::after {
   content: ""; position: absolute; inset: 0;
@@ -238,13 +239,13 @@ ul.plain li::before {
   width: 46%; aspect-ratio: 1;
   background: linear-gradient(140deg, var(--pink-petal), var(--lilac-soft));
   bottom: -8%; right: -12%;
-  animation: drift 14s ease-in-out infinite;
+  animation: drift 22s ease-in-out infinite;
 }
 .hero-blob.b2 {
   width: 30%; aspect-ratio: 1;
   background: linear-gradient(140deg, var(--green-soft), var(--green-bright));
   top: -10%; left: -10%;
-  animation: drift 18s ease-in-out infinite reverse;
+  animation: drift 30s ease-in-out infinite reverse;
 }
 @keyframes drift {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
@@ -348,7 +349,7 @@ ul.plain li::before {
   opacity: .5;
   border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
   filter: saturate(.9);
-  animation: washFloat 26s ease-in-out infinite alternate;
+  animation: washFloat 34s ease-in-out infinite alternate;
   will-change: transform;
 }
 .wash.w-a {
@@ -362,7 +363,7 @@ ul.plain li::before {
     radial-gradient(closest-side at 66% 62%, rgba(242,183,220,.45), transparent 76%);
 }
 .wash.w-a { width: 480px; height: 480px; top: -160px; inset-inline-end: -120px; opacity: .38; }
-.wash.w-b { width: 420px; height: 420px; bottom: -140px; inset-inline-start: -110px; animation-duration: 32s; }
+.wash.w-b { width: 420px; height: 420px; bottom: -140px; inset-inline-start: -110px; animation-duration: 44s; }
 @keyframes washFloat {
   from { transform: translate3d(0, 0, 0) rotate(0deg); }
   to { transform: translate3d(2.5%, 3.5%, 0) rotate(4deg); }
@@ -375,6 +376,19 @@ ul.plain li::before {
   padding: clamp(2.6rem, 6vw, 4rem) 0;
   overflow: hidden;
 }
+.quote-strip::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: url("../img/mimosa-1600.webp") center/cover no-repeat;
+  opacity: .15;
+  animation: quotePan 70s ease-in-out infinite alternate;
+}
+@keyframes quotePan {
+  from { background-position: 28% 42%; }
+  to   { background-position: 72% 58%; }
+}
+.quote-strip > .container { position: relative; z-index: 1; }
+
 .quote-strip blockquote {
   font-family: var(--font-head);
   font-size: clamp(1.3rem, 2.8vw, 1.85rem);
@@ -628,7 +642,7 @@ ul.plain li::before {
 .reveal {
   opacity: 0;
   transform: translate3d(0, 26px, 0);
-  transition: opacity 1s ease, transform 1s ease;
+  transition: opacity 1.2s cubic-bezier(.22,.61,.36,1), transform 1.2s cubic-bezier(.22,.61,.36,1);
 }
 .reveal.in { opacity: 1; transform: none; }
 .reveal.d1 { transition-delay: .12s; }
@@ -639,22 +653,29 @@ ul.plain li::before {
 .birds { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
 .bird {
   position: absolute;
-  opacity: .5;
-  animation: fly var(--dur, 26s) linear infinite;
+  opacity: .55;
+  animation: fly var(--dur, 46s) linear infinite;
   animation-delay: var(--delay, 0s);
   transform: scale(var(--scale, 1));
 }
-.bird svg { display: block; width: 100%; height: auto; }
+.bird svg { display: block; width: 100%; height: auto; overflow: visible; }
+.bird .w1, .bird .w2 { transform-box: view-box; transform-origin: 32px 22px; }
+.bird .w1 { animation: flapA var(--flap, 4s) ease-in-out infinite; }
+.bird .w2 { animation: flapB var(--flap, 4s) ease-in-out infinite; }
+@keyframes flapA { 0%, 100% { transform: rotate(7deg); } 50% { transform: rotate(-32deg); } }
+@keyframes flapB { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(32deg); } }
 @keyframes fly {
-  from { transform: translate3d(-8vw, 0, 0) scale(var(--scale, 1)); }
-  50%  { transform: translate3d(45vw, -6vh, 0) scale(var(--scale, 1)); }
-  to   { transform: translate3d(108vw, -12vh, 0) scale(var(--scale, 1)); }
+  from { transform: translate3d(-10vw, 0, 0) scale(var(--scale, 1)); }
+  35%  { transform: translate3d(18vw, -3vh, 0) scale(var(--scale, 1)); }
+  70%  { transform: translate3d(58vw, -1.5vh, 0) scale(var(--scale, 1)); }
+  to   { transform: translate3d(110vw, -6vh, 0) scale(var(--scale, 1)); }
 }
 .bird.flip { animation-name: flyFlip; }
 @keyframes flyFlip {
-  from { transform: translate3d(108vw, 0, 0) scale(var(--scale, 1)) scaleX(-1); }
-  50%  { transform: translate3d(45vw, -7vh, 0) scale(var(--scale, 1)) scaleX(-1); }
-  to   { transform: translate3d(-8vw, -10vh, 0) scale(var(--scale, 1)) scaleX(-1); }
+  from { transform: translate3d(110vw, 0, 0) scale(var(--scale, 1)) scaleX(-1); }
+  35%  { transform: translate3d(82vw, -3vh, 0) scale(var(--scale, 1)) scaleX(-1); }
+  70%  { transform: translate3d(42vw, -1.5vh, 0) scale(var(--scale, 1)) scaleX(-1); }
+  to   { transform: translate3d(-10vw, -5vh, 0) scale(var(--scale, 1)) scaleX(-1); }
 }
 
 .petal {
@@ -663,13 +684,13 @@ ul.plain li::before {
   border-radius: 150% 10% 150% 10%;
   background: linear-gradient(135deg, var(--pink-petal), var(--lilac-soft));
   opacity: .55;
-  animation: fall var(--dur, 18s) linear infinite;
+  animation: fall var(--dur, 30s) linear infinite;
   animation-delay: var(--delay, 0s);
   pointer-events: none;
 }
 @keyframes fall {
   from { transform: translate3d(0, -6vh, 0) rotate(0deg); }
-  to   { transform: translate3d(-9vw, 108vh, 0) rotate(300deg); }
+  to   { transform: translate3d(-9vw, 108vh, 0) rotate(220deg); }
 }
 
 /* ---------------- Responsive ---------------- */
@@ -780,6 +801,36 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 }
 .hero .container { z-index: 3; }
 
+/* תמונת פתיחה אמיתית בעמוד הבית */
+.hero-photo {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("../img/hero-sunset-1600.webp");
+  background-size: cover; background-position: center 34%;
+  animation: heroKen 44s ease-in-out infinite alternate;
+}
+@keyframes heroKen { from { transform: scale(1); } to { transform: scale(1.055) translateY(-.8%); } }
+.hero.has-photo .hero-landscape { display: none; }
+.hero.has-photo .breath-wrap { display: none; }
+.hero.has-photo .hero-veil {
+  background:
+    radial-gradient(62% 74% at 72% 46%, rgba(251, 247, 239, .82), rgba(251, 247, 239, .38) 58%, transparent 80%),
+    linear-gradient(180deg, rgba(251, 247, 239, .95) 0%, rgba(251, 247, 239, .5) 20%, rgba(251, 247, 239, .12) 46%, rgba(251, 247, 239, .8) 86%, #fbf7ef 100%);
+}
+.hero.has-photo .hero-copy .kicker { background: rgba(255,255,255,.8); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.hero.has-photo .hero-badges span { background: rgba(255,255,255,.75); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.hero.has-photo .hero h1,
+.hero.has-photo .hero .lead { text-shadow: 0 1px 18px rgba(251,247,239,.95), 0 0 3px rgba(255,255,255,.65); }
+.hero-mark {
+  position: absolute; inset-inline-end: 6%; top: 9%;
+  width: clamp(90px, 11vw, 150px); height: auto;
+  opacity: .38; z-index: 2; pointer-events: none;
+  filter: drop-shadow(0 2px 14px rgba(255, 255, 255, .7));
+}
+@media (max-width: 1020px) {
+  .hero-photo { background-image: url("../img/hero-sunset-960.webp"); }
+  .hero-mark { width: 76px; top: 5%; }
+}
+
 .hl-sun, .hl-cloud, .hl-mist { transform-box: view-box; }
 .hl-sun { animation: sunGlow 12s ease-in-out infinite; transform-origin: 1060px 205px; }
 @keyframes sunGlow { 0%, 100% { opacity: .8; } 50% { opacity: 1; } }
@@ -800,7 +851,7 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
   position: absolute; inset: 0;
   border-radius: 50%;
   border: 1.5px solid rgba(143, 161, 222, .6);
-  animation: breathe 9s ease-in-out infinite;
+  animation: breathe 11s ease-in-out infinite;
 }
 .breath.b2 { animation-delay: -4.5s; border-color: rgba(242, 183, 220, .55); }
 @keyframes breathe {
@@ -809,8 +860,8 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 }
 
 /* ציפה רכה לתמונת הפתיחה */
-.hero-arch { animation: archFloat 8s ease-in-out infinite; }
-@keyframes archFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.hero-arch { animation: archFloat 13s ease-in-out infinite; }
+@keyframes archFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
 /* הילה איטית מסתובבת בפסי CTA */
 .cta-band.bg-deep::before {
@@ -835,7 +886,7 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 }
 
 /* ציפורים רחוקות בנוף */
-.hl-bird { animation: hlBird 26s ease-in-out infinite alternate; }
+.hl-bird { animation: hlBird 34s ease-in-out infinite alternate; }
 @keyframes hlBird {
   from { transform: translate(0, 0); }
   to { transform: translate(60px, -22px); }
