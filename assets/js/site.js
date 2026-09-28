@@ -27,6 +27,54 @@
     if (href === path) a.classList.add("active");
   });
 
+  /* ---------- טופס יצירת קשר בתחתית העמוד + כפתור צ׳אט צף ---------- */
+  (function addContactEmbed() {
+    var CHAT_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+      + '<path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 2.3 1.2 4.4 3.2 5.8-.1 1-.5 2.3-1.6 3.3 2 0 3.6-.8 4.5-1.6 1 .2 2 .4 3.1.4 5.1 0 9.2-3.5 9.2-7.9S17.1 3 12 3Z" fill="currentColor"/>'
+      + '<circle cx="8.1" cy="10.8" r="1.15" fill="#2f4bc4"/><circle cx="12" cy="10.8" r="1.15" fill="#2f4bc4"/><circle cx="15.9" cy="10.8" r="1.15" fill="#2f4bc4"/></svg>';
+    var main = document.querySelector("main");
+    /* מטמיעים את הטופס המלא בתחתית כל עמוד — חוץ מעמוד צור קשר שבו הוא כבר קיים */
+    if (main && !document.querySelector(".form-card[data-formspree]")) {
+      main.insertAdjacentHTML("beforeend",
+        '<section id="contact-embed" class="section bg-cream contact-embed">'
+        + '<div class="container">'
+        + '<div class="section-head center reveal rv-float">'
+        + '<span class="kicker"><span data-ico="chat"></span>צור קשר</span>'
+        + '<h2>השאירי פרטים — ונחזור אליך</h2>'
+        + '<p class="lead">שיחה קצרה, רגועה וללא התחייבות. אפשר גם פשוט לשאול משהו קטן.</p>'
+        + '</div>'
+        + '<form class="form-card reveal rv-rise" data-formspree action="#" aria-label="טופס יצירת קשר והרשמה">'
+        + '<div class="form-grid">'
+        + '<div class="field"><label for="fe-name">שם מלא <span class="req">*</span></label><input id="fe-name" name="name" required autocomplete="name"></div>'
+        + '<div class="field"><label for="fe-phone">טלפון <span class="req">*</span></label><input id="fe-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel"></div>'
+        + '<div class="field full"><label for="fe-email">מייל</label><input id="fe-email" name="email" type="email" autocomplete="email"></div>'
+        + '<div class="field full"><label for="fe-course">מה מעניין אותך?</label>'
+        + '<select id="fe-course" name="course">'
+        + '<option value="קורס MBSR">קורס Mindfulness בגישת MBSR</option>'
+        + '<option value="קורס העמקה">קורס העמקה ב-Mindfulness</option>'
+        + '<option value="עדיין לא יודעת">עדיין לא יודעת — שיחת היכרות</option>'
+        + '</select></div>'
+        + '<div class="field full"><label for="fe-note">הודעה</label><textarea id="fe-note" name="message" placeholder="כאן אפשר לכתוב שאלה, זמנים נוחים לחזרה…"></textarea></div>'
+        + '</div>'
+        + '<button class="btn btn-primary" type="submit" style="margin-top:1.2rem; width:100%;">שליחת פרטים</button>'
+        + '<p class="form-status" role="status"></p>'
+        + '<p class="form-note">הפרטים יישלחו אלינו במייל ויישמרו בדיסקרטיות מלאה.</p>'
+        + '</form>'
+        + '</div>'
+        + '</section>');
+    }
+    /* כפתור צף בעיגול כחול — מגלול לטופס יצירת הקשר (המוטמע או הקיים בעמוד) */
+    var fab = document.createElement("a");
+    fab.className = "chat-fab";
+    var targetForm = document.querySelector(".form-card[data-formspree]");
+    if (targetForm && !targetForm.id) targetForm.id = "contact-form";
+    fab.href = document.getElementById("contact-embed") ? "#contact-embed" : (targetForm ? "#" + targetForm.id : "contact.html");
+    fab.setAttribute("aria-label", "צור קשר");
+    fab.title = "צור קשר";
+    fab.innerHTML = CHAT_SVG;
+    document.body.appendChild(fab);
+  })();
+
   /* ---------- Scroll reveal ---------- */
   var revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && revealEls.length) {
