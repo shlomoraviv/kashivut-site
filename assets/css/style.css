@@ -132,6 +132,18 @@ ul.plain li::before {
   border: 1.5px solid var(--lilac-soft);
 }
 .btn-ghost:hover { border-color: var(--pink); color: var(--blue-ink); transform: translateY(-2px); }
+/* כפתור מסגרת שקופה — רקע שקוף עם מסגרת כחולה עדינה (כרטיסי הקורסים ו"צור קשר" בסרגל) */
+.btn-frame {
+  background: transparent;
+  color: var(--blue-ink);
+  border: 1.5px solid rgba(30, 42, 110, .22);
+}
+.btn-frame:hover {
+  background: rgba(30, 42, 110, .06);
+  border-color: rgba(30, 42, 110, .42);
+  color: var(--blue-ink);
+  transform: translateY(-2px);
+}
 .btn-white { background: #fff; color: var(--blue-ink); }
 .btn-white:hover { transform: translateY(-2px); color: var(--blue-deep); }
 .btn-outline-light {
@@ -171,6 +183,9 @@ ul.plain li::before {
 .nav-cta { margin-inline-start: auto; }
 /* כפתור צור קשר — פינה מעוגלת קלות במקום גלולה מלאה */
 .nav-cta .btn { border-radius: var(--radius-sm); padding: .72em 1.7em; }
+/* "צור קשר" — כחול שקוף עם מסגרת עדינה */
+.nav-cta .btn-frame { background: rgba(30, 42, 110, .07); border-color: rgba(30, 42, 110, .28); color: var(--blue-ink); }
+.nav-cta .btn-frame:hover { background: rgba(30, 42, 110, .14); border-color: rgba(30, 42, 110, .5); }
 
 .nav-toggle {
   display: none;
