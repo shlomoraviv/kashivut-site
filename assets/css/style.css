@@ -338,6 +338,10 @@ ul.plain li::before {
 .course-media { position: relative; aspect-ratio: 16 / 9.4; overflow: hidden; }
 .course-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
 .course-card:hover .course-media img { transform: scale(1.06); }
+/* כרטיס לחיץ: כל הכרטיס לחיץ — תחושת לחיצה פיזית בלחיצה ומסגרת מיקוד בניווט מקלדת */
+.course-card-link { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.course-card-link:active { transform: translateY(1px) scale(.975); box-shadow: var(--shadow-card); transition-duration: .09s; }
+.course-card-link:focus-visible { outline: 3px solid var(--pink-hot); outline-offset: 3px; }
 .course-media .course-tag {
   position: absolute; top: 1rem; inset-inline-start: 1rem;
   background: rgba(255, 255, 255, .92);

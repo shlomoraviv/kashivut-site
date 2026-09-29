@@ -27,6 +27,23 @@
     if (href === path) a.classList.add("active");
   });
 
+  /* ---------- כרטיסי קורסים לחיצים: לחיצה על כל אזור הכרטיס מעבירה לעמוד הקורס ---------- */
+  document.querySelectorAll(".course-card-link[data-href]").forEach(function (card) {
+    card.addEventListener("click", function (e) {
+      if (e.target.closest("a, button, input, select, textarea")) return; /* לחיצה על כפתור פנימי — התנהגות רגילה */
+      var href = card.getAttribute("data-href");
+      if (href) location.href = href;
+    });
+    card.addEventListener("keydown", function (e) {
+      if (e.target !== card) return;
+      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+        e.preventDefault();
+        var href = card.getAttribute("data-href");
+        if (href) location.href = href;
+      }
+    });
+  });
+
   var FORM_ACTION = "https://formspree.io/f/xkjgppkz"; // כתובת הטופס ב-Formspree (מחובר)
 
   /* ---------- טופס יצירת קשר בתחתית העמוד + כפתור צ׳אט צף ---------- */
@@ -56,6 +73,7 @@
         + '<select id="fe-course" name="course">'
         + '<option value="קורס MBSR">קורס Mindfulness בגישת MBSR</option>'
         + '<option value="קורס העמקה">קורס העמקה ב-Mindfulness</option>'
+        + '<option value="ימי ריטריט">ימי ריטריט — יום של שקט ותרגול</option>'
         + '<option value="עדיין לא יודעת">עדיין לא יודעת — שיחת היכרות</option>'
         + '</select></div>'
         + '<div class="field full"><label for="fe-note">הודעה</label><textarea id="fe-note" name="message" placeholder="כאן אפשר לכתוב שאלה, זמנים נוחים לחזרה…"></textarea></div>'
