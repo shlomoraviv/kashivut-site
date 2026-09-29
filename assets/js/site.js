@@ -60,7 +60,6 @@
         '<section id="contact-embed" class="section bg-cream contact-embed">'
         + '<div class="container">'
         + '<div class="section-head center reveal rv-float">'
-        + '<span class="kicker"><span data-ico="chat"></span>צור קשר</span>'
         + '<h2>השאירי פרטים — ונחזור אליך</h2>'
         + '<p class="lead">שיחה קצרה, רגועה וללא התחייבות. אפשר גם פשוט לשאול משהו קטן.</p>'
         + '</div>'
