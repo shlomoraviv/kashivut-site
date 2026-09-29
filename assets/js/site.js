@@ -143,8 +143,11 @@
       var m = (getComputedStyle(photo).backgroundImage || "").match(/url\(["']?(.+?)["']?\)/);
       if (!m) return;
       var bb = arch.getBoundingClientRect();
-      /* מפתח-מצב: מידות החלון + קובץ התמונה. שום שינוי = אין כתיבה (חסכוני וללא ריצוד) */
-      var key = Math.round(bb.width) + "x" + Math.round(bb.height + window.scrollY * 0) + "|" + m[1];
+      var pb = photo.getBoundingClientRect();
+      /* מפתח-מצב: מידות הרקע והחלון יחד + קובץ התמונה — כך כל שינוי בפריסה (כולל טעינת פונטים
+       שמזיזה את גובה ה-hero) מזוהה ומתוקן. שום שינוי = אין כתיבה */
+      var key = Math.round(pb.width * 10) + "," + Math.round(pb.height * 10) + "|"
+              + Math.round(bb.width * 10) + "," + Math.round(bb.height * 10) + "|" + m[1];
       if (key === lastKey) return;
       lastKey = key;
       dimsFor(m[1], function (d) {
