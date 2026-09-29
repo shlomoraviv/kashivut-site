@@ -50,9 +50,9 @@
   (function addContactEmbed() {
     var CHAT_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
       + '<path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 2.3 1.2 4.4 3.2 5.8-.1 1-.5 2.3-1.6 3.3 2 0 3.6-.8 4.5-1.6 1 .2 2 .4 3.1.4 5.1 0 9.2-3.5 9.2-7.9S17.1 3 12 3Z" fill="currentColor"/>'
-      + '<circle cx="8.1" cy="10.8" r="1.15" fill="#2f4bc4"/>'
-      + '<circle cx="12" cy="10.8" r="1.15" fill="#2f4bc4"/>'
-      + '<circle cx="15.9" cy="10.8" r="1.15" fill="#2f4bc4"/></svg>';
+      + '<circle cx="8.1" cy="10.8" r="1.15" fill="#1e2a6e"/>'
+      + '<circle cx="12" cy="10.8" r="1.15" fill="#1e2a6e"/>'
+      + '<circle cx="15.9" cy="10.8" r="1.15" fill="#1e2a6e"/></svg>';
     var main = document.querySelector("main");
     /* מטמיעים את הטופס המלא בתחתית כל עמוד — חוץ מעמוד צור קשר שבו הוא כבר קיים */
     if (main && !document.querySelector(".form-card[data-formspree]")) {
