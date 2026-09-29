@@ -79,6 +79,83 @@
     document.body.appendChild(fab);
   })();
 
+  /* ---------- חלון זכוכית ב-hero: עותק מדויק של תמונת הרקע, חד, בתוך המסגרת ----------
+     העותק (.arch-sharp) מוצב באותן קואורדינטות בדיוק כמו שכבת הרקע המטושטשת,
+     ולכן כל אובייקט שנכנס למסגרת ממשיך את הרקע ברצף מושלם — בלי קפיצה או שינוי מיקום */
+  (function syncArchWindow() {
+    var hero = document.querySelector(".hero.has-photo");
+    var arch = document.querySelector(".hero-arch");
+    if (!hero || !arch) return;
+    var win = document.createElement("div");
+    win.className = "arch-sharp";
+    win.setAttribute("aria-hidden", "true");
+    arch.appendChild(win);
+    var photo = hero.querySelector(".hero-photo");
+    var natW = 0, natH = 0, natReady = false;
+    var dimCache = {};
+    /* ממדי התמונה האמיתיים לפי ה-URL הנוכחי (דסקטופ/מובייל מחליפים קובץ) */
+    function dimsFor(url, cb) {
+      if (dimCache[url]) { cb(dimCache[url]); return; }
+      var im = new Image();
+      im.onload = function () { dimCache[url] = [im.naturalWidth, im.naturalHeight]; cb(dimCache[url]); };
+      im.src = url;
+    }
+    function sync() {
+      if (!photo) return;
+      var m = (getComputedStyle(photo).backgroundImage || "").match(/url\(["']?(.+?)["']?\)/);
+      if (!m) return;
+      dimsFor(m[1], function (d) {
+        var a = photo.getBoundingClientRect();  /* קופסת הרקע */
+        var b = arch.getBoundingClientRect();   /* קופסת החלון */
+        /* תמונת cover מורחבת מעבר לקופסה — מחשבים את ממדיה ומיקומה האמיתיים */
+        var s = Math.max(a.width / d[0], a.height / d[1]);
+        var w = d[0] * s, h = d[1] * s;
+        var imgX = a.left - (w - a.width) / 2;
+        var imgY = a.top - (h - a.height) * 0.42; /* = background-position center 42% */
+        win.style.backgroundSize = w.toFixed(1) + "px " + h.toFixed(1) + "px";
+        win.style.backgroundPosition = (imgX - b.left).toFixed(1) + "px " + (imgY - b.top).toFixed(1) + "px";
+        hero.classList.add("synced");
+      });
+    }
+    /* הגיאומטריה משתנה רק בטעינה/שינוי גודל/פונטים — מסנכרן באירועים (בלי לולאה שורפת CPU).
+     הפרש המיקומים נשאר קבוע בגלילה כי שתי המדידות יחסיות ל-viewport */
+    var lastKey = "";
+    function sync() {
+      if (!photo) return;
+      var m = (getComputedStyle(photo).backgroundImage || "").match(/url\(["']?(.+?)["']?\)/);
+      if (!m) return;
+      var bb = arch.getBoundingClientRect();
+      /* מפתח-מצב: מידות החלון + קובץ התמונה. שום שינוי = אין כתיבה (חסכוני וללא ריצוד) */
+      var key = Math.round(bb.width) + "x" + Math.round(bb.height + window.scrollY * 0) + "|" + m[1];
+      if (key === lastKey) return;
+      lastKey = key;
+      dimsFor(m[1], function (d) {
+        var a = photo.getBoundingClientRect();  /* קופסת הרקע */
+        var b2 = arch.getBoundingClientRect();  /* קופסת החלון */
+        /* תמונת cover מורחבת מעבר לקופסה — מחשבים את ממדיה ומיקומה האמיתיים */
+        var s = Math.max(a.width / d[0], a.height / d[1]);
+        var w = d[0] * s, h = d[1] * s;
+        var imgX = a.left - (w - a.width) / 2;
+        var imgY = a.top - (h - a.height) * 0.42; /* = background-position center 42% */
+        win.style.backgroundSize = w.toFixed(1) + "px " + h.toFixed(1) + "px";
+        win.style.backgroundPosition = (imgX - b2.left).toFixed(1) + "px " + (imgY - b2.top).toFixed(1) + "px";
+        hero.classList.add("synced");
+      });
+    }
+    sync();
+    window.addEventListener("load", sync);
+    window.addEventListener("resize", sync);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+    [300, 900, 2200].forEach(function (t) { setTimeout(sync, t); }); /* התמצאות אחרי טעינה וריווחי פונטים */
+    if (window.ResizeObserver && photo) new ResizeObserver(sync).observe(photo);
+    var mq = matchMedia("(max-width: 1020px)");
+    if (mq.addEventListener) mq.addEventListener("change", sync);
+    else if (mq.addListener) mq.addListener(sync);
+    /* שומר-סף עדין: כל 800ms מוודא שהסנכרון עדכני — מרפא את עצמו מכל פספוס אירוע,
+     כולל מעבר דסקטופ/מובייל שמחליף את קובץ התמונה. כתיבה מתבצעת רק בשינוי אמיתי */
+    setInterval(sync, 800);
+  })();
+
   /* ---------- Scroll reveal ---------- */
   var revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && revealEls.length) {

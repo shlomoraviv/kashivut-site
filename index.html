@@ -24,7 +24,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="assets/js/icons.js" defer></script>
   <script src="assets/js/landscape.js" defer></script>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=arch1">
+  <link rel="preload" as="image" href="assets/img/hero-dreamy-1600.webp" fetchpriority="high">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -105,7 +106,8 @@
       <div class="hero-visual" aria-hidden="false">
         <div class="hero-blob b1" aria-hidden="true"></div>
         <div class="hero-blob b2" aria-hidden="true"></div>
-        <figure class="hero-arch">
+        <!-- התמונה כאן היא גיבוי ללא-JS; ברגע שה-JS מסונכרן היא מוסתרת ובמקומה עותק מדויק של תמונת הרקע -->
+        <figure class="hero-arch" aria-hidden="true">
           <img src="assets/img/arch-dreamy-900.webp" alt="פרחי שדה רכים בגווני ורוד, לבנדר ואפרסק באור זריחה חלומי" width="900" height="1035" fetchpriority="high">
         </figure>
       </div>
@@ -263,8 +265,6 @@
       <span class="fc-line" aria-hidden="true"></span>
     </div>
   </div>
-</footer>
-
-<script src="assets/js/site.js"></script>
+</footer>  <script src="assets/js/site.js?v=arch1"></script>
 </body>
 </html>
