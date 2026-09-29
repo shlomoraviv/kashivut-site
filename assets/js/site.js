@@ -27,11 +27,15 @@
     if (href === path) a.classList.add("active");
   });
 
+  var FORM_ACTION = "https://formspree.io/f/xkjgppkz"; // כתובת הטופס ב-Formspree (מחובר)
+
   /* ---------- טופס יצירת קשר בתחתית העמוד + כפתור צ׳אט צף ---------- */
   (function addContactEmbed() {
     var CHAT_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-      + '<path d="M12 3.2c-5.2 0-9.4 3.5-9.4 7.8 0 2.4 1.3 4.5 3.3 5.9-.05 1.15-.5 2.4-1.55 3.4 2.1-.05 3.8-.85 4.8-1.7 1 .25 1.9.4 2.85.4 5.2 0 9.4-3.5 9.4-7.9S17.2 3.2 12 3.2Z" fill="#fff"/>'
-      + '<path d="M12 14.9c-1.7-1.15-3.2-2.45-3.2-3.95 0-.95.75-1.7 1.7-1.7.65 0 1.2.35 1.5.9.3-.55.85-.9 1.5-.9.95 0 1.7.75 1.7 1.7 0 1.5-1.5 2.8-3.2 3.95Z" fill="#f26bb5"/></svg>';
+      + '<path d="M12 3C6.9 3 2.8 6.4 2.8 10.6c0 2.3 1.2 4.4 3.2 5.8-.1 1-.5 2.3-1.6 3.3 2 0 3.6-.8 4.5-1.6 1 .2 2 .4 3.1.4 5.1 0 9.2-3.5 9.2-7.9S17.1 3 12 3Z" fill="currentColor"/>'
+      + '<circle cx="8.1" cy="10.8" r="1.15" fill="#2f4bc4"/>'
+      + '<circle cx="12" cy="10.8" r="1.15" fill="#2f4bc4"/>'
+      + '<circle cx="15.9" cy="10.8" r="1.15" fill="#2f4bc4"/></svg>';
     var main = document.querySelector("main");
     /* מטמיעים את הטופס המלא בתחתית כל עמוד — חוץ מעמוד צור קשר שבו הוא כבר קיים */
     if (main && !document.querySelector(".form-card[data-formspree]")) {
@@ -43,7 +47,7 @@
         + '<h2>השאירי פרטים — ונחזור אליך</h2>'
         + '<p class="lead">שיחה קצרה, רגועה וללא התחייבות. אפשר גם פשוט לשאול משהו קטן.</p>'
         + '</div>'
-        + '<form class="form-card reveal rv-rise" data-formspree action="#" aria-label="טופס יצירת קשר והרשמה">'
+        + '<form class="form-card reveal rv-rise" data-formspree method="POST" action="' + FORM_ACTION + '" aria-label="טופס יצירת קשר והרשמה">'
         + '<div class="form-grid">'
         + '<div class="field"><label for="fe-name">שם מלא <span class="req">*</span></label><input id="fe-name" name="name" required autocomplete="name"></div>'
         + '<div class="field"><label for="fe-phone">טלפון <span class="req">*</span></label><input id="fe-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel"></div>'
@@ -293,8 +297,6 @@
       host.appendChild(seed);
     }
   })();
-  var FORM_ACTION = "https://formspree.io/f/xkjgppkz"; // כתובת הטופס ב-Formspree (מחובר)
-
   document.querySelectorAll("form[data-formspree]").forEach(function (form) {
     if (form.getAttribute("action") === "#") form.setAttribute("action", FORM_ACTION);
     form.setAttribute("method", "POST");
@@ -309,12 +311,9 @@
       status.textContent = msg;
     }
 
-    form.addEventListener("submit", function (e) {
+    /* שליחה מהימנה: AJAX קודם; אם ה-fetch נחסם (adblocker/רשת) — הדפדפן שולח ישירות ל-Formspree */
+    function onSubmit(e) {
       e.preventDefault();
-      if (FORM_ACTION.indexOf("YOUR_FORM_ID") !== -1) {
-        show("err", "טופס ההרשמה יפעל ברגע שכתובת ה-Formspree תוגדר (הנוהל בקובץ README).");
-        return;
-      }
       if (btn) { btn.disabled = true; btn.textContent = "שולח…"; }
       fetch(FORM_ACTION, {
         method: "POST",
@@ -326,14 +325,18 @@
           form.reset();
         } else {
           res.json().catch(function () { return {}; }).then(function (data) {
-            show("err", (data && data.errors && data.errors[0] && data.errors[0].message) || "השליחה לא הצליחה. אפשר לנסות שוב או ליצור קשר בוואטסאפ.");
+            show("err", (data && data.errors && data.errors[0] && data.errors[0].message) || "השליחה לא הצליחה. אפשר לנסות שוב, או להתקשר 055-5535964.");
           });
         }
       }).catch(function () {
-        show("err", "שגיאת רשת — נסי שוב בעוד רגע.");
+        /* כישלון רשת או חוסם פרסומות שחסם את formspree.io — שליחה ישירה של הדפדפן, שתמיד עובדת */
+        show("ok", "שולח את הפרטים…");
+        form.removeEventListener("submit", onSubmit);
+        form.submit();
       }).finally(function () {
         if (btn) { btn.disabled = false; btn.textContent = btnText; }
       });
-    });
+    }
+    form.addEventListener("submit", onSubmit);
   });
 })();
