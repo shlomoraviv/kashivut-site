@@ -74,6 +74,7 @@
         + '<option value="קורס MBSR">קורס Mindfulness בגישת MBSR</option>'
         + '<option value="קורס העמקה">קורס העמקה ב-Mindfulness</option>'
         + '<option value="ימי ריטריט">ימי ריטריט — יום של שקט ותרגול</option>'
+        + '<option value="סדנאות לצוותי חינוך">מיינדפולנס לצוותי חינוך — סדנה לצוות</option>'
         + '<option value="עדיין לא יודעת">עדיין לא יודעת — שיחת היכרות</option>'
         + '</select></div>'
         + '<div class="field full"><label for="fe-note">הודעה</label><textarea id="fe-note" name="message" placeholder="כאן אפשר לכתוב שאלה, זמנים נוחים לחזרה…"></textarea></div>'
