@@ -166,9 +166,10 @@ ul.plain li::before {
 }
 /* הניווט תופס את כל הרוחב הפנוי — הקישורים צמודים ללוגו מימין, כפתור "צור קשר" נדחק לקצה השמאלי */
 .nav-bar > nav { flex: 1; }
-.brand { display: flex; align-items: center; gap: .7rem; }
-.brand img { width: 46px; height: 46px; object-fit: contain; }
-.brand-name { font-family: var(--font-head); font-weight: 800; font-size: 1.3rem; color: var(--blue-ink); line-height: 1.1; }
+/* הלוגו בלבד — בלי טקסט — והוא משמש כקישור לדף הבית */
+.brand { display: flex; align-items: center; }
+.brand img { width: 56px; height: 56px; object-fit: contain; transition: transform .25s ease; }
+.brand:hover img { transform: scale(1.05); }
 
 .nav-links { display: flex; align-items: center; gap: .35rem; list-style: none; width: 100%; }
 .nav-links a {
