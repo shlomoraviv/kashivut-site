@@ -24,8 +24,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="assets/js/icons.js" defer></script>
   <script src="assets/js/landscape.js" defer></script>
-  <link rel="stylesheet" href="assets/css/style.css?v=retreat1">
+  <link rel="stylesheet" href="assets/css/style.css?v=purewin1">
   <link rel="preload" as="image" href="assets/img/hero-dreamy-1600.webp" fetchpriority="high">
+  <!-- אם JS לא רץ, תצוגת ה-hero נשארת תקינה עם התמונה המטושטשת בלבד -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -107,10 +108,8 @@
       <div class="hero-visual" aria-hidden="false">
         <div class="hero-blob b1" aria-hidden="true"></div>
         <div class="hero-blob b2" aria-hidden="true"></div>
-        <!-- התמונה כאן היא גיבוי ללא-JS; ברגע שה-JS מסונכרן היא מוסתרת ובמקומה עותק מדויק של תמונת הרקע -->
-        <figure class="hero-arch" aria-hidden="true">
-          <img src="assets/img/arch-dreamy-900.webp" alt="פרחי שדה רכים בגווני ורוד, לבנדר ואפרסק באור זריחה חלומי" width="900" height="1035" fetchpriority="high">
-        </figure>
+        <!-- אין תמונה כאן: המסגרת היא רק "חלון" שה-JS חושף דרכו את אותה תמונת רקע — חדה במקום מטושטשת -->
+        <figure class="hero-arch" aria-hidden="true"></figure>
       </div>
     </div>
   </section>
@@ -265,6 +264,6 @@
       <span class="fc-line" aria-hidden="true"></span>
     </div>
   </div>
-</footer>  <script src="assets/js/site.js?v=retreat1"></script>
+</footer>  <script src="assets/js/site.js?v=purewin1"></script>
 </body>
 </html>
