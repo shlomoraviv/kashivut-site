@@ -44,7 +44,9 @@
     });
   });
 
-  var FORM_ACTION = "https://formspree.io/f/xkjgppkz"; // כתובת הטופס ב-Formspree (מחובר)
+  /* כתובת היעד של הטפסים היא כתובת המייל עצמה: כל שליחה מהאתר נשלחת ל-kashivut@gmail.com
+     באמצעות FormSubmit. שליחה ראשונה מהאתר מחייבת אישור חד-פעמי מהמייל הזה. */
+  var FORM_ACTION = "https://formsubmit.co/kashivut@gmail.com";
 
   /* ---------- טופס יצירת קשר בתחתית העמוד + כפתור צ׳אט צף ---------- */
   (function addContactEmbed() {
@@ -55,7 +57,7 @@
       + '<circle cx="15.9" cy="10.8" r="1.15" fill="#1e2a6e"/></svg>';
     var main = document.querySelector("main");
     /* מטמיעים את הטופס המלא בתחתית כל עמוד — חוץ מעמוד צור קשר שבו הוא כבר קיים */
-    if (main && !document.querySelector(".form-card[data-formspree]")) {
+    if (main && !document.querySelector(".form-card[data-form]")) {
       main.insertAdjacentHTML("beforeend",
         '<section id="contact-embed" class="section bg-cream contact-embed">'
         + '<div class="container">'
@@ -63,7 +65,9 @@
         + '<h2>השאירי פרטים — ונחזור אליך</h2>'
         + '<p class="lead">שיחה קצרה, רגועה וללא התחייבות. אפשר גם פשוט לשאול משהו קטן.</p>'
         + '</div>'
-        + '<form class="form-card reveal rv-rise" data-formspree method="POST" action="' + FORM_ACTION + '" aria-label="טופס יצירת קשר והרשמה">'
+        + '<form class="form-card reveal rv-rise" data-form method="POST" action="' + FORM_ACTION + '" aria-label="טופס יצירת קשר והרשמה">'
+        + '<input type="hidden" name="_subject" value="פנייה חדשה מהאתר — קשיבות">'
+        + '<input type="hidden" name="_template" value="table">'
         + '<div class="form-grid">'
         + '<div class="field"><label for="fe-name">שם מלא <span class="req">*</span></label><input id="fe-name" name="name" required autocomplete="name"></div>'
         + '<div class="field"><label for="fe-phone">טלפון <span class="req">*</span></label><input id="fe-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel"></div>'
@@ -88,7 +92,7 @@
     /* כפתור צף בעיגול כחול — מגלול לטופס יצירת הקשר (המוטמע או הקיים בעמוד) */
     var fab = document.createElement("a");
     fab.className = "chat-fab";
-    var targetForm = document.querySelector(".form-card[data-formspree]");
+    var targetForm = document.querySelector(".form-card[data-form]");
     if (targetForm && !targetForm.id) targetForm.id = "contact-form";
     fab.href = document.getElementById("contact-embed") ? "#contact-embed" : (targetForm ? "#" + targetForm.id : "contact.html");
     fab.setAttribute("aria-label", "צור קשר");
@@ -501,7 +505,7 @@
       host.appendChild(seed);
     }
   })();
-  document.querySelectorAll("form[data-formspree]").forEach(function (form) {
+  document.querySelectorAll("form[data-form]").forEach(function (form) {
     if (form.getAttribute("action") === "#") form.setAttribute("action", FORM_ACTION);
     form.setAttribute("method", "POST");
 
@@ -515,7 +519,7 @@
       status.textContent = msg;
     }
 
-    /* שליחה מהימנה: AJAX קודם; אם ה-fetch נחסם (adblocker/רשת) — הדפדפן שולח ישירות ל-Formspree */
+    /* שליחה מהימנה: AJAX קודם; אם ה-fetch נחסם (adblocker/רשת) — הדפדפן שולח ישירות ל-FormSubmit */
     function onSubmit(e) {
       e.preventDefault();
       if (btn) { btn.disabled = true; btn.textContent = "שולח…"; }
@@ -533,7 +537,7 @@
           });
         }
       }).catch(function () {
-        /* כישלון רשת או חוסם פרסומות שחסם את formspree.io — שליחה ישירה של הדפדפן, שתמיד עובדת */
+        /* כישלון רשת או חוסם פרסומות שחסם את formsubmit.co — שליחה ישירה של הדפדפן, שתמיד עובדת */
         show("ok", "שולח את הפרטים…");
         form.removeEventListener("submit", onSubmit);
         form.submit();
