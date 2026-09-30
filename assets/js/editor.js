@@ -394,7 +394,28 @@
     }, isErr ? 5200 : 2600);
   }
 
-  /* ---------------- כפתור "ניהול" המוסתר ---------------- */
+  /* ---------------- כניסה למצב ניהול ---------------- */
+  /* כפתור גלוי-ועדין בתחתית העמוד: בעלת האתר צריכה למצוא אותו בקלות,
+     ובכל זאת שיהיה שקט ולא ימשוך את העין של המבקרות. */
+  function mountFooterButton() {
+    if (document.querySelector(".kx-manage")) return;
+    var host = document.querySelector("footer.site-footer .container") || document.querySelector("footer.site-footer") || document.body;
+    var wrap = document.createElement("div");
+    wrap.className = "kx-foot";
+    wrap.setAttribute("data-kx-ui", "");
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "kx-manage";
+    b.textContent = "ניהול";
+    b.setAttribute("aria-label", "ניהול — עריכת טקסטים באתר");
+    b.addEventListener("click", openGate);
+    wrap.appendChild(b);
+    host.appendChild(wrap);
+    ui.footBtn = b;
+    ui.footWrap = wrap;
+  }
+
+  /* כפתור שקוף לחלוטין בפינת המסך — קיצור דרך למי שכבר יודעת */
   function mountDot() {
     if (document.querySelector(".kx-dot")) return;
     var b = document.createElement("button");
@@ -556,6 +577,8 @@
     document.body.classList.add("kx-editing");
     if (!ui.dot) mountDot();
     if (ui.dot) ui.dot.style.display = "none";
+    if (!ui.footWrap) mountFooterButton();
+    if (ui.footWrap) ui.footWrap.style.display = "none";
     buildBar();
     captureOriginals();
     bindEditEvents();
@@ -576,6 +599,7 @@
     });
     if (ui.bar) { ui.bar.parentNode.removeChild(ui.bar); ui.bar = null; }
     if (ui.dot) ui.dot.style.display = "";
+    if (ui.footWrap) ui.footWrap.style.display = "";
     unbindEditEvents();
     baseline = {};
     baselineRaw = {};
@@ -774,6 +798,23 @@
   }
 
   /* ---------------- גיבוי: הורדה / ייצוא / ייבוא ---------------- */
+  function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(function () { return legacyCopy(text); });
+    }
+    return Promise.resolve(legacyCopy(text));
+  }
+  function legacyCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("data-kx-ui", "");
+    ta.style.cssText = "position:fixed;top:-1000px;opacity:0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) { }
+    document.body.removeChild(ta);
+  }
+
   function download(name, text, mime) {
     var blob = new Blob([text], { type: mime || "application/json;charset=utf-8" });
     var a = document.createElement("a");
@@ -882,6 +923,38 @@
     }).catch(function () { return { known: false }; });
   }
 
+  function contentDoc(pg) {
+    return {
+      version: VERSION,
+      updated: new Date().toISOString(),
+      note: "קובץ הטקסטים של האתר. נוצר ממצב הניהול (assets/js/editor.js) — אין לערוך ידנית. כל מפתח הוא נתיב של מקטע בתוך העמוד, והערך הוא הטקסט שיוצג במקום הטקסט המקורי.",
+      pages: mergedPages()
+    };
+  }
+  function editUrl(cfg, path) {
+    return "https://github.com/" + cfg.owner + "/" + cfg.repo + "/edit/"
+      + encodeURIComponent(cfg.branch) + "/" + path;
+  }
+
+  /* פרסום בלי טוקן: מעתיקים את קובץ הטקסטים ללוח ופותחים את עורך GitHub.
+     נדבק, לוחצים Commit changes — והאתר מתעדכן כמו בכל דחיפה ל-main. */
+  function publishManual(onDone) {
+    var pg = pageKey();
+    var saved = saveDraft("פרסום ידני");
+    if (saved < 0) { if (onDone) onDone(); return; }
+    var cfg = ghConfig();
+    var text = JSON.stringify(contentDoc(pg), null, 2) + "\n";
+    copyToClipboard(text).then(function () {
+      if (onDone) onDone();
+      var win = window.open(editUrl(cfg, CONTENT_FILE), "_blank", "noopener");
+      if (!win) {
+        toast("הקובץ הועתק ללוח. אפשר לפתוח ידנית: github.com/" + cfg.owner + "/" + cfg.repo, true);
+        return;
+      }
+      toast("הקובץ הועתק ללוח — נדבק אותו בחלון שנפתח ולוחצים Commit changes");
+    });
+  }
+
   function mergedPages() {
     var out = {}, pub = publishedAll(), d = draftAll();
     Object.keys(pub).forEach(function (p) { out[p] = Object.assign({}, pub[p]); });
@@ -906,14 +979,7 @@
     var pg = pageKey();
     var saved = saveDraft("פרסום");
     if (saved < 0) { if (onDone) onDone(); return; }
-    var pages = mergedPages();
-    var doc = {
-      version: VERSION,
-      updated: new Date().toISOString(),
-      note: "קובץ הטקסטים של האתר. נוצר ממצב הניהול — אין לערוך ידנית.",
-      pages: pages
-    };
-    var text = JSON.stringify(doc, null, 2) + "\n";
+    var text = JSON.stringify(contentDoc(pg), null, 2) + "\n";
     var backups = get(KEY.backups) || [];
     ghPut(cfg, CONTENT_FILE, text, "עדכון טקסטים מהאתר (מצב ניהול) — " + pageLabel(pg))
       .then(function () {
@@ -977,13 +1043,48 @@
       toast(n === 0 ? "אין שינויים חדשים לשמירה" : (n === 1 ? "נשמר — שינוי אחד" : "נשמר — " + n + " שינויים"));
     });
     bar.querySelector("[data-publish]").addEventListener("click", function () {
-      confirmBox("פרסום האתר", "הטקסטים יישמרו ויפורסמו לאתר החי, ויופיעו לכל המבקרות תוך דקה. להמשיך?",
-        "פרסם עכשיו", function () {
-          var b = bar.querySelector("[data-publish]");
-          b.disabled = true;
-          b.textContent = "מפרסם…";
-          publish(function () { b.disabled = false; b.textContent = "פרסם לאתר"; });
-        });
+      var btn = bar.querySelector("[data-publish]");
+      var run = function (fn) {
+        btn.disabled = true;
+        btn.textContent = "מפרסם…";
+        fn(function () { btn.disabled = false; btn.textContent = "פרסם לאתר"; });
+      };
+      var cfg = ghConfig();
+      if (cfg.token) {
+        confirmBox("פרסום האתר", "הטקסטים יישמרו ויפורסמו לאתר החי, ויופיעו לכל המבקרות תוך דקה. להמשיך?",
+          "פרסם עכשיו", function () { run(publish); });
+        return;
+      }
+      /* אין טוקן — מציעים את המסלול הפשוט, שדורש רק הדבקה בגיטהאב */
+      var m = modal(
+        "<h2>פרסום לאתר</h2>"
+        + '<p class="kx-hint">כל הטקסטים יישמרו, קובץ הטקסטים יועתק ללוח, וייפתח חלון העריכה של GitHub. '
+        + "שם נדבק (<b>Ctrl+V</b>) ולוחצים <b>Commit changes</b> — וזה מתפרסם לכולן תוך דקה. "
+        + "לא צריך סיסמה, טוקן או הרשאות מיוחדות.</p>"
+        + '<div class="kx-row">'
+        + '<button class="kx-btn kx-btn--primary" type="button" data-manual>פרסום מהיר בלי טוקן</button>'
+        + '<button class="kx-btn" type="button" data-token-way>חיבור אוטומטי עם טוקן</button>'
+        + '<button class="kx-btn" type="button" data-dl-now>הורדת הקובץ במקום</button>'
+        + '<button class="kx-btn" type="button" data-close>סגור</button>'
+        + "</div>",
+        { wide: true }
+      );
+      m.querySelector("[data-manual]").addEventListener("click", function () {
+        closeModal();
+        run(publishManual);
+      });
+      m.querySelector("[data-dl-now]").addEventListener("click", function () {
+        closeModal();
+        var p = pageKey();
+        if (saveDraft("פרסום ידני") < 0) return;
+        download("content.json", JSON.stringify(contentDoc(p), null, 2) + "\n");
+        toast("הקובץ הורד — מעלים אותו ל-assets/content.json בריפו");
+      });
+      m.querySelector("[data-token-way]").addEventListener("click", function () {
+        closeModal();
+        openSettings();
+      });
+      m.querySelector("[data-close]").addEventListener("click", closeModal);
     });
     bar.querySelector("[data-revert]").addEventListener("click", function () {
       var n = countDirty();
@@ -1197,12 +1298,7 @@
       msg.textContent = "הטוקן נמחק מהדפדפן הזה.";
     });
     m.querySelector("[data-dl-content]").addEventListener("click", function () {
-      var doc = {
-        version: VERSION, updated: new Date().toISOString(),
-        note: "קובץ הטקסטים של האתר. נוצר ממצב הניהול.",
-        pages: mergedPages()
-      };
-      download("content.json", JSON.stringify(doc, null, 2) + "\n");
+      download("content.json", JSON.stringify(contentDoc(pageKey()), null, 2) + "\n");
       toast("הקובץ הורד — יש להעלות אותו ל-assets/content.json");
     });
     m.querySelector("[data-close]").addEventListener("click", closeModal);
@@ -1221,6 +1317,7 @@
 
   function boot() {
     mountDot();
+    mountFooterButton();
     /* דרך נוחה לבעלת האתר בנייד: לפתוח את מסך הסיסמה בכתובת index.html#ניהול */
     var hash = "";
     try { hash = decodeURIComponent(location.hash.replace(/^#/, "")); } catch (e) { hash = location.hash; }

@@ -53,6 +53,36 @@
 .kx-dot:focus-visible .kx-dot-in { opacity: 1; transform: scale(1.15); }
 .kx-dot:focus-visible { outline: 3px solid var(--pink-hot); outline-offset: 2px; }
 
+/* ---------- כפתור "ניהול" בתחתית העמוד (גלוי אך עדין) ---------- */
+.kx-foot {
+  display: flex;
+  justify-content: center;
+  margin: 1.1rem 0 .2rem;
+  position: relative;
+  z-index: 3;
+}
+.kx-manage {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .82rem;
+  letter-spacing: .05em;
+  padding: .45em 1.45em;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .26);
+  background: rgba(255, 255, 255, .05);
+  color: rgba(255, 255, 255, .62);
+  cursor: pointer;
+  transition: color .25s ease, background .25s ease, border-color .25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.kx-manage:hover,
+.kx-manage:focus-visible {
+  color: #fff;
+  background: rgba(255, 255, 255, .14);
+  border-color: rgba(255, 255, 255, .5);
+}
+.kx-manage:focus-visible { outline: 3px solid var(--pink-hot); outline-offset: 2px; }
+
 /* ---------- שכבת רקע + חלוניות ---------- */
 .kx-scrim {
   position: fixed;
