@@ -264,6 +264,19 @@
     })(root || document.body);
     return out;
   }
+  /* עורכים אך ורק את אזורי האתר עצמו (סרגל, תוכן, פוטר) — כך תוספים
+     חיצוניים או ווידג'טים שמוזרקים לעמוד לא נכנסים למצב העריכה. */
+  var REGIONS = "header.site-header, main, footer.site-footer";
+  function siteRoots() {
+    var list = [];
+    Array.prototype.forEach.call(document.querySelectorAll(REGIONS), function (r) { list.push(r); });
+    return list.length ? list : [document.body];
+  }
+  function allBlocks() {
+    var out = [];
+    siteRoots().forEach(function (r) { out = out.concat(collectBlocks(r)); });
+    return out;
+  }
 
   /* ---------------- מפתח יציב לכל מקטע (נתיב בעץ) ---------------- */
   function sigOf(el) {
@@ -349,7 +362,7 @@
   function captureOriginals() {
     var pg = pageKey(), all = get(KEY.original) || {}, page = all[pg] || {};
     var have = Object.keys(page).length, added = 0;
-    collectBlocks(document.body).forEach(function (el) {
+    allBlocks().forEach(function (el) {
       var sig = sigOf(el);
       if (!sig || Object.prototype.hasOwnProperty.call(page, sig)) return;
       if (hasOverride(pg, sig)) return; /* כבר שונה — המקור נשמר בעבר */
@@ -529,7 +542,7 @@
   function enterEdit(announce) {
     if (editing) return;
     var seen = {};
-    collectBlocks(document.body).forEach(function (el) {
+    allBlocks().forEach(function (el) {
       var sig = sigOf(el);
       if (!sig || seen[sig]) return;
       seen[sig] = 1;
