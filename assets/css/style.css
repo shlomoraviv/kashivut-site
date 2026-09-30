@@ -314,13 +314,6 @@ ul.plain li::before {
 .course-card-link { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .course-card-link:active { transform: translateY(1px) scale(.975); box-shadow: var(--shadow-card); transition-duration: .09s; }
 .course-card-link:focus-visible { outline: 3px solid var(--pink-hot); outline-offset: 3px; }
-.course-media .course-tag {
-  position: absolute; top: 1rem; inset-inline-start: 1rem;
-  background: rgba(255, 255, 255, .92);
-  color: var(--blue-ink);
-  font-size: .8rem; font-weight: 700;
-  padding: .35em 1.1em; border-radius: 999px;
-}
 .course-body { padding: 1.6rem 1.7rem 1.8rem; display: flex; flex-direction: column; flex: 1; }
 .course-body h3 { font-size: 1.35rem; margin-bottom: .4em; }
 .course-body > p { color: var(--muted); font-size: .97rem; margin-bottom: 1em; }
@@ -391,17 +384,6 @@ ul.plain li::before {
   text-align: center;
   padding: clamp(2.6rem, 6vw, 4rem) 0;
   overflow: hidden;
-}
-.quote-strip::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: url("../img/mimosa-1600.webp") center/cover no-repeat;
-  opacity: .15;
-  animation: quotePan 70s ease-in-out infinite alternate;
-}
-@keyframes quotePan {
-  from { background-position: 28% 42%; }
-  to   { background-position: 72% 58%; }
 }
 .quote-strip > .container { position: relative; z-index: 1; }
 
