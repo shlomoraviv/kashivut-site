@@ -90,6 +90,32 @@ python -m http.server 8791
   בריפו + עותק בדפדפן. **כל שמירה** מוסיפה תמונת מצב ל-`assets/backups/` ול-
   גיבויים המקומיים, ואפשר להוריד קובץ גיבוי מלא בכל רגע.
 
+### יצירת טוקן פרסום — צעד אחר צעד
+
+פותחים: **https://github.com/settings/personal-access-tokens/new**
+(או: תמונת הפרופיל → Settings → Developer settings → Personal access tokens →
+Fine-grained tokens → Generate new token)
+
+1. **Token name** – למשל `kashivut-site publish`
+2. **Expiration** – שנה (אפשר גם פחות)
+3. **Repository access** – בוחרים `Only select repositories` ומסמנים רק את
+   `shlomoraviv/kashivut-site`
+4. **Permissions** → **Repository permissions** → מוצאים את השורה **Contents**
+   ומשנים ל-**Read and write** (שורת Metadata נשארת Read-only מאליה)
+5. **Generate token** → מעתיקים את הטוקן (מתחיל ב-`github_pat_`) — הוא מוצג
+   פעם אחת בלבד
+6. באתר: מצב ניהול → **הגדרות** → מדביקים → **בדיקת חיבור** → **שמור**
+
+שתי הערות:
+
+- **לא צריך "כל ההרשאות".** לפרסום טקסטים נדרשת הרשאה אחת בלבד — `Contents:
+  Read and write` על הריפו הזה. כל הרשאה נוספת היא רק סיכון מיותר.
+- **אין צורך לשלוח את הטוקן לאף אחד** — הוא נדבק ישירות במסך ההגדרות של
+  האתר ונשאר בדפדפן שלך.
+
+אם כבר נוצר טוקן בלי הרשאת כתיבה, אפשר לערוך אותו: באותו מסך בוחרים את
+הטוקן → Repository permissions → Contents → Read and write → Update token.
+
 ### פרסום אוטומטי (חד-פעמי)
 
 כדי שכפתור "פרסם לאתר" יעדכן את האתר החי, מזינים פעם אחת בהגדרות טוקן GitHub
