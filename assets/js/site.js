@@ -287,9 +287,23 @@
       + '<path class="wr" d="M33 30c8 5 17 6 22 3 4-3 2-8-3-9-6-1-15 3-19 6Z" fill="currentColor"/>'
       + '<ellipse cx="32" cy="25" rx="2.8" ry="10" fill="currentColor"/>'
       + '<circle cx="30.6" cy="16" r="2.2" fill="currentColor"/>'
+      + '</svg>',
+    /* צל ציפור קטן — קו תעופה דק עם כנפיים מחודדות */
+    "shadow-sm": '<svg viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M23 15C17 7 9 4 1 7c8 2 14 5 22 11Z" fill="currentColor"/>'
+      + '<path class="wr" d="M25 15C31 7 39 4 47 7c-8 2-14 5-22 11Z" fill="currentColor"/>'
+      + '<ellipse cx="24" cy="17" rx="1.8" ry="5.5" fill="currentColor"/>'
+      + '<path d="M24 21c-.3 2.6-1.4 4.6-3.4 6 2.4-.4 3.2-1.4 3.4-2.8.2 1.4 1 2.4 3.4 2.8-2-1.4-3.1-3.4-3.4-6Z" fill="currentColor"/>'
+      + '</svg>',
+    /* צל ציפור בינוני — כנפיים ארוכות פרושות לגלישה */
+    "shadow-md": '<svg viewBox="0 0 78 34" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M37 17C29 8 17 4 1 7c13 2 25 6 36 13Z" fill="currentColor"/>'
+      + '<path class="wr" d="M41 17C49 8 61 4 77 7c-13 2-25 6-36 13Z" fill="currentColor"/>'
+      + '<ellipse cx="39" cy="19" rx="2" ry="6.5" fill="currentColor"/>'
+      + '<path d="M39 24c-.4 3-1.6 5.4-4 7 2.8-.4 3.8-1.6 4-3.2.2 1.6 1.2 2.8 4 3.2-2.4-1.6-3.6-4-4-7Z" fill="currentColor"/>'
       + '</svg>'
   };
-  var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, butterfly: 60, moth: 60, shadow: 64 };
+  var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, butterfly: 60, moth: 60, shadow: 64, "shadow-md": 78, "shadow-sm": 48 };
   /* לכל מסלול יש גרסת מראה לתנועה מימין לשמאל */
   var SKY_BACK = { fly: "flyBack", glide: "glideBack", flutter: "flutterBack" };
 
@@ -321,6 +335,18 @@
       { s: "swift", p: "soar", top: "52%", size: .45, o: .4, tint: "#b9a7e6", dur: 92, delay: -24, flow: 1 }
     ],
     /* עדין: יונה קרובה ופרפר רך */
+    /* צללי ציפורים — צללים קטנים וקצת גדולים שמפוזרים לאורך העמוד */
+    shadows: [
+      { s: "shadow-md", p: "glide", top: "12%", size: 1.05, o: .16, tint: "#17205c", dur: 152, delay: -8, flow: 1 },
+      { s: "shadow-sm", p: "glide", top: "34%", size: .7, o: .21, tint: "#1e2a6e", dur: 128, delay: -58, flow: -1 },
+      { s: "shadow", p: "glide", top: "62%", size: .9, o: .15, tint: "#17205c", dur: 178, delay: -102, flow: -1 },
+      { s: "shadow-sm", p: "glide", top: "84%", size: .6, o: .23, tint: "#1e2a6e", dur: 116, delay: -24, flow: 1 }
+    ],
+    /* מנה קטנה: צל גדול אחד וצל קטן אחד */
+    "shadows-few": [
+      { s: "shadow", p: "glide", top: "24%", size: 1.1, o: .16, tint: "#17205c", dur: 168, delay: -34, flow: 1 },
+      { s: "shadow-sm", p: "glide", top: "72%", size: .68, o: .22, tint: "#1e2a6e", dur: 124, delay: -76, flow: -1 }
+    ],
     soft: [
       { s: "dove", p: "fly", top: "26%", size: .6, o: .45, tint: "#8f9fe0", dur: 82, delay: -16, flow: -1 },
       { s: "butterfly", p: "flutter", top: "72%", size: .46, o: .5, tint: "#d9a3cf", dur: 68, delay: -46, flow: 1 }
@@ -328,8 +354,11 @@
   };
 
   function mountSky(host, presetName) {
-    var plan = SKY_PRESETS[presetName];
-    if (!plan || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var plan = [];
+    String(presetName || "").split(",").forEach(function (name) {
+      plan = plan.concat(SKY_PRESETS[name.trim()] || []);
+    });
+    if (!plan.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     var layer = host.classList.contains("birds") ? host : host.querySelector(".birds");
     if (!layer) {
       layer = document.createElement("div");
@@ -347,7 +376,8 @@
       item.style.setProperty("--o", c.o);
       item.style.setProperty("--path", c.flow === -1 ? (SKY_BACK[c.p] || c.p) : c.p);
       item.style.setProperty("--dur", c.dur + "s");
-      item.style.setProperty("--delay", c.delay + "s");
+      /* היסט אקראי קטן — כדי שאותה תוכנית תעופה לא תיראה זהה בשני אזורים */
+      item.style.setProperty("--delay", (c.delay - Math.random() * 55).toFixed(1) + "s");
       item.style.setProperty("--size", c.size);
       item.style.setProperty("--flow", c.flow || 1);
       item.style.setProperty("--dir", c.dir || c.flow || 1);

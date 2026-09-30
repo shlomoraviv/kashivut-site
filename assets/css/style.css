@@ -710,11 +710,19 @@ ul.plain li::before {
 .s-swallow .wl, .s-swallow .wr { transform-origin: 32px 14px; }
 .s-swift .wl, .s-swift .wr { transform-origin: 32px 15px; }
 .s-dove .wl, .s-dove .wr, .s-shadow .wl, .s-shadow .wr { transform-origin: 32px 22px; }
+.s-shadow-md .wl, .s-shadow-md .wr { transform-origin: 39px 16px; }
+.s-shadow-sm .wl, .s-shadow-sm .wr { transform-origin: 24px 14px; }
 /* פרפרים ועשים — הכנפיים נסגרות ונפתחות סביב ציר הגוף */
 .s-butterfly .wl, .s-butterfly .wr, .s-moth .wl, .s-moth .wr { transform-origin: 30px 23px; animation-name: wingOpen; }
 @keyframes wingOpen { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.42); } }
-/* צל ציפור — דמות כהה, מטושטשת ורכה */
-.sky-item.s-shadow { filter: blur(1.6px); }
+/* צל ציפור — דמות כהה, מטושטשת ורכה, בשלושה גדלים: גדול, בינוני, קטן */
+.sky-item.s-shadow, .sky-item.s-shadow-md { filter: blur(1.5px); }
+.sky-item.s-shadow-sm { filter: blur(1.1px); }
+/* כנפי הצל גולשות ברכות במקום לנפנף */
+.s-shadow .wl, .s-shadow-md .wl, .s-shadow-sm .wl { animation-name: swayL; }
+.s-shadow .wr, .s-shadow-md .wr, .s-shadow-sm .wr { animation-name: swayR; }
+@keyframes swayL { 0%, 100% { transform: rotate(3deg); } 50% { transform: rotate(-2.5deg); } }
+@keyframes swayR { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(2.5deg); } }
 
 /* מסלולי תעופה. שמות המסלולים הכפולים (Back) הם תנועה מימין לשמאל,
    כלומר כל מסלול קיים בשתי גרסאות מראה — כדי שהציפור תמיד תעבור את כל המסך */
@@ -1054,33 +1062,6 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
   from { transform: translate(0, 0); }
   to { transform: translate(60px, -22px); }
 }
-
-/* ענף בוטני נכנס מהצד במעברים בין אזורים — מחבר את החוויה */
-.flora-branch { position: relative; }
-.flora-branch::after {
-  content: "";
-  position: absolute;
-  top: 2.2rem; inset-inline-end: -24px;
-  width: 250px; height: 120px;
-  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='120' viewBox='0 0 250 120'><path d='M4 116C60 84 130 60 246 44' stroke='%238fa1de' stroke-width='2.5' fill='none' opacity='.55'/><path d='M60 92q14-18 30-20-8 18-30 20Z' fill='%23f2b7dc' opacity='.6'/><path d='M120 70q14-18 30-20-8 18-30 20Z' fill='%238fa1de' opacity='.45'/><path d='M178 56q14-18 30-20-8 18-30 20Z' fill='%23f2b7dc' opacity='.5'/></svg>") no-repeat center / contain;
-  pointer-events: none;
-}
-.flora-branch.flip::after {
-  inset-inline-end: auto; inset-inline-start: -24px;
-  transform: scaleX(-1);
-}
-@media (max-width: 700px) { .flora-branch::after { width: 150px; opacity: .6; } }
-/* וריאנט ל-host שאינו section (למשל section-head) */
-.flora-branch-host::after {
-  content: "";
-  position: relative;
-  display: block;
-  height: 110px;
-  margin-top: 1.4rem;
-  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='120' viewBox='0 0 250 120'><path d='M4 116C60 84 130 60 246 44' stroke='%238fa1de' stroke-width='2.5' fill='none' opacity='.55'/><path d='M60 92q14-18 30-20-8 18-30 20Z' fill='%23f2b7dc' opacity='.6'/><path d='M120 70q14-18 30-20-8 18-30 20Z' fill='%238fa1de' opacity='.45'/><path d='M178 56q14-18 30-20-8 18-30 20Z' fill='%23f2b7dc' opacity='.5'/></svg>") no-repeat right top / 250px 120px;
-  pointer-events: none;
-}
-@media (max-width: 700px) { .flora-branch-host::after { width: 150px; background-size: 150px 72px; opacity: .6; } }
 
 /* ============================================================
    v3 — טופס יצירת קשר מוטמע בתחתית + כפתור צ׳אט צף
