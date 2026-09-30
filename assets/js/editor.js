@@ -745,15 +745,63 @@
   }
 
   /* ---------------- איסוף השינויים ושמירה ---------------- */
+  /* ---------- שמירה על האייקונים שבתוך הטקסט ----------
+     אייקון דקורטיבי שיש בתוך קטע טקסט (למשל עלה בכפתור) נמחק אם כותבים
+     את כל הקטע מחדש. כאן מחזירים אותו למקומו, בלי לגעת בשאר התוכן. */
+  function iconUnits(html) {
+    var box = document.createElement("div");
+    box.innerHTML = String(html || "");
+    var units = [];
+    Array.prototype.forEach.call(box.querySelectorAll("svg"), function (svg) {
+      if (svg.getAttribute("aria-hidden") !== "true") return;
+      if (units.indexOf(svg) >= 0) return;
+      var p = svg.parentElement;
+      /* אם האייקון עוטף ב-span ריק — שומרים גם את העוטף, כמו במקור */
+      if (p && p !== box && /^(span|i|b|em)$/i.test(p.tagName)
+        && !p.textContent.replace(/[\s\u00a0]+/g, "") && p.getElementsByTagName("svg").length === 1) {
+        units.push(p);
+      } else {
+        units.push(svg);
+      }
+    });
+    return units.map(function (u) { return u.outerHTML; });
+  }
+  function withIcons(baseHtml, newHtml) {
+    if (/<svg/i.test(newHtml)) return { html: newHtml, middleDropped: 0 };
+    if (!/<svg/i.test(baseHtml || "")) return { html: newHtml, middleDropped: 0 };
+    var src = document.createElement("div");
+    src.innerHTML = baseHtml;
+    var first = src.querySelector("svg"), all = src.querySelectorAll("svg");
+    var last = all[all.length - 1];
+    var units = iconUnits(baseHtml);
+    if (!units.length || !first || !last) return { html: newHtml, middleDropped: 0 };
+    var before = document.createRange();
+    before.setStart(src, 0);
+    before.setEndBefore(first);
+    var after = document.createRange();
+    after.setStartAfter(last);
+    after.setEnd(src, src.childNodes.length);
+    var textBefore = before.toString().replace(/[\s\u00a0]+/g, "");
+    var textAfter = after.toString().replace(/[\s\u00a0]+/g, "");
+    var icons = units.join("");
+    if (!textBefore) return { html: icons + newHtml, middleDropped: 0 };      /* האייקונים היו בהתחלה */
+    if (!textAfter) return { html: newHtml + icons, middleDropped: 0 };        /* או בסוף */
+    return { html: newHtml, middleDropped: units.length };                    /* באמצע — לא נוגעים */
+  }
+
   function collectChanges() {
-    var out = {};
+    var out = {}, dropped = 0;
     Array.prototype.forEach.call(document.querySelectorAll("[data-kx-id]"), function (el) {
       var id = el.getAttribute("data-kx-id");
       if (rawNorm(el.innerHTML) === baselineRaw[id]) return; /* לא נגעו — מדלגים בלי לפרסר */
       var now = norm(el.innerHTML);
       if (now === baseline[id]) return; /* נוקה ולא נותר בו שינוי */
-      out[id] = now;
+      var kept = withIcons(baseline[id], now);
+      dropped += kept.middleDropped;
+      if (kept.html !== now) el.innerHTML = kept.html; /* מחזירים גם למסך, כדי שמה שרואים = מה שנשמר */
+      out[id] = kept.html;
     });
+    collectChanges.dropped = dropped;
     return out;
   }
 
@@ -787,6 +835,9 @@
     pushBackup(reason || "שמירה", pg);
     snapshotBaseline();
     markDirtyState();
+    if (collectChanges.dropped) {
+      toast("שימו לב: " + collectChanges.dropped + " אייקונים בתוך הטקסט הוסרו — אפשר לבטל שינויים כדי להחזיר", true);
+    }
     return Object.keys(ch).length;
   }
 
