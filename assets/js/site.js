@@ -222,38 +222,144 @@
     parallax();
   }
 
-  /* ---------- פרפרים ויונים — תעופה איטית ושקטה ---------- */
-  var BIRD = '<svg viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">'
-    + '<path class="w1" d="M31 22C22 6 8 4 2 10c-4 5 2 16 14 22 6 3 12 3 15 1Z" fill="currentColor" opacity=".5"/>'
-    + '<path class="w2" d="M33 22C42 6 56 4 62 10c4 5-2 16-14 22-6 3-12 3-15 1Z" fill="currentColor" opacity=".5"/>'
-    + '<path class="w1" d="M31 30c-7 4-15 5-20 2-4-3-2-8 3-9 6-1 13 3 17 7Z" fill="currentColor" opacity=".32"/>'
-    + '<path class="w2" d="M33 30c7 4 15 5 20 2 4-3 2-8-3-9-6-1-13 3-17 7Z" fill="currentColor" opacity=".32"/>'
-    + '<ellipse cx="32" cy="26" rx="2.6" ry="9.5" fill="currentColor" opacity=".85"/>'
-    + '<circle cx="30.8" cy="16.5" r="2" fill="currentColor"/>'
-    + '<path d="M29.6 14.5C27 12 24 11 21.5 11.5M34.4 14.5C37 12 40 11 42.5 11.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity=".7"/>'
-    + '</svg>';
-  function addBirds(host) {
-    if (!host || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var configs = [
-      { top: "14%", color: "#8f9fe0", dur: 58, delay: 0, scale: 0.7, flip: false },
-      { top: "30%", color: "#d9a3cf", dur: 74, delay: -26, scale: 0.5, flip: true },
-      { top: "62%", color: "#e8b7cf", dur: 88, delay: -52, scale: 0.42, flip: false }
-    ];
-    configs.forEach(function (c) {
-      var b = document.createElement("div");
-      b.className = "bird" + (c.flip ? " flip" : "");
-      b.style.top = c.top;
-      b.style.color = c.color;
-      b.style.setProperty("--dur", c.dur + "s");
-      b.style.setProperty("--delay", c.delay + "s");
-      b.style.setProperty("--scale", c.scale);
-      b.style.setProperty("--flap", (3.6 + Math.random() * 1.8).toFixed(2) + "s");
-      b.style.width = 64 * c.scale * 2 + "px";
-      b.innerHTML = BIRD;
-      host.appendChild(b);
+
+  /* ---------- שמיים: ציפורים, צל ציפור ופרפרים — מגוון דמויות ---------- */
+  var SKY_ART = {
+    /* יונה מפורטת */
+    dove: '<svg viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M31 22C22 6 8 4 2 10c-4 5 2 16 14 22 6 3 12 3 15 1Z" fill="currentColor" opacity=".5"/>'
+      + '<path class="wr" d="M33 22C42 6 56 4 62 10c4 5-2 16-14 22-6 3-12 3-15 1Z" fill="currentColor" opacity=".5"/>'
+      + '<path class="wl" d="M31 30c-7 4-15 5-20 2-4-3-2-8 3-9 6-1 13 3 17 7Z" fill="currentColor" opacity=".32"/>'
+      + '<path class="wr" d="M33 30c7 4 15 5 20 2 4-3 2-8-3-9-6-1-13 3-17 7Z" fill="currentColor" opacity=".32"/>'
+      + '<ellipse cx="32" cy="26" rx="2.6" ry="9.5" fill="currentColor" opacity=".85"/>'
+      + '<circle cx="30.8" cy="16.5" r="2" fill="currentColor"/>'
+      + '<path d="M29.6 14.5C27 12 24 11 21.5 11.5M34.4 14.5C37 12 40 11 42.5 11.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity=".7"/>'
+      + '</svg>',
+    /* שחף — כנפיים ארוכות וגוף דק */
+    gull: '<svg viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M29 14C21 4 11 1 1 5c9 1 16 5 24 12Z" fill="currentColor" opacity=".9"/>'
+      + '<path class="wr" d="M31 14C39 4 49 1 59 5c-9 1-16 5-24 12Z" fill="currentColor" opacity=".9"/>'
+      + '<ellipse cx="30" cy="17" rx="2.2" ry="6" fill="currentColor"/>'
+      + '<path d="M30 21c-1 4-1 7 0 9 1-2 1-5 0-9Z" fill="currentColor"/>'
+      + '</svg>',
+    /* סנונית — כנפיים מחודדות וזנב מפוצל */
+    swallow: '<svg viewBox="0 0 64 36" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M31 12C24 3 12 -1 1 4c10 2 18 6 25 14Z" fill="currentColor" opacity=".9"/>'
+      + '<path class="wr" d="M33 12C40 3 52 -1 63 4c-10 2-18 6-25 14Z" fill="currentColor" opacity=".9"/>'
+      + '<ellipse cx="32" cy="16" rx="2" ry="6.5" fill="currentColor"/>'
+      + '<path d="M32 22c-1 4-3 8-8 11 5-1 7-3 8-6 1 3 3 5 8 6-5-3-7-7-8-11Z" fill="currentColor"/>'
+      + '</svg>',
+    /* סיס — כנפיים צרות ומגלשות */
+    swift: '<svg viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M32 14C26 7 16 3 3 5c10 2 19 5 26 11Z" fill="currentColor" opacity=".85"/>'
+      + '<path class="wr" d="M32 14C38 7 48 3 61 5c-10 2-19 5-26 11Z" fill="currentColor" opacity=".85"/>'
+      + '<ellipse cx="32" cy="17" rx="1.9" ry="8" fill="currentColor"/>'
+      + '</svg>',
+    /* להקה רחוקה — קווי תעופה דקים בשמיים */
+    flock: '<svg viewBox="0 0 72 28" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path d="M2 17c3-5 7-5 10 0M19 9c3-5 7-5 10 0M38 19c3-4 6-4 9 0M55 11c3-4 6-4 9 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>'
+      + '</svg>',
+    /* פרפר — ארבע כנפיים שמסתובבות סביב הגוף */
+    butterfly: '<svg viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<g class="wl">'
+      + '<path d="M29 22C26 7 15 1 7 7 1 12 8 21 29 23Z" fill="currentColor" opacity=".8"/>'
+      + '<path d="M29 25C17 26 10 33 15 39c5 6 14 2 14-9Z" fill="currentColor" opacity=".62"/>'
+      + '</g>'
+      + '<g class="wr">'
+      + '<path d="M31 22C34 7 45 1 53 7c6 5-1 14-22 16Z" fill="currentColor" opacity=".8"/>'
+      + '<path d="M31 25C43 26 50 33 45 39c-5 6-14 2-14-9Z" fill="currentColor" opacity=".62"/>'
+      + '</g>'
+      + '<ellipse cx="30" cy="24" rx="1.7" ry="9" fill="currentColor" opacity=".9"/>'
+      + '<path d="M30 15c-2-4-4-6-7-7M30 15c2-4 4-6 7-7" stroke="currentColor" stroke-width="1" fill="none" opacity=".8"/>'
+      + '</svg>',
+    /* עש — פרפר קטן ועגול שמרחף במקום */
+    moth: '<svg viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<g class="wl"><path d="M29 24C19 10 5 11 5 20c0 9 12 12 24 8Z" fill="currentColor" opacity=".7"/></g>'
+      + '<g class="wr"><path d="M31 24C41 10 55 11 55 20c0 9-12 12-24 8Z" fill="currentColor" opacity=".7"/></g>'
+      + '<ellipse cx="30" cy="25" rx="3" ry="9" fill="currentColor"/>'
+      + '<path d="M30 16c-3-4-6-6-9-6M30 16c3-4 6-6 9-6" stroke="currentColor" stroke-width="1.1" fill="none"/>'
+      + '</svg>',
+    /* צל ציפור — דמות מלאה ושקטה שמטילה צל חולף */
+    shadow: '<svg viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M31 22C22 6 8 4 2 10c-4 5 2 16 14 22 6 3 12 3 15 1Z" fill="currentColor"/>'
+      + '<path class="wr" d="M33 22C42 6 56 4 62 10c4 5-2 16-14 22-6 3-12 3-15 1Z" fill="currentColor"/>'
+      + '<path class="wl" d="M31 30c-8 5-17 6-22 3-4-3-2-8 3-9 6-1 15 3 19 6Z" fill="currentColor"/>'
+      + '<path class="wr" d="M33 30c8 5 17 6 22 3 4-3 2-8-3-9-6-1-15 3-19 6Z" fill="currentColor"/>'
+      + '<ellipse cx="32" cy="25" rx="2.8" ry="10" fill="currentColor"/>'
+      + '<circle cx="30.6" cy="16" r="2.2" fill="currentColor"/>'
+      + '</svg>'
+  };
+  var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, butterfly: 60, moth: 60, shadow: 64 };
+  /* לכל מסלול יש גרסת מראה לתנועה מימין לשמאל */
+  var SKY_BACK = { fly: "flyBack", glide: "glideBack", flutter: "flutterBack" };
+
+  /* תוכניות תעופה — כל אזור מקבל שילוב אחר של דמויות, צבעים, גדלים ומסלולים */
+  var SKY_PRESETS = {
+    /* מסך הכניסה: צל ציפור חוצה את הנוף, שחף רחוק ופרפר קרוב */
+    hero: [
+      { s: "shadow", p: "glide", top: "10%", size: 1.3, o: .22, tint: "#17205c", dur: 112, delay: -12, flow: 1 },
+      { s: "gull", p: "fly", top: "30%", size: .62, o: .5, tint: "#8f9fe0", dur: 76, delay: -30, flow: -1 },
+      { s: "butterfly", p: "flutter", top: "78%", size: .55, o: .62, tint: "#d9a3cf", dur: 58, delay: -18, flow: 1 }
+    ],
+    /* זוג: סנונית ופרפר */
+    pair: [
+      { s: "swallow", p: "fly", top: "24%", size: .55, o: .48, tint: "#8f9fe0", dur: 70, delay: -8, flow: 1 },
+      { s: "butterfly", p: "flutter", top: "70%", size: .48, o: .55, tint: "#e0a6d3", dur: 64, delay: -34, flow: -1 }
+    ],
+    /* שני פרפרים שונים: האחד חוצה, השני מרחף במקום */
+    flutter: [
+      { s: "butterfly", p: "flutter", top: "30%", size: .5, o: .58, tint: "#d9a3cf", dur: 62, delay: -20, flow: -1 },
+      { s: "moth", p: "hover", top: "66%", size: .42, o: .5, tint: "#a9b6e8", dur: 34, delay: -6, ease: "ease-in-out", flow: 1, flap: 1.2 }
+    ],
+    /* שמיים שקטים: להקה רחוקה בלבד */
+    calm: [
+      { s: "flock", p: "fly", top: "20%", size: .9, o: .38, tint: "#8f9fe0", dur: 122, delay: -40, flow: 1 }
+    ],
+    /* דמדומים: צל ציפור וסיס גבוה */
+    dusk: [
+      { s: "shadow", p: "glide", top: "22%", size: .95, o: .18, tint: "#17205c", dur: 130, delay: -64, flow: -1 },
+      { s: "swift", p: "soar", top: "52%", size: .45, o: .4, tint: "#b9a7e6", dur: 92, delay: -24, flow: 1 }
+    ],
+    /* עדין: יונה קרובה ופרפר רך */
+    soft: [
+      { s: "dove", p: "fly", top: "26%", size: .6, o: .45, tint: "#8f9fe0", dur: 82, delay: -16, flow: -1 },
+      { s: "butterfly", p: "flutter", top: "72%", size: .46, o: .5, tint: "#d9a3cf", dur: 68, delay: -46, flow: 1 }
+    ]
+  };
+
+  function mountSky(host, presetName) {
+    var plan = SKY_PRESETS[presetName];
+    if (!plan || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var layer = host.classList.contains("birds") ? host : host.querySelector(".birds");
+    if (!layer) {
+      layer = document.createElement("div");
+      layer.className = "birds";
+      layer.setAttribute("aria-hidden", "true");
+      host.insertBefore(layer, host.firstChild);
+    }
+    plan.forEach(function (c) {
+      var item = document.createElement("div");
+      item.className = "sky-item s-" + c.s;
+      item.setAttribute("aria-hidden", "true");
+      item.style.top = c.top;
+      item.style.width = Math.round((SKY_W[c.s] || 64) * c.size) + "px";
+      item.style.setProperty("--tint", c.tint);
+      item.style.setProperty("--o", c.o);
+      item.style.setProperty("--path", c.flow === -1 ? (SKY_BACK[c.p] || c.p) : c.p);
+      item.style.setProperty("--dur", c.dur + "s");
+      item.style.setProperty("--delay", c.delay + "s");
+      item.style.setProperty("--size", c.size);
+      item.style.setProperty("--flow", c.flow || 1);
+      item.style.setProperty("--dir", c.dir || c.flow || 1);
+      item.style.setProperty("--flap", (c.flap || (2.6 + Math.random() * 2.4)).toFixed(2) + "s");
+      if (c.ease) item.style.setProperty("--ease", c.ease);
+      item.innerHTML = SKY_ART[c.s];
+      layer.appendChild(item);
     });
   }
-  addBirds(document.querySelector(".hero .birds") || document.querySelector(".birds"));
+  document.querySelectorAll("[data-sky]").forEach(function (host) {
+    mountSky(host, host.getAttribute("data-sky"));
+  });
 
   /* ---------- Falling petals on page-hero sections ---------- */
   function addPetals(host, n) {

@@ -704,33 +704,97 @@ ul.plain li::before {
 .reveal.d2 { transition-delay: .24s; }
 .reveal.d3 { transition-delay: .36s; }
 
-/* ---------------- Decorative birds & petals ---------------- */
+/* ---------------- שמיים: ציפורים, צל ציפור ופרפרים ---------------- */
 .birds { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
-.bird {
+/* כל דמות יכולה לקבל צבע (--tint), שקיפות (--o), מסלול (--path),
+   משך (--dur), השהיה (--delay), גודל (--size), קצב כנפיים (--flap)
+   וכיוון הדמות עצמה (--dir) */
+.sky-item {
   position: absolute;
-  opacity: .55;
-  animation: fly var(--dur, 46s) linear infinite;
+  left: 0;
+  color: var(--tint, #8f9fe0);
+  opacity: var(--o, .5);
+  will-change: transform;
+  animation: var(--path, fly) var(--dur, 60s) var(--ease, linear) infinite;
   animation-delay: var(--delay, 0s);
-  transform: scale(var(--scale, 1));
 }
-.bird svg { display: block; width: 100%; height: auto; overflow: visible; }
-.bird .w1, .bird .w2 { transform-box: view-box; transform-origin: 32px 22px; }
-.bird .w1 { animation: flapA var(--flap, 4s) ease-in-out infinite; }
-.bird .w2 { animation: flapB var(--flap, 4s) ease-in-out infinite; }
-@keyframes flapA { 0%, 100% { transform: rotate(7deg); } 50% { transform: rotate(-32deg); } }
-@keyframes flapB { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(32deg); } }
+.sky-item svg { display: block; width: 100%; height: auto; overflow: visible; }
+.sky-item .wl, .sky-item .wr { transform-box: view-box; }
+/* כנפיים מנופפות — כל ציפור לפי מבנה הכנף שלה */
+.sky-item .wl { animation: flapL var(--flap, 4s) ease-in-out infinite; }
+.sky-item .wr { animation: flapR var(--flap, 4s) ease-in-out infinite; }
+@keyframes flapL { 0%, 100% { transform: rotate(7deg); } 50% { transform: rotate(-30deg); } }
+@keyframes flapR { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(30deg); } }
+.s-gull .wl, .s-gull .wr { transform-origin: 30px 15px; }
+.s-swallow .wl, .s-swallow .wr { transform-origin: 32px 14px; }
+.s-swift .wl, .s-swift .wr { transform-origin: 32px 15px; }
+.s-dove .wl, .s-dove .wr, .s-shadow .wl, .s-shadow .wr { transform-origin: 32px 22px; }
+/* פרפרים ועשים — הכנפיים נסגרות ונפתחות סביב ציר הגוף */
+.s-butterfly .wl, .s-butterfly .wr, .s-moth .wl, .s-moth .wr { transform-origin: 30px 23px; animation-name: wingOpen; }
+@keyframes wingOpen { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.42); } }
+/* צל ציפור — דמות כהה, מטושטשת ורכה */
+.sky-item.s-shadow { filter: blur(1.6px); }
+
+/* מסלולי תעופה. שמות המסלולים הכפולים (Back) הם תנועה מימין לשמאל,
+   כלומר כל מסלול קיים בשתי גרסאות מראה — כדי שהציפור תמיד תעבור את כל המסך */
 @keyframes fly {
-  from { transform: translate3d(-10vw, 0, 0) scale(var(--scale, 1)); }
-  35%  { transform: translate3d(18vw, -3vh, 0) scale(var(--scale, 1)); }
-  70%  { transform: translate3d(58vw, -1.5vh, 0) scale(var(--scale, 1)); }
-  to   { transform: translate3d(110vw, -6vh, 0) scale(var(--scale, 1)); }
+  from { transform: translate3d(-14vw, 0, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)); }
+  35%  { transform: translate3d(18vw, -3vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(2deg * var(--dir, 1))); }
+  70%  { transform: translate3d(58vw, -1.5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-2deg * var(--dir, 1))); }
+  to   { transform: translate3d(114vw, -6vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)); }
 }
-.bird.flip { animation-name: flyFlip; }
-@keyframes flyFlip {
-  from { transform: translate3d(110vw, 0, 0) scale(var(--scale, 1)) scaleX(-1); }
-  35%  { transform: translate3d(82vw, -3vh, 0) scale(var(--scale, 1)) scaleX(-1); }
-  70%  { transform: translate3d(42vw, -1.5vh, 0) scale(var(--scale, 1)) scaleX(-1); }
-  to   { transform: translate3d(-10vw, -5vh, 0) scale(var(--scale, 1)) scaleX(-1); }
+@keyframes flyBack {
+  from { transform: translate3d(114vw, -6vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)); }
+  35%  { transform: translate3d(82vw, -3vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-2deg * var(--dir, 1))); }
+  70%  { transform: translate3d(42vw, -1.5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(2deg * var(--dir, 1))); }
+  to   { transform: translate3d(-14vw, 0, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)); }
+}
+/* גלישה שקטה ורחבה — לצל הציפור */
+@keyframes glide {
+  0%   { transform: translate3d(-18vw, 8vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-3deg * var(--dir, 1))); opacity: 0; }
+  12%  { opacity: var(--o, .2); }
+  45%  { transform: translate3d(40vw, -5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(2deg * var(--dir, 1))); }
+  82%  { opacity: var(--o, .2); }
+  100% { transform: translate3d(118vw, 5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-2deg * var(--dir, 1))); opacity: 0; }
+}
+@keyframes glideBack {
+  0%   { transform: translate3d(118vw, 5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-2deg * var(--dir, 1))); opacity: 0; }
+  18%  { opacity: var(--o, .2); }
+  55%  { transform: translate3d(40vw, -5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(2deg * var(--dir, 1))); }
+  88%  { opacity: var(--o, .2); }
+  100% { transform: translate3d(-18vw, 8vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-3deg * var(--dir, 1))); opacity: 0; }
+}
+/* ריחוף גלי — לפרפרים */
+@keyframes flutter {
+  0%   { transform: translate3d(-12vw, 2vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-6deg * var(--dir, 1))); }
+  16%  { transform: translate3d(8vw, -6vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(5deg * var(--dir, 1))); }
+  34%  { transform: translate3d(28vw, 4vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-4deg * var(--dir, 1))); }
+  52%  { transform: translate3d(50vw, -5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(6deg * var(--dir, 1))); }
+  70%  { transform: translate3d(74vw, 3vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-5deg * var(--dir, 1))); }
+  86%  { transform: translate3d(96vw, -4vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(4deg * var(--dir, 1))); }
+  100% { transform: translate3d(116vw, 1vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-3deg * var(--dir, 1))); }
+}
+@keyframes flutterBack {
+  0%   { transform: translate3d(116vw, 1vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-3deg * var(--dir, 1))); }
+  14%  { transform: translate3d(96vw, -4vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(4deg * var(--dir, 1))); }
+  30%  { transform: translate3d(74vw, 3vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-5deg * var(--dir, 1))); }
+  48%  { transform: translate3d(50vw, -5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(6deg * var(--dir, 1))); }
+  66%  { transform: translate3d(28vw, 4vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-4deg * var(--dir, 1))); }
+  84%  { transform: translate3d(8vw, -6vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(5deg * var(--dir, 1))); }
+  100% { transform: translate3d(-12vw, 2vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-6deg * var(--dir, 1))); }
+}
+/* ריחוף במקום — לעש שמסתובב סביב נקודה אחת */
+@keyframes hover {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(var(--size, 1)) rotate(calc(-4deg * var(--dir, 1))); }
+  25% { transform: translate3d(calc(5vw * var(--dir, 1)), -4vh, 0) scale(var(--size, 1)) rotate(calc(4deg * var(--dir, 1))); }
+  50% { transform: translate3d(0, -7vh, 0) scale(var(--size, 1)) rotate(calc(-2deg * var(--dir, 1))); }
+  75% { transform: translate3d(calc(-5vw * var(--dir, 1)), -3vh, 0) scale(var(--size, 1)) rotate(calc(5deg * var(--dir, 1))); }
+}
+/* דאייה גבוהה — לציפור שמתרוממת ויורדת במרחק */
+@keyframes soar {
+  0%   { transform: translate3d(16vw, 0, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)); }
+  50%  { transform: translate3d(58vw, -9vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-8deg * var(--dir, 1))); }
+  100% { transform: translate3d(106vw, 0, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)); }
 }
 
 .petal {
