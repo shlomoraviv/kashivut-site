@@ -36,7 +36,7 @@
   --font-body: "Assistant", "Heebo", sans-serif;
 
   --container: 1140px;
-  --nav-h: 90px;
+  --nav-h: 100px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -132,7 +132,7 @@ ul.plain li::before {
   border: 1.5px solid var(--lilac-soft);
 }
 .btn-ghost:hover { border-color: var(--pink); color: var(--blue-ink); transform: translateY(-2px); }
-/* כפתור מסגרת שקופה — רקע שקוף עם מסגרת כחולה עדינה (כרטיסי הקורסים ו"צור קשר" בסרגל) */
+/* כפתור מסגרת שקופה — רקע שקוף עם מסגרת כחולה עדינה (כרטיסי הקורסים) */
 .btn-frame {
   background: transparent;
   color: var(--blue-ink);
@@ -169,7 +169,7 @@ ul.plain li::before {
 .nav-bar > nav { flex: 1; }
 /* הלוגו בלבד — בלי טקסט — והוא משמש כקישור לדף הבית */
 .brand { display: flex; align-items: center; }
-.brand img { width: 70px; height: 70px; object-fit: contain; transition: transform .25s ease; }
+.brand img { width: 84px; height: 84px; object-fit: contain; transition: transform .25s ease; }
 .brand:hover img { transform: scale(1.05); }
 
 .nav-links { display: flex; align-items: center; gap: .35rem; list-style: none; width: 100%; }
@@ -185,19 +185,13 @@ ul.plain li::before {
 .nav-cta { margin-inline-start: auto; }
 /* כפתור צור קשר — פינה מעוגלת קלות במקום גלולה מלאה */
 .nav-cta .btn { border-radius: var(--radius-sm); padding: .85em 1.95em; font-size: 1.05rem; }
-/* "צור קשר" — כיתוב כחול כהה על רקע לבן עם מסגרת כהה */
-.nav-cta .btn-frame {
-  background: var(--white);
-  border: 2px solid rgba(30, 42, 110, .6);
-  color: var(--blue-ink);
-  font-weight: 700;
-  box-shadow: 0 6px 16px -12px rgba(30, 42, 110, .45);
+/* "צור קשר" — תמיד בכחול הכהה של האתר עם כיתוב לבן, גם במעבר עכבר */
+.nav-cta .btn-primary, .nav-cta .btn-primary:hover {
+  background: var(--blue);
+  color: #fff;
 }
-.nav-cta .btn-frame:hover {
-  background: var(--white);
-  border-color: var(--blue-ink);
-  box-shadow: 0 12px 22px -14px rgba(30, 42, 110, .6);
-}
+.nav-cta .btn-primary { box-shadow: 0 10px 24px -14px rgba(30, 42, 110, .55); }
+.nav-cta .btn-primary:hover { box-shadow: 0 16px 28px -14px rgba(30, 42, 110, .6); }
 
 .nav-toggle {
   display: none;
@@ -820,8 +814,9 @@ ul.plain li::before {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* סרגל צר יותר — הקישורים מצטמצמים כדי שהסרגל הגדול יישאר מרווח */
-@media (max-width: 980px) {
+/* סרגל צר יותר — הקישורים והלוגו מצטמצמים כדי שהסרגל הגדול יישאר מרווח */
+@media (max-width: 1060px) {
+  .brand img { width: 76px; height: 76px; }
   .nav-links a { padding: .5em .7em; font-size: 1rem; }
   .nav-cta .btn { padding: .75em 1.4em; font-size: 1rem; }
 }
@@ -833,9 +828,9 @@ ul.plain li::before {
   .split-media.tall { aspect-ratio: 4 / 3; }
   .contact-grid { grid-template-columns: 1fr; }
 
-  :root { --nav-h: 80px; }
+  :root { --nav-h: 88px; }
   .nav-toggle { display: block; }
-  .brand img { width: 62px; height: 62px; }
+  .brand img { width: 72px; height: 72px; }
   .nav-links {
     position: fixed;
     top: var(--nav-h); right: 0; left: 0;
