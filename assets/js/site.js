@@ -529,7 +529,7 @@
           form.reset();
         } else {
           res.json().catch(function () { return {}; }).then(function (data) {
-            show("err", (data && data.errors && data.errors[0] && data.errors[0].message) || "השליחה לא הצליחה. אפשר לנסות שוב, או להתקשר 055-5535964.");
+            show("err", (data && data.errors && data.errors[0] && data.errors[0].message) || "השליחה לא הצליחה. אפשר לנסות שוב, לכתוב לנו לכתובת kashivut@gmail.com או להתקשר 055-5535964.");
           });
         }
       }).catch(function () {
