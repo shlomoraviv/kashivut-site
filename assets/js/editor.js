@@ -865,6 +865,23 @@
     });
   }
 
+  /* בדיקת הרשאת כתיבה אמיתית, בלי לשנות שום דבר בריפו:
+     PUT לקובץ קיים *בלי* sha נדחה על ידי GitHub ב-422 אם יש הרשאת כתיבה
+     ("sha wasn't supplied"), וב-403/404 אם אין. לכן אין כאן יצירה או שינוי. */
+  function ghProbeWrite(cfg) {
+    var url = "https://api.github.com/repos/" + cfg.owner + "/" + cfg.repo + "/contents/" + CONTENT_FILE;
+    return ghGet(cfg, CONTENT_FILE).then(function (existing) {
+      if (!existing || !existing.sha) return { known: false };
+      return fetch(url, {
+        method: "PUT",
+        headers: ghHeaders(cfg),
+        body: JSON.stringify({ message: "בדיקת הרשאת כתיבה (ללא שינוי)", content: "e30=", branch: cfg.branch })
+      }).then(function (r) {
+        return { known: true, status: r.status, canWrite: r.status === 422 };
+      });
+    }).catch(function () { return { known: false }; });
+  }
+
   function mergedPages() {
     var out = {}, pub = publishedAll(), d = draftAll();
     Object.keys(pub).forEach(function (p) { out[p] = Object.assign({}, pub[p]); });
@@ -915,7 +932,9 @@
       })
       .catch(function (err) {
         var msg = "הפרסום נכשל: " + (err && err.message ? err.message : "שגיאה");
-        if (err && (err.status === 401 || err.status === 403)) msg = "הטוקן לא תקין או שאין לו הרשאת כתיבה לריפו.";
+        if (err && (err.status === 401 || err.status === 403)) {
+          msg = "הטוקן לא תקין או שאין לו הרשאת כתיבה לריפו — צריך טוקן fine-grained עם Contents: Read and write.";
+        }
         if (err && err.status === 409) msg = "הקובץ עודכן במקום אחר — נסו לפרסם שוב.";
         toast(msg, true);
         if (onDone) onDone();
@@ -1152,8 +1171,20 @@
       msg.className = "kx-msg";
       msg.textContent = "בודק…";
       ghGet(v, CONTENT_FILE).then(function () {
-        msg.className = "kx-msg is-ok";
-        msg.textContent = "החיבור תקין — אפשר לפרסם.";
+        /* קריאה עבדה — עכשיו בודקים גם הרשאת כתיבה, כדי שלא נתגלה רק בפרסום */
+        return ghProbeWrite(v);
+      }).then(function (probe) {
+        if (probe && probe.known && probe.canWrite) {
+          msg.className = "kx-msg is-ok";
+          msg.textContent = "החיבור תקין וגם הרשאת הכתיבה קיימת — אפשר לפרסם.";
+        } else if (probe && probe.known) {
+          msg.className = "kx-msg is-err";
+          msg.textContent = "הטוקן קורא את הריפו אבל אין לו הרשאת כתיבה (HTTP " + probe.status
+            + "). צריך טוקן עם Contents: Read and write.";
+        } else {
+          msg.className = "kx-msg is-ok";
+          msg.textContent = "הקריאה תקינה. לא הצלחתי לבדוק הרשאת כתיבה — נסו לפרסם.";
+        }
       }).catch(function (err) {
         msg.className = "kx-msg is-err";
         msg.textContent = "החיבור נכשל: " + (err && err.message ? err.message : "שגיאה");
