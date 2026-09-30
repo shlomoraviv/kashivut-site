@@ -1,0 +1,373 @@
+/* ============================================================
+   קשיבות — editor.css
+   מצב ניהול: עריכת טקסטים על המסך.
+   הקובץ נטען בכל העמודים, אבל אינו משנה דבר עבור מבקרות באתר:
+   כל הרכיבים מוזרקים ל-DOM רק בעת הצורך (לחיצה על כפתור "ניהול").
+   ============================================================ */
+
+/* ---------- כפתור הניהול המוסתר שבתחתית האתר ---------- */
+.kx-dot {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  z-index: 96;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  height: 38px;
+  padding: 0 .85rem;
+  border: 0;
+  border-start-end-radius: 14px;
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .8rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .3s ease, background .3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.kx-dot-in {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: currentColor;
+  opacity: .6;
+  transition: opacity .3s ease, transform .3s ease;
+}
+.kx-dot-txt {
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity .3s ease, transform .3s ease;
+  white-space: nowrap;
+}
+.kx-dot:hover,
+.kx-dot:focus-visible,
+.kx-dot:active {
+  opacity: 1;
+  background: rgba(23, 32, 92, .94);
+}
+.kx-dot:hover .kx-dot-txt,
+.kx-dot:focus-visible .kx-dot-txt,
+.kx-dot:active .kx-dot-txt { opacity: 1; transform: none; }
+.kx-dot:hover .kx-dot-in,
+.kx-dot:focus-visible .kx-dot-in { opacity: 1; transform: scale(1.15); }
+.kx-dot:focus-visible { outline: 3px solid var(--pink-hot); outline-offset: 2px; }
+
+/* ---------- שכבת רקע + חלוניות ---------- */
+.kx-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1.1rem;
+  background: rgba(23, 32, 92, .52);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(7px);
+  animation: kxFade .22s ease both;
+}
+@keyframes kxFade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes kxRise { from { opacity: 0; transform: translateY(14px) scale(.98) } to { opacity: 1; transform: none } }
+
+.kx-modal {
+  width: min(430px, 100%);
+  max-height: calc(100vh - 2.2rem);
+  overflow: auto;
+  background: var(--cream);
+  color: var(--ink);
+  border-radius: var(--radius-md);
+  box-shadow: 0 40px 90px -30px rgba(23, 32, 92, .65);
+  padding: 1.9rem 1.6rem 1.5rem;
+  text-align: center;
+  animation: kxRise .28s cubic-bezier(.34, 1.3, .64, 1) both;
+}
+.kx-modal--wide { width: min(560px, 100%); text-align: start; }
+.kx-lock {
+  display: grid;
+  place-items: center;
+  width: 62px; height: 62px;
+  margin: 0 auto .9rem;
+  border-radius: 50%;
+  background: linear-gradient(150deg, #2b3880, var(--blue) 60%, var(--blue-deep));
+  color: #fff;
+}
+.kx-lock svg { width: 28px; height: 28px; display: block; }
+.kx-modal h2 {
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--blue-ink);
+  margin: 0 0 .35rem;
+}
+.kx-sub {
+  font-size: .92rem;
+  color: var(--muted);
+  margin: 0 0 1.2rem;
+  line-height: 1.6;
+}
+.kx-field { display: block; margin: 0 0 .75rem; text-align: start; }
+.kx-field > span {
+  display: block;
+  font-size: .8rem;
+  font-weight: 700;
+  font-family: var(--font-head);
+  color: var(--blue-ink);
+  margin-bottom: .35rem;
+}
+.kx-input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: .8rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(30, 42, 110, .22);
+  background: #fff;
+  color: var(--ink);
+  text-align: center;
+}
+.kx-input::placeholder { color: #a7adbd; }
+.kx-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(30, 42, 110, .12);
+}
+.kx-input[dir="ltr"] { text-align: start; }
+
+.kx-msg {
+  min-height: 1.3rem;
+  font-size: .85rem;
+  font-weight: 600;
+  margin: .5rem 0 0;
+  color: var(--muted);
+}
+.kx-msg.is-err { color: #c0392b; }
+.kx-msg.is-ok { color: #1f7a4d; }
+
+.kx-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  justify-content: center;
+  margin-top: 1.1rem;
+}
+.kx-modal--wide .kx-row { justify-content: flex-start; }
+.kx-actions-end { display: flex; gap: .6rem; justify-content: flex-end; margin-top: 1.2rem; }
+
+/* ---------- כפתורים של חלון הניהול (עצמאיים, לא תלויים ב-style.css) ---------- */
+.kx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .9rem;
+  line-height: 1.2;
+  padding: .7em 1.35em;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  background: rgba(30, 42, 110, .08);
+  color: var(--blue-ink);
+  transition: background .2s ease, transform .2s ease, color .2s ease;
+}
+.kx-btn:hover { transform: translateY(-1px); background: rgba(30, 42, 110, .14); }
+.kx-btn:focus-visible { outline: 3px solid var(--pink-hot); outline-offset: 2px; }
+.kx-btn--primary { background: var(--blue); color: #fff; }
+.kx-btn--primary:hover { background: var(--blue-deep); color: #fff; }
+.kx-btn--dark { background: rgba(255, 255, 255, .14); color: #fff; }
+.kx-btn--dark:hover { background: rgba(255, 255, 255, .24); color: #fff; }
+.kx-btn--warn { background: rgba(192, 57, 43, .12); color: #a5301f; }
+.kx-btn--warn:hover { background: rgba(192, 57, 43, .2); color: #8e2817; }
+.kx-btn[disabled] { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* ---------- סרגל הניהול בתחתית המסך ---------- */
+.kx-bar {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 130;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  padding: .55rem clamp(.6rem, 2vw, 1.4rem);
+  background: rgba(23, 32, 92, .97);
+  color: #fff;
+  box-shadow: 0 -16px 40px -22px rgba(23, 32, 92, .9);
+  font-family: var(--font-body);
+  animation: kxRise .3s ease both;
+}
+body.kx-editing { padding-block-end: 5.6rem; }
+.kx-bar-title {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: .85rem;
+  margin-inline-end: .3rem;
+}
+.kx-bar-title i {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--pink-hot);
+  box-shadow: 0 0 0 4px rgba(242, 107, 181, .25);
+}
+.kx-bar-status {
+  font-size: .82rem;
+  color: rgba(255, 255, 255, .82);
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  flex-wrap: wrap;
+}
+.kx-bar-status b { color: #fff; }
+.kx-select {
+  font-family: var(--font-body);
+  font-size: .82rem;
+  padding: .45rem .6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .32);
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+}
+.kx-select option { color: var(--ink); }
+.kx-bar .kx-btn { padding: .55em 1.05em; font-size: .82rem; }
+.kx-save-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: #6ee7a8;
+  display: inline-block;
+}
+.kx-save-dot.is-dirty { background: #ffd166; }
+
+/* ---------- סימון הטקסטים הניתנים לעריכה ---------- */
+body.kx-editing [data-kx-id] {
+  outline: 1px dashed rgba(242, 107, 181, .5);
+  outline-offset: 4px;
+  border-radius: 6px;
+  min-width: 1.5em;
+  transition: background .18s ease, outline-color .18s ease, box-shadow .18s ease;
+  cursor: text;
+}
+body.kx-editing [data-kx-id]:hover {
+  background: rgba(143, 161, 222, .16);
+  outline-color: var(--pink-hot);
+}
+body.kx-editing [data-kx-id]:focus {
+  outline: 2px solid var(--pink-hot);
+  background: rgba(143, 161, 222, .2);
+  box-shadow: 0 0 0 6px rgba(242, 181, 220, .28);
+}
+body.kx-editing [data-kx-id].kx-dirty {
+  background: rgba(255, 209, 102, .28);
+  outline-color: var(--blue);
+}
+/* במצב עריכה אין ניווט מתוך הטקסט — הקישור מתנהג כטקסט בלבד */
+body.kx-editing [data-kx-id] a,
+body.kx-editing [data-kx-id] button,
+body.kx-editing a[data-kx-id],
+body.kx-editing button[data-kx-id] { pointer-events: none; }
+body.kx-editing .kx-ico-lock { pointer-events: none; }
+
+/* ---------- הודעה צפה ---------- */
+.kx-toast {
+  position: fixed;
+  left: 50%;
+  inset-block-end: 5.4rem;
+  z-index: 220;
+  transform: translateX(-50%) translateY(14px);
+  opacity: 0;
+  pointer-events: none;
+  padding: .7rem 1.3rem;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .88rem;
+  box-shadow: 0 20px 40px -18px rgba(23, 32, 92, .8);
+  transition: opacity .25s ease, transform .25s ease;
+  max-width: min(90vw, 520px);
+  text-align: center;
+}
+.kx-toast.is-on { opacity: 1; transform: translateX(-50%); }
+.kx-toast.is-err { background: #a5301f; }
+
+/* ---------- רשימת גיבויים ---------- */
+.kx-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 46vh;
+  overflow: auto;
+  border: 1px solid rgba(30, 42, 110, .14);
+  border-radius: var(--radius-sm);
+  background: #fff;
+}
+.kx-list li {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  justify-content: space-between;
+  padding: .6rem .8rem;
+  border-bottom: 1px solid rgba(30, 42, 110, .1);
+  font-size: .85rem;
+}
+.kx-list li:last-child { border-bottom: 0; }
+.kx-list time { color: var(--muted); font-size: .8rem; }
+.kx-hint {
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: .2rem 0 .9rem;
+}
+.kx-hint code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  background: rgba(30, 42, 110, .08);
+  border-radius: 5px;
+  padding: .1em .45em;
+  direction: ltr;
+  display: inline-block;
+}
+.kx-note {
+  background: rgba(143, 161, 222, .14);
+  border-radius: var(--radius-sm);
+  padding: .7rem .9rem;
+  font-size: .82rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0 0 1rem;
+}
+.kx-visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  /* בנייד הסרגל נשאר שורה אחת שנגלשת לרוחב — כדי שלא יסתיר חצי מסך */
+  .kx-bar {
+    gap: .35rem;
+    padding: .45rem .55rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .kx-bar::-webkit-scrollbar { display: none; }
+  .kx-bar > * { flex: 0 0 auto; }
+  .kx-bar-title { font-size: .78rem; }
+  .kx-bar .kx-btn { padding: .5em .8em; font-size: .76rem; }
+  .kx-bar-status { font-size: .74rem; margin-inline-start: 0; }
+  body.kx-editing { padding-block-end: 4.4rem; }
+  .kx-modal { padding: 1.5rem 1.1rem 1.2rem; }
+  .kx-modal h2 { font-size: 1.15rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kx-scrim, .kx-modal, .kx-bar { animation: none !important; }
+}
