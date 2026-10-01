@@ -986,6 +986,13 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 }
 .hero.has-photo h1,
 .hero.has-photo .lead { text-shadow: 0 1px 18px rgba(251,247,239,.95), 0 0 3px rgba(255,255,255,.65); }
+
+/* כותרת עמוד הבית נשארת תמיד בשורה אחת:
+   הגודל נגזר מרוחב עמודת הטקסט (100cqw) ולא ממסך שלם —
+   הטקסט בכותרת הוא כ-11.8em, ולכן חלוקה ב-12.2 משאירה שוליים קטנים
+   והשבירה נעשית רק אם בעתיד ייכתב טקסט ארוך בהרבה */
+.hero-copy { container-type: inline-size; }
+.hero.has-photo .hero-copy h1 { font-size: min(3.4rem, calc(100cqw / 12.2)); }
 @media (max-width: 1020px) {
   .hero-photo, .arch-sharp { background-image: url("../img/hero-dreamy-960.webp"); }
 }
