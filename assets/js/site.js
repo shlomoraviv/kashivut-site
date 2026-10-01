@@ -279,6 +279,19 @@
       + '<ellipse cx="30" cy="25" rx="3" ry="9" fill="currentColor"/>'
       + '<path d="M30 16c-3-4-6-6-9-6M30 16c3-4 6-6 9-6" stroke="currentColor" stroke-width="1.1" fill="none"/>'
       + '</svg>',
+    /* צל פרפר — סילואט מלא של פרפר שגולש בשמיים לאט, כמו צל ציפור */
+    "shadow-butterfly": '<svg viewBox="0 0 64 52" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<g class="wl">'
+      + '<path d="M30 25C27 12 19 3 11 4 4 5-1 13 4 19c5 6 15 8 26 6Z" fill="currentColor"/>'
+      + '<path d="M30 31C21 30 13 34 14 41c1 6 9 8 13 2 2-3 3-7 3-12Z" fill="currentColor"/>'
+      + '</g>'
+      + '<g class="wr">'
+      + '<path d="M34 25C37 12 45 3 53 4 60 5 65 13 60 19c-5 6-15 8-26 6Z" fill="currentColor"/>'
+      + '<path d="M34 31C43 30 51 34 50 41c-1 6-9 8-13 2-2-3-3-7-3-12Z" fill="currentColor"/>'
+      + '</g>'
+      + '<ellipse cx="32" cy="32" rx="2.3" ry="10" fill="currentColor"/>'
+      + '<circle cx="32" cy="21" r="2.4" fill="currentColor"/>'
+      + '</svg>',
     /* צל ציפור — דמות מלאה ושקטה שמטילה צל חולף */
     shadow: '<svg viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">'
       + '<path class="wl" d="M31 22C22 6 8 4 2 10c-4 5 2 16 14 22 6 3 12 3 15 1Z" fill="currentColor"/>'
@@ -303,7 +316,7 @@
       + '<path d="M39 24c-.4 3-1.6 5.4-4 7 2.8-.4 3.8-1.6 4-3.2.2 1.6 1.2 2.8 4 3.2-2.4-1.6-3.6-4-4-7Z" fill="currentColor"/>'
       + '</svg>'
   };
-  var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, butterfly: 60, moth: 60, shadow: 64, "shadow-md": 78, "shadow-sm": 48 };
+  var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, butterfly: 60, moth: 60, shadow: 64, "shadow-md": 78, "shadow-sm": 48, "shadow-butterfly": 64 };
   /* לכל מסלול יש גרסת מראה לתנועה מימין לשמאל */
   var SKY_BACK = { fly: "flyBack", glide: "glideBack", flutter: "flutterBack" };
 
@@ -312,6 +325,7 @@
     /* מסך הכניסה: צל ציפור חוצה את הנוף, שחף רחוק ופרפר קרוב */
     hero: [
       { s: "shadow", p: "glide", top: "10%", size: 1.3, o: .22, tint: "#17205c", dur: 112, delay: -12, flow: 1 },
+      { s: "shadow-butterfly", p: "glide", top: "44%", size: 1.15, o: .17, tint: "#17205c", dur: 196, delay: -58, flow: 1 },
       { s: "gull", p: "fly", top: "30%", size: .62, o: .5, tint: "#8f9fe0", dur: 76, delay: -30, flow: -1 },
       { s: "butterfly", p: "flutter", top: "78%", size: .55, o: .62, tint: "#d9a3cf", dur: 58, delay: -18, flow: 1 }
     ],
@@ -340,12 +354,14 @@
       { s: "shadow-md", p: "glide", top: "12%", size: 1.05, o: .16, tint: "#17205c", dur: 152, delay: -8, flow: 1 },
       { s: "shadow-sm", p: "glide", top: "34%", size: .7, o: .21, tint: "#1e2a6e", dur: 128, delay: -58, flow: -1 },
       { s: "shadow", p: "glide", top: "62%", size: .9, o: .15, tint: "#17205c", dur: 178, delay: -102, flow: -1 },
-      { s: "shadow-sm", p: "glide", top: "84%", size: .6, o: .23, tint: "#1e2a6e", dur: 116, delay: -24, flow: 1 }
+      { s: "shadow-sm", p: "glide", top: "84%", size: .6, o: .23, tint: "#1e2a6e", dur: 116, delay: -24, flow: 1 },
+      { s: "shadow-butterfly", p: "glide", top: "46%", size: 1, o: .19, tint: "#17205c", dur: 188, delay: -64, flow: 1 }
     ],
     /* מנה קטנה: צל גדול אחד וצל קטן אחד */
     "shadows-few": [
       { s: "shadow", p: "glide", top: "24%", size: 1.1, o: .16, tint: "#17205c", dur: 168, delay: -34, flow: 1 },
-      { s: "shadow-sm", p: "glide", top: "72%", size: .68, o: .22, tint: "#1e2a6e", dur: 124, delay: -76, flow: -1 }
+      { s: "shadow-sm", p: "glide", top: "72%", size: .68, o: .22, tint: "#1e2a6e", dur: 124, delay: -76, flow: -1 },
+      { s: "shadow-butterfly", p: "glide", top: "48%", size: .92, o: .18, tint: "#1e2a6e", dur: 174, delay: -98, flow: -1 }
     ],
     soft: [
       { s: "dove", p: "fly", top: "26%", size: .6, o: .45, tint: "#8f9fe0", dur: 82, delay: -16, flow: -1 },

@@ -700,9 +700,12 @@ ul.plain li::before {
 /* צל ציפור — דמות כהה, מטושטשת ורכה, בשלושה גדלים: גדול, בינוני, קטן */
 .sky-item.s-shadow, .sky-item.s-shadow-md { filter: blur(1.5px); }
 .sky-item.s-shadow-sm { filter: blur(1.1px); }
+/* צל פרפר — אותו צל רך, אבל סילואט של פרפר שגולש לאט בשמיים */
+.sky-item.s-shadow-butterfly { filter: blur(1.35px); }
 /* כנפי הצל גולשות ברכות במקום לנפנף */
-.s-shadow .wl, .s-shadow-md .wl, .s-shadow-sm .wl { animation-name: swayL; }
-.s-shadow .wr, .s-shadow-md .wr, .s-shadow-sm .wr { animation-name: swayR; }
+.s-shadow .wl, .s-shadow-md .wl, .s-shadow-sm .wl, .s-shadow-butterfly .wl { animation-name: swayL; }
+.s-shadow .wr, .s-shadow-md .wr, .s-shadow-sm .wr, .s-shadow-butterfly .wr { animation-name: swayR; }
+.s-shadow-butterfly .wl, .s-shadow-butterfly .wr { transform-origin: 32px 27px; }
 @keyframes swayL { 0%, 100% { transform: rotate(3deg); } 50% { transform: rotate(-2.5deg); } }
 @keyframes swayR { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(2.5deg); } }
 
