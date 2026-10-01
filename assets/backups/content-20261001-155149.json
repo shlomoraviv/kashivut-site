@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "saved": "2026-10-01T12:51:49.252Z",
+  "page": "index.html",
+  "backups": [
+    {
+      "ts": 1790859105978,
+      "kind": "פרסום",
+      "page": "index.html",
+      "draft": {
+        "index.html": {
+          "set": {
+            "body-main-section-div_6-div-h1": "קשיבות.<br>בית הספר למיינדפולנס"
+          },
+          "del": []
+        },
+        "updated": "2026-10-01T12:51:45.978Z"
+      }
+    }
+  ],
+  "draft": {
+    "index.html": {
+      "set": {
+        "body-main-section-div_6-div-h1": "קשיבות.<br>בית הספר למיינדפולנס"
+      },
+      "del": []
+    },
+    "updated": "2026-10-01T12:51:45.978Z"
+  }
+}
