@@ -355,7 +355,39 @@
       var html = norm(map[id]);
       if (el.innerHTML.replace(/\s+/g, " ").trim() !== html) { el.innerHTML = html; n++; }
     });
+    applyTextStyles();
     return n;
+  }
+
+  /* ---------------- הדגשות עיצוביות שאי אפשר להקליד במצב הניהול -------------
+     הטקסטים מגיעים מקובץ הטקסטים כטקסט עשיר מוגבל, ולכן מילה שצריכה להיות
+     מודגשת מסומנת כאן — לפי עמוד ולפי מקטע — ומוחלת בכל פעם שהטקסטים
+     מוחלים מחדש. כך ההדגשה נשארת גם כשמפרסמים טקסטים שוב מהאתר. */
+  var TEXT_STYLES = [
+    { page: "index.html", sel: ".hero-copy .lead", bold: "מוזמנת." }
+  ];
+  function applyTextStyles() {
+    TEXT_STYLES.forEach(function (rule) {
+      if (pageKey() !== rule.page) return;
+      var host = document.querySelector(rule.sel);
+      if (!host || host.closest("[data-kx-ui]")) return;
+      var marked = host.querySelectorAll("strong, b"), i;
+      for (i = 0; i < marked.length; i++) {
+        if (marked[i].textContent.trim() === rule.bold) return; /* כבר מודגש */
+      }
+      var walker = document.createTreeWalker(host, 4 /* SHOW_TEXT */, null);
+      var node;
+      while ((node = walker.nextNode())) {
+        var at = node.nodeValue.lastIndexOf(rule.bold);
+        if (at < 0) continue;
+        if (node.nodeValue.slice(at + rule.bold.length).trim()) continue; /* ההדגשה שבסוף המקטע */
+        var strong = document.createElement("strong");
+        strong.textContent = node.nodeValue.slice(at);
+        node.nodeValue = node.nodeValue.slice(0, at);
+        node.parentNode.insertBefore(strong, node.nextSibling);
+        return;
+      }
+    });
   }
 
   /* ---------------- תיעוד טקסט המקור (פעם אחת, לא נדרס) ---------------- */
