@@ -1,22 +1,23 @@
 {
   "version": 1,
-  "updated": "2026-10-01T19:03:28.734Z",
+  "updated": "2026-10-01T19:12:25.673Z",
   "note": "קובץ הטקסטים של האתר. נוצר ממצב הניהול (assets/js/editor.js) — אין לערוך ידנית. כל מפתח הוא נתיב של מקטע בתוך העמוד, והערך הוא הטקסט שיוצג במקום הטקסט המקורי.",
   "pages": {
     "index.html": {
       "body-main-section-div_6-div-h1": "בתוך החיים, בנוכחות אחרת.",
       "body-main-section-div_6-div-p": "גם כשהחיים עמוסים ולא מפסיקים לרגע,<br>אפשר ללמוד להיות בהם קצת אחרת-<br>עם פחות מתח ועומס פנימי, ויותר שקט, יציבות וחיבור לעצמך. <br>מוזמנת.",
-      "body-main-section_2-div_3-div_2-article-div_2-h3": "קורס מיינדפולנס בגישת MBSR",
-      "body-main-section_2-div_3-div_2-article-div_2-p": "קורס הדגל הבסיסי לנשים שפותחות דלת לעולם הקשיבות לראשונה. תהליך הדרגתי ומעמיק להפחתת מתחים ולפיתוח ריכוז ושקט פנימי.",
-      "body-main-section_2-div_3-div_2-article-div_2-ul-li": "9 מפגשים בני שעתיים וחצי",
-      "body-main-section_2-div_3-div_2-article-div_2-ul-li_2": "קבוצות בוטיק אינטימיות",
+      "body-main-section_2-div_3-div_2-article-div_2-h3": "קורס MBSR - להפחתת מתחים באמצעות מיינדפולנס<br>הדרך המקיפה והמעמיקה להתחיל לתרגל מיינדפולנס <br>",
+      "body-main-section_2-div_3-div_2-article-div_2-p": "תכנית בינלאומית מבוססת מחקר המשלבת לימוד ותרגול ומעניקה כלים להתמודדות עם מתח, עומס ואתגרי היומיום.",
+      "body-main-section_2-div_3-div_2-article-div_2-ul-li": "ללא צורך בניסיון קודם",
+      "body-main-section_2-div_3-div_2-article-div_2-ul-li_2": "9 מפגשים בני שעתיים וחצי",
       "body-main-section_2-div_3-div_2-article_2-div_2-h3": "קורס העמקה במיינדפולנס וחמלה<br>",
       "body-main-section_2-div_3-div-p": "<br>",
       "body-main-section_2-div_3-div_2-article_2-div_2-p": "קורס המשך לבוגרות קורס MBSR. תרגול חי, העמקה עדינה והתפתחות אישית בקהילה תומכת.",
       "body-main-section-div_6-div-div-a": "<span><svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M4 20C4 11 10 5 20 5c0 9-6 15-15 15H4Z\"></path><path d=\"M6.5 17.5C10 14 13 11 17 7.5\"></path></svg></span>לפרטים על הקורס הקרוב",
       "body-main-section-div_6-div-div-a_2": "להכיר את הקורסים",
       "body-main-section_2-div_3-div_2-article_3-div_2-p": "יום שלם של שקט, תרגול והתחדשות- מדיטציה מונחית, הליכה מודעת ואכילה בקשיבות. יום אחד של האטה, בטבע, עם עצמך.",
-      "body-main-section_2-div_3-div-h2": "לצעוד בדרך הקשיבות"
+      "body-main-section_2-div_3-div-h2": "לצעוד בדרך הקשיבות",
+      "body-main-section_2-div_3-div_2-article-div_2-ul-li_3": "תרגול וכלים שילוו אותך גם אחרי הקורס"
     }
   }
 }
