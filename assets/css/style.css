@@ -98,6 +98,22 @@ ul.plain li::before {
 .lead { font-size: 1.15rem; color: var(--muted); }
 .section.on-dark .lead { color: #e8ecff; }
 
+/* מלבן של משפט קצר מתחת לכותרת המקטע — מסגרת בהירה ורקע קרם עדין */
+.head-note {
+  display: block;
+  max-width: 32em;
+  margin: 1.5rem auto 0;
+  padding: 1.05rem 1.5rem;
+  border: 1.5px solid rgba(30, 42, 110, .22);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #fdf6ea 0%, #fbf7ef 100%);
+  color: var(--blue-ink);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
 /* ---------------- Buttons ---------------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .55em;
