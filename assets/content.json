@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-01T18:57:54.418Z",
+  "updated": "2026-10-01T19:03:28.734Z",
   "note": "קובץ הטקסטים של האתר. נוצר ממצב הניהול (assets/js/editor.js) — אין לערוך ידנית. כל מפתח הוא נתיב של מקטע בתוך העמוד, והערך הוא הטקסט שיוצג במקום הטקסט המקורי.",
   "pages": {
     "index.html": {
@@ -16,7 +16,7 @@
       "body-main-section-div_6-div-div-a": "<span><svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M4 20C4 11 10 5 20 5c0 9-6 15-15 15H4Z\"></path><path d=\"M6.5 17.5C10 14 13 11 17 7.5\"></path></svg></span>לפרטים על הקורס הקרוב",
       "body-main-section-div_6-div-div-a_2": "להכיר את הקורסים",
       "body-main-section_2-div_3-div_2-article_3-div_2-p": "יום שלם של שקט, תרגול והתחדשות- מדיטציה מונחית, הליכה מודעת ואכילה בקשיבות. יום אחד של האטה, בטבע, עם עצמך.",
-      "body-main-section_2-div_3-div-h2": "לצעוד בדרך קשובה"
+      "body-main-section_2-div_3-div-h2": "לצעוד בדרך הקשיבות"
     }
   }
 }
