@@ -259,30 +259,30 @@
     flock: '<svg viewBox="0 0 72 28" fill="none" xmlns="http://www.w3.org/2000/svg">'
       + '<path d="M2 17c3-5 7-5 10 0M19 9c3-5 7-5 10 0M38 19c3-4 6-4 9 0M55 11c3-4 6-4 9 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>'
       + '</svg>',
-    /* צל ציפור גדול — קו עדין של ציפור במעוף: כנפיים בקשת רדודה, גוף דק וזנב מפוצל */
-    shadow: '<svg viewBox="0 0 84 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">'
-      + '<path class="wl" d="M6 13C19 12 32 15 42 21"/>'
-      + '<path class="wr" d="M78 13C65 12 52 15 42 21"/>'
-      + '<path d="M42 20V33"/>'
-      + '<path d="M42 32l-4 6M42 32l4 6"/>'
+    /* צל ציפור גדול — ציפור גולשת: כנפיים פרושות לרווחה בזווית עדינה, ראש מובחן, גוף דק וזנב מפוצל */
+    shadow: '<svg viewBox="0 0 110 60" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M50 25C42 22 32 19 20 17 12 16 6 15 3 15c6 3 14 6 22 9 7 3 16 7 25 9Z"/>'
+      + '<path class="wr" d="M60 25C68 22 78 19 90 17 98 16 104 15 107 15c-6 3-14 6-22 9-7 3-16 7-25 9Z"/>'
+      + '<path d="M55 13c2.6 0 4.2 2.6 4.2 6.5 0 2.4-.8 4.4-2 5.6 1.6 2.6 2.4 6 2.4 10 0 6.6-1.8 11-4.6 11s-4.6-4.4-4.6-11c0-4 .8-7.4 2.4-10-1.2-1.2-2-3.2-2-5.6 0-3.9 1.6-6.5 4.2-6.5Z"/>'
+      + '<path d="M55 42 48 53l7-3.6 7 3.6Z"/>'
       + '</svg>',
-    /* צל ציפור קטן — אותו קו בגרסה קטנה, עם קו מעט עבה יותר כדי שיישאר נראה */
-    "shadow-sm": '<svg viewBox="0 0 84 48" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">'
-      + '<path class="wl" d="M6 13C19 12 32 15 42 21"/>'
-      + '<path class="wr" d="M78 13C65 12 52 15 42 21"/>'
-      + '<path d="M42 20V33"/>'
-      + '<path d="M42 32l-4 6M42 32l4 6"/>'
+    /* צל ציפור קטן — אותו מעוף גלישה בגרסה קטנה לרקע רחוק */
+    "shadow-sm": '<svg viewBox="0 0 110 60" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M50 25C42 22 32 19 20 17 12 16 6 15 3 15c6 3 14 6 22 9 7 3 16 7 25 9Z"/>'
+      + '<path class="wr" d="M60 25C68 22 78 19 90 17 98 16 104 15 107 15c-6 3-14 6-22 9-7 3-16 7-25 9Z"/>'
+      + '<path d="M55 13c2.6 0 4.2 2.6 4.2 6.5 0 2.4-.8 4.4-2 5.6 1.6 2.6 2.4 6 2.4 10 0 6.6-1.8 11-4.6 11s-4.6-4.4-4.6-11c0-4 .8-7.4 2.4-10-1.2-1.2-2-3.2-2-5.6 0-3.9 1.6-6.5 4.2-6.5Z"/>'
+      + '<path d="M55 42 48 53l7-3.6 7 3.6Z"/>'
       + '</svg>',
-    /* צל ציפור בינוני — אותו קו בגודל בינוני */
-    "shadow-md": '<svg viewBox="0 0 84 48" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">'
-      + '<path class="wl" d="M6 13C19 12 32 15 42 21"/>'
-      + '<path class="wr" d="M78 13C65 12 52 15 42 21"/>'
-      + '<path d="M42 20V33"/>'
-      + '<path d="M42 32l-4 6M42 32l4 6"/>'
+    /* צל ציפור בינוני — ציפור בהרמת כנפיים (תנופת נופף) בגודל בינוני */
+    "shadow-md": '<svg viewBox="0 0 110 60" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'
+      + '<path class="wl" d="M50 26C43 21 32 14 22 11 15 9 8 8 3 9c7 4 15 9 22 13 7 4 18 9 25 10Z"/>'
+      + '<path class="wr" d="M60 26C67 21 78 14 88 11 95 9 102 8 107 9c-7 4-15 9-22 13-7 4-18 9-25 10Z"/>'
+      + '<path d="M55 14c2.6 0 4.2 2.6 4.2 6.5 0 2.4-.8 4.4-2 5.6 1.6 2.6 2.4 6 2.4 10 0 6.6-1.8 11-4.6 11s-4.6-4.4-4.6-11c0-4 .8-7.4 2.4-10-1.2-1.2-2-3.2-2-5.6 0-3.9 1.6-6.5 4.2-6.5Z"/>'
+      + '<path d="M55 43 48 54l7-3.6 7 3.6Z"/>'
       + '</svg>'
   };
   /* רוחב הבסיס של כל דמות (בפיקסלים) — צל הציפור מגיע בשלושה גדלים: גדול, בינוני, קטן */
-  var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, shadow: 96, "shadow-md": 72, "shadow-sm": 50 };
+  var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, shadow: 84, "shadow-md": 62, "shadow-sm": 46 };
   /* לכל מסלול יש גרסת מראה לתנועה מימין לשמאל */
   var SKY_BACK = { fly: "flyBack", glide: "glideBack" };
 
