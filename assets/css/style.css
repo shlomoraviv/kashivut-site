@@ -743,8 +743,8 @@ ul.plain li::before {
 .s-swallow .wl, .s-swallow .wr { transform-origin: 32px 14px; }
 .s-swift .wl, .s-swift .wr { transform-origin: 32px 15px; }
 .s-dove .wl, .s-dove .wr { transform-origin: 32px 22px; }
-/* שלושת גדלי צל הציפור חולקים את אותו סילואט — אותו מוקד סיבוב לכנפיים */
-.s-shadow .wl, .s-shadow .wr, .s-shadow-md .wl, .s-shadow-md .wr, .s-shadow-sm .wl, .s-shadow-sm .wr { transform-origin: 42px 22px; }
+/* שלושת גדלי צל הציפור חולקים את אותו קו — אותו מוקד סיבוב לכנפיים */
+.s-shadow .wl, .s-shadow .wr, .s-shadow-md .wl, .s-shadow-md .wr, .s-shadow-sm .wl, .s-shadow-sm .wr { transform-origin: 42px 21px; }
 /* צל ציפור — דמות כהה, מטושטשת ורכה, בשלושה גדלים: גדול, בינוני, קטן */
 .sky-item.s-shadow, .sky-item.s-shadow-md { filter: blur(1.5px); }
 .sky-item.s-shadow-sm { filter: blur(1.1px); }
