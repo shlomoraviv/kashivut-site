@@ -293,7 +293,8 @@ body.kx-editing [data-kx-id]:focus {
 }
 body.kx-editing [data-kx-id].kx-dirty {
   background: rgba(255, 209, 102, .28);
-  outline-color: var(--blue);
+  /* מסגרת בהירה מאוד — הסימון נשאר בעזרת הרקע הזהוב בלבד */
+  outline-color: rgba(30, 42, 110, .28);
 }
 /* במצב עריכה אין ניווט מתוך הטקסט — הקישור מתנהג כטקסט בלבד */
 body.kx-editing [data-kx-id] a,
