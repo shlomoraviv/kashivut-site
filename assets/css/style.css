@@ -725,12 +725,14 @@ ul.plain li::before {
   animation-delay: var(--delay, 0s);
 }
 .sky-item svg { display: block; width: 100%; height: auto; overflow: visible; }
-.sky-item .wl, .sky-item .wr { transform-box: view-box; }
+.sky-item .wl, .sky-item .wr, .sky-item .wo { transform-box: view-box; }
 /* כנפיים מנופפות — כל ציפור לפי מבנה הכנף שלה */
 .sky-item .wl { animation: flapL var(--flap, 4s) ease-in-out infinite; }
 .sky-item .wr { animation: flapR var(--flap, 4s) ease-in-out infinite; }
-@keyframes flapL { 0%, 100% { transform: rotate(7deg); } 50% { transform: rotate(-30deg); } }
-@keyframes flapR { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(30deg); } }
+/* כנף ימין מנפנפת בהשהיה קטנה — כדי ששתי הכנפיים לא יהיו זהות לגמרי */
+.sky-item .wr { animation-delay: calc(var(--flap, 4s) * -0.05); }
+@keyframes flapL { 0%, 100% { transform: rotate(6deg); } 50% { transform: rotate(-24deg); } }
+@keyframes flapR { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(24deg); } }
 .s-gull .wl, .s-gull .wr { transform-origin: 30px 15px; }
 .s-swallow .wl, .s-swallow .wr { transform-origin: 32px 14px; }
 .s-swift .wl, .s-swift .wr { transform-origin: 32px 15px; }
@@ -740,11 +742,28 @@ ul.plain li::before {
 /* צל ציפור — דמות כהה, מטושטשת ורכה, בשלושה גדלים: גדול, בינוני, קטן */
 .sky-item.s-shadow, .sky-item.s-shadow-md { filter: blur(1.5px); }
 .sky-item.s-shadow-sm { filter: blur(1.1px); }
-/* כנפי הצל גולשות ברכות במקום לנפנף */
-.s-shadow .wl, .s-shadow-md .wl, .s-shadow-sm .wl { animation-name: swayL; }
-.s-shadow .wr, .s-shadow-md .wr, .s-shadow-sm .wr { animation-name: swayR; }
-@keyframes swayL { 0%, 100% { transform: rotate(3deg); } 50% { transform: rotate(-2.5deg); } }
-@keyframes swayR { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(2.5deg); } }
+/* כנפי הצל הגולש נעות בתנופת נופף עדינה ורכה, כמו דאייה אמיתית */
+.s-shadow .wl, .s-shadow-md .wl, .s-shadow-sm .wl { animation-name: flapSoftL; }
+.s-shadow .wr, .s-shadow-md .wr, .s-shadow-sm .wr { animation-name: flapSoftR; }
+@keyframes flapSoftL { 0%, 100% { transform: rotate(3deg); } 50% { transform: rotate(-7deg); } }
+@keyframes flapSoftR { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(7deg); } }
+/* מפרק הכנף: החלק החיצוני של הכנף ממשיך את התנועה בהשהיה קטנה — כמו נופף אמיתי */
+.sky-item .wo { animation: flapOutL var(--flap, 4s) ease-in-out infinite; animation-delay: calc(var(--flap, 4s) * -0.09); }
+.sky-item .wr .wo { animation-name: flapOutR; }
+@keyframes flapOutL { 0%, 100% { transform: rotate(3deg); } 50% { transform: rotate(-11deg); } }
+@keyframes flapOutR { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(11deg); } }
+.sky-item.s-shadow .wo, .sky-item.s-shadow-md .wo, .sky-item.s-shadow-sm .wo { animation-name: flapSoftOutL; }
+.sky-item.s-shadow .wr .wo, .sky-item.s-shadow-md .wr .wo, .sky-item.s-shadow-sm .wr .wo { animation-name: flapSoftOutR; }
+@keyframes flapSoftOutL { 0%, 100% { transform: rotate(1.6deg); } 50% { transform: rotate(-3.6deg); } }
+@keyframes flapSoftOutR { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(3.6deg); } }
+/* כל הציפורים רכות ומטושטשות במעט — כמו ציפור אמיתית בשמיים, בלי מראה של אייקון */
+.sky-item.s-gull, .sky-item.s-swallow, .sky-item.s-swift, .sky-item.s-dove { filter: blur(.7px); }
+/* הגוף עצמו מתקדם באוויר: עלייה וירידה עדינה ונטייה קלה של כל הציפור */
+.sky-bob { animation: bob var(--bob, 7s) ease-in-out infinite; }
+@keyframes bob {
+  0%, 100% { transform: translateY(1.6%) rotate(-1.1deg); }
+  50%      { transform: translateY(-2.4%) rotate(1.3deg); }
+}
 
 /* מסלולי תעופה. שמות המסלולים הכפולים (Back) הם תנועה מימין לשמאל,
    כלומר כל מסלול קיים בשתי גרסאות מראה — כדי שהציפור תמיד תעבור את כל המסך */
