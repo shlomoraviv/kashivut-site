@@ -1008,42 +1008,10 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
 
 /* כותרת עמוד הבית נשארת תמיד בשורה אחת:
    הגודל נגזר מרוחב עמודת הטקסט (100cqw) ולא ממסך שלם —
-   הטקסט בכותרת הוא כ-11.8em, ולכן חלוקה ב-13.8 (שכוללת את הריפוד של המלבן)
-   משאירה שוליים קטנים והשבירה נעשית רק אם בעתיד ייכתב טקסט ארוך בהרבה */
+   הטקסט בכותרת הוא כ-11.8em, ולכן חלוקה ב-12.2 משאירה שוליים קטנים
+   והשבירה נעשית רק אם בעתיד ייכתב טקסט ארוך בהרבה */
 .hero-copy { container-type: inline-size; }
-.hero.has-photo .hero-copy h1 { font-size: min(3.4rem, calc(100cqw / 13.8)); }
-
-/* שני מלבני הפתיחה — הכותרת ומשפט ההזמנה מתחתיה:
-   רקע קרם־זהב עדין; המסגרת של המלבן הראשון ברורה,
-   וזו של המלבן השני (המשפט) בהירה מאוד ומספקת רק רמז למסגרת */
-.hero.has-photo .hero-copy h1 {
-  background: linear-gradient(180deg, #fdf3e2 0%, #f9e8cc 100%);
-  border: 1.5px solid rgba(30, 42, 110, .42);
-  border-radius: var(--radius-md);
-  padding: .5em .75em;
-  text-shadow: none;
-}
-.hero.has-photo .hero-copy .lead {
-  background: linear-gradient(180deg, #fdf7ee 0%, #fbf3e6 100%);
-  border: 1.5px solid rgba(30, 42, 110, .1);
-  border-radius: var(--radius-md);
-  padding: 1.05rem 1.3rem;
-  text-shadow: none;
-}
-
-/* כפתור ההמשך בפתיחה — הכיתוב בכחול כמו בכפתור השני ("להכיר את הקורסים"),
-   על רקע קרם־זהב עדין כדי שיהיה קריא */
-.hero-actions .btn-primary {
-  background: linear-gradient(180deg, #fdf1dc 0%, #f7e3bd 100%);
-  color: var(--blue-ink);
-  border: 1.5px solid rgba(30, 42, 110, .22);
-  box-shadow: 0 14px 30px -18px rgba(30, 42, 110, .35);
-}
-.hero-actions .btn-primary:hover {
-  background: linear-gradient(180deg, #fbeacb 0%, #f3d9a8 100%);
-  color: var(--blue-deep);
-  transform: translateY(-2px);
-}
+.hero.has-photo .hero-copy h1 { font-size: min(3.4rem, calc(100cqw / 12.2)); }
 @media (max-width: 1020px) {
   .hero-photo, .arch-sharp { background-image: url("../img/hero-dreamy-960.webp"); }
 }
