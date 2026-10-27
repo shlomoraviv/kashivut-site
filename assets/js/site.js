@@ -358,8 +358,8 @@
       var wingPhase = -Math.random() * flap;
       item.style.setProperty("--flap-delay", wingPhase.toFixed(2) + "s");
       if (isShadow && wingMode === "glide") {
-        var glideFrame = 40 + Math.floor(Math.random() * 16);
-        item.style.setProperty("--glide-position", ((glideFrame / 55) * 100).toFixed(3) + "%");
+        var glideFrame = 28 + Math.floor(Math.random() * 12);
+        item.style.setProperty("--glide-position", ((glideFrame / 39) * 100).toFixed(3) + "%");
       }
       /* תנועת הגוף מקבלת קצב ומופע מעט שונים מפעימת הכנפיים */
       item.style.setProperty("--bob", (flap * (isShadow ? 1.3 + Math.random() * 0.3 : 1)).toFixed(2) + "s");
