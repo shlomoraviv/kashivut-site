@@ -737,21 +737,25 @@ ul.plain li::before {
 .s-swallow .wl, .s-swallow .wr { transform-origin: 32px 14px; }
 .s-swift .wl, .s-swift .wr { transform-origin: 32px 15px; }
 .s-dove .wl, .s-dove .wr { transform-origin: 32px 22px; }
-/* צללית מצולמת: רצף פריימים עם כנפיים בתנועה, לא איור SVG */
+/* רצף צלליות המבוסס על הצילום: הגוף, הזנב והכנפיים משתנים יחד בכל פריים. */
 .sky-item.s-shadow, .sky-item.s-shadow-md, .sky-item.s-shadow-sm { filter: blur(var(--blur, 1.8px)); }
 .bird-shadow-art {
   width: 100%;
   aspect-ratio: 420 / 260;
-  background-image: url("../img/bird-shadow-flight.png");
-  background-size: 2400% 100%;
-  background-position: 0 0;
+  background-image: url("../img/bird-shadow-flight.png?v=full-body-1");
+  background-size: 5600% 100%;
   background-repeat: no-repeat;
-  animation: shadowWingCycle var(--flap, 2.2s) steps(23, end) infinite;
+}
+.bird-shadow-art.is-flapping {
+  animation: shadowWingCycle var(--flap, 3.5s) steps(39, end) infinite;
   animation-delay: var(--flap-delay, 0s);
+}
+.bird-shadow-art.is-gliding {
+  background-position: var(--glide-position, 72.727%) 0;
 }
 @keyframes shadowWingCycle {
   from { background-position: 0 0; }
-  to { background-position: 100% 0; }
+  to { background-position: 70.909% 0; }
 }
 /* מפרק הכנף: החלק החיצוני של הכנף ממשיך את התנועה בהשהיה קטנה — כמו נופף אמיתי */
 .sky-item .wo { animation: flapOutL var(--flap, 4s) ease-in-out infinite; animation-delay: calc(var(--flap, 4s) * -0.09); }
