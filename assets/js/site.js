@@ -268,37 +268,18 @@
   /* רוחב הבסיס של כל דמות (בפיקסלים) — צללים בגדלים ובמרחקים שונים */
   var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, shadow: 124, "shadow-md": 92, "shadow-sm": 58 };
   /* לכל מסלול יש גרסת מראה לתנועה מימין לשמאל */
-  var SKY_BACK = { fly: "flyBack", glide: "glideBack" };
+  var SKY_BACK = { fly: "flyBack", glide: "glideBack", sectionGlide: "sectionGlideBack" };
 
-  /* שעון משותף שומר את שלב המעוף גם כשעוברים בין דפי HTML נפרדים. */
-  function getSiteBirdElapsed() {
-    var now = Date.now();
-    var key = "kashivut-site-bird-start-v2";
-    try {
-      var start = Number(localStorage.getItem(key));
-      if (!isFinite(start) || start <= 0 || start > now) {
-        start = now;
-        localStorage.setItem(key, String(start));
-      }
-      return (now - start) / 1000;
-    } catch (storageError) {
-      try {
-        var sessionStart = Number(sessionStorage.getItem(key));
-        if (!isFinite(sessionStart) || sessionStart <= 0 || sessionStart > now) {
-          sessionStart = now;
-          sessionStorage.setItem(key, String(sessionStart));
-        }
-        return (now - sessionStart) / 1000;
-      } catch (sessionError) {
-        return 0;
-      }
-    }
-  }
-
-  /* הגדרת הציפור היחידה שמופיעה בכל העמוד ונעה ברצף. */
+  /* ציפורים באותו סגנון, במידות ובמיקומים מתחלפים לאורך קטעי העמוד. */
   var SKY_PRESETS = {
-    hero: [
-      { s: "shadow", p: "siteGlide", wing: "flap", deepFlight: true, stable: true, flap: 2.5, top: "20%", size: 1.2, o: .2, tint: "#465064", dur: 96, delay: 0, flow: 1, ease: "ease-in-out" }
+    large: [
+      { s: "shadow", p: "sectionGlide", deepFlight: true, flap: 2.5, top: "20%", size: 1.15, o: .2, tint: "#465064", dur: 58, delay: -4, flow: 1, ease: "ease-in-out" }
+    ],
+    medium: [
+      { s: "shadow", p: "sectionGlide", deepFlight: true, flap: 2.5, top: "38%", size: .88, o: .17, tint: "#465064", dur: 66, delay: -19, flow: 1, ease: "ease-in-out" }
+    ],
+    small: [
+      { s: "shadow", p: "sectionGlide", deepFlight: true, flap: 2.5, top: "68%", size: .62, o: .14, tint: "#465064", dur: 72, delay: -31, flow: 1, ease: "ease-in-out" }
     ]
   };
 
@@ -307,39 +288,29 @@
     String(presetName || "").split(",").forEach(function (name) {
       plan = plan.concat(SKY_PRESETS[name.trim()] || []);
     });
-    var isSiteBird = host === document.body;
-    /* מסירים שכבות ישנות לפני יצירת הציפור הקבועה, כדי שיישאר מופע אחד בלבד. */
-    if (isSiteBird) {
-      Array.prototype.slice.call(host.querySelectorAll(".sky-item")).forEach(function (oldBird) {
-        if (oldBird.parentNode) oldBird.parentNode.removeChild(oldBird);
-      });
-    }
     if (!plan.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var layer = isSiteBird
-      ? host.querySelector(".site-bird-layer")
-      : host.classList.contains("birds") ? host : host.querySelector(".birds");
+    var layer = host.querySelector(".section-bird-layer");
     if (!layer) {
       layer = document.createElement("div");
-      layer.className = isSiteBird ? "birds site-bird-layer" : "birds";
+      layer.className = "birds section-bird-layer";
       layer.setAttribute("aria-hidden", "true");
-      if (isSiteBird) host.appendChild(layer);
-      else host.insertBefore(layer, host.firstChild);
+      host.insertBefore(layer, host.firstChild);
     }
+    if (layer.querySelector(".sky-item")) return;
     plan.forEach(function (c) {
       var item = document.createElement("div");
-      var stableElapsed = c.stable ? getSiteBirdElapsed() : 0;
-      item.className = "sky-item s-" + c.s + (c.deepFlight ? " is-deep-flight" : "") + (c.stable ? " is-site-bird" : "");
+      item.className = "sky-item s-" + c.s + (c.deepFlight ? " is-deep-flight" : "");
       item.setAttribute("aria-hidden", "true");
       item.style.top = c.top;
-      /* גודל קבוע לציפור הכללית; פרופילים מתחלפים מקבלים שינוי קל. */
-      var size = c.stable ? c.size : c.size * (0.93 + Math.random() * 0.14);
-      item.style.width = Math.round((SKY_W[c.s] || 64) * size) + "px";
+      var size = c.size;
+      var birdWidth = Math.round((SKY_W[c.s] || 64) * size);
+      item.style.width = birdWidth + "px";
+      item.style.setProperty("--bird-width", birdWidth + "px");
       item.style.setProperty("--tint", c.tint);
       item.style.setProperty("--o", c.o);
       item.style.setProperty("--path", c.flow === -1 ? (SKY_BACK[c.p] || c.p) : c.p);
       item.style.setProperty("--dur", c.dur + "s");
-      /* הציפור הכללית מתחילה תמיד באותה נקודה; רק פרופילים אחרים מקבלים היסט אקראי. */
-      item.style.setProperty("--delay", (c.stable ? -(stableElapsed % c.dur) : c.delay - Math.random() * 55).toFixed(3) + "s");
+      item.style.setProperty("--delay", c.delay + "s");
       item.style.setProperty("--size", size.toFixed(3));
       item.style.setProperty("--flow", c.flow || 1);
       item.style.setProperty("--dir", c.dir || c.flow || 1);
@@ -350,7 +321,7 @@
           : c.s === "shadow" ? 3.5 + Math.random() * 0.7 : c.s === "shadow-md" ? 3 + Math.random() * 0.7 : 2.6 + Math.random() * 0.7)
         : 4.6 + Math.random() * 2.6);
       item.style.setProperty("--flap", flap.toFixed(2) + "s");
-      var wingPhase = c.stable ? -(stableElapsed % flap) : -Math.random() * flap;
+      var wingPhase = -Math.random() * flap;
       item.style.setProperty("--flap-delay", wingPhase.toFixed(2) + "s");
       if (isShadow && wingMode === "glide") {
         var glideFrame = 28 + Math.floor(Math.random() * 12);
@@ -359,9 +330,7 @@
       /* תנועת הגוף מקבלת קצב ומופע מעט שונים מפעימת הכנפיים */
       item.style.setProperty("--bob", (c.deepFlight ? flap : flap * (isShadow ? 1.3 + Math.random() * 0.3 : 1)).toFixed(2) + "s");
       if (isShadow) {
-        var bodyPhase = c.stable
-          ? -((stableElapsed - flap * 0.07 + flap) % flap)
-          : c.deepFlight ? wingPhase + flap * 0.07 : wingPhase - flap * (0.08 + Math.random() * 0.08);
+        var bodyPhase = c.deepFlight ? wingPhase + flap * 0.07 : wingPhase - flap * (0.08 + Math.random() * 0.08);
         item.style.setProperty("--body-delay", bodyPhase.toFixed(2) + "s");
         var bank = 1 + Math.random() * 3.5;
         var flow = c.flow || 1;
@@ -371,7 +340,7 @@
         item.style.setProperty("--end-y", (Math.random() * 4 - 2).toFixed(1) + "vh");
         item.style.setProperty("--bank-a", (flow * -bank).toFixed(1) + "deg");
         item.style.setProperty("--bank-b", (flow * bank * 0.65).toFixed(1) + "deg");
-        var blur = c.stable ? 1.35 : (c.s === "shadow" ? 1.15 : c.s === "shadow-md" ? 0.9 : 0.65) + Math.random() * 0.45;
+        var blur = (c.s === "shadow" ? 1.15 : c.s === "shadow-md" ? 0.9 : 0.65) + Math.random() * 0.45;
         item.style.setProperty("--blur", blur.toFixed(2) + "px");
         item.style.setProperty("--ease", Math.random() < 0.5 ? "cubic-bezier(.42,0,.58,1)" : "cubic-bezier(.37,.04,.63,.98)");
       }
@@ -384,8 +353,14 @@
       layer.appendChild(item);
     });
   }
-  /* כל העמודים והאזורים חולקים ציפור אחת קבועה. */
-  mountSky(document.body, "hero");
+  /* הציפורים מחוברות לקטעי העמוד ולכן גוללות יחד עם התוכן. */
+  (function mountPageBirds() {
+    var hosts = Array.prototype.slice.call(document.querySelectorAll("main > .hero, main > .page-hero, main > .section"));
+    var presets = ["large", "small", "medium", "small", "large"];
+    hosts.slice(0, presets.length).forEach(function (host, index) {
+      mountSky(host, presets[index]);
+    });
+  })();
 
   /* ---------- Falling petals on page-hero sections ---------- */
   function addPetals(host, n) {

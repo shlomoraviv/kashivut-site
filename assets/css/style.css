@@ -712,17 +712,7 @@ ul.plain li::before {
 
 /* ---------------- שמיים: ציפורים וצללי ציפורים ---------------- */
 .birds { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
-.site-bird-layer {
-  position: fixed;
-  top: calc(var(--nav-h) + 6px);
-  right: 0;
-  bottom: auto;
-  left: 0;
-  height: clamp(118px, 18vh, 170px);
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 49;
-}
+.section-bird-layer { z-index: 1; }
 /* כל דמות יכולה לקבל צבע (--tint), שקיפות (--o), מסלול (--path),
    משך (--dur), השהיה (--delay), גודל (--size), קצב כנפיים (--flap)
    וכיוון הדמות עצמה (--dir) */
@@ -764,10 +754,6 @@ ul.plain li::before {
 .bird-shadow-art.is-deep-flapping {
   background-image: url("../img/bird-shadow-flight-deep.png?v=deep-flight-1");
   background-size: 100% 6000%;
-  animation: shadowDeepWingCycle var(--flap, 2.5s) steps(59, end) infinite;
-  animation-delay: var(--flap-delay, 0s);
-}
-.sky-item.is-site-bird .bird-shadow-art {
   animation:
     shadowDeepWingCycle var(--flap, 2.5s) steps(59, end) infinite var(--flap-delay, 0s),
     siteBirdFacing var(--dur, 96s) steps(1, end) infinite var(--delay, 0s);
@@ -849,9 +835,13 @@ ul.plain li::before {
   62%  { transform: translate3d(67vw, var(--fall-y, 2vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-a, -2deg)); }
   100% { transform: translate3d(118vw, var(--end-y, 3vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-b, 2deg)); }
 }
-@keyframes siteGlide {
-  0%, 100% { transform: translate3d(4vw, 0, 0); }
-  50% { transform: translate3d(calc(100vw - 100% - 4vw), -1vh, 0); }
+@keyframes sectionGlide {
+  0%, 100% { left: 6%; }
+  50% { left: calc(94% - var(--bird-width, 124px)); }
+}
+@keyframes sectionGlideBack {
+  0%, 100% { left: calc(94% - var(--bird-width, 124px)); }
+  50% { left: 6%; }
 }
 @keyframes siteBirdFacing {
   0%, 49.999% { transform: scaleX(1); }
