@@ -508,25 +508,6 @@
     });
   })();
 
-  /* זרעים נודדים עדינים ברקע הפרחים של ה-hero */
-  (function addSeeds() {
-    var host = document.querySelector(".hero.has-photo .birds");
-    if (!host || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    for (var i = 0; i < 4; i++) {
-      var seed = document.createElement("span");
-      seed.className = "seed in";
-      seed.setAttribute("aria-hidden", "true");
-      var ss = 9 + Math.random() * 8;
-      seed.style.width = ss.toFixed(0) + "px";
-      seed.style.height = (ss * 0.82).toFixed(0) + "px";
-      seed.style.insetInlineStart = (12 + Math.random() * 74).toFixed(0) + "%";
-      seed.style.bottom = "8%";
-      seed.style.setProperty("--dur", (24 + Math.random() * 16).toFixed(1) + "s");
-      seed.style.setProperty("--delay", (-Math.random() * 26).toFixed(1) + "s");
-      seed.style.setProperty("--o", (0.5 + Math.random() * 0.25).toFixed(2));
-      host.appendChild(seed);
-    }
-  })();
   document.querySelectorAll("form[data-formspree]").forEach(function (form) {
     if (form.getAttribute("action") === "#") form.setAttribute("action", FORM_ACTION);
     form.setAttribute("method", "POST");
