@@ -307,9 +307,14 @@
     String(presetName || "").split(",").forEach(function (name) {
       plan = plan.concat(SKY_PRESETS[name.trim()] || []);
     });
-    if (!plan.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     var isSiteBird = host === document.body;
-    if (isSiteBird && host.querySelector(".site-bird-layer .sky-item")) return;
+    /* מסירים שכבות ישנות לפני יצירת הציפור הקבועה, כדי שיישאר מופע אחד בלבד. */
+    if (isSiteBird) {
+      Array.prototype.slice.call(host.querySelectorAll(".sky-item")).forEach(function (oldBird) {
+        if (oldBird.parentNode) oldBird.parentNode.removeChild(oldBird);
+      });
+    }
+    if (!plan.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     var layer = isSiteBird
       ? host.querySelector(".site-bird-layer")
       : host.classList.contains("birds") ? host : host.querySelector(".birds");

@@ -721,7 +721,7 @@ ul.plain li::before {
   height: clamp(118px, 18vh, 170px);
   overflow: hidden;
   pointer-events: none;
-  z-index: 1;
+  z-index: 49;
 }
 /* כל דמות יכולה לקבל צבע (--tint), שקיפות (--o), מסלול (--path),
    משך (--dur), השהיה (--delay), גודל (--size), קצב כנפיים (--flap)
