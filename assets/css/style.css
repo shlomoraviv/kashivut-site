@@ -770,7 +770,7 @@ ul.plain li::before {
 .sky-item.is-site-bird .bird-shadow-art {
   animation:
     shadowDeepWingCycle var(--flap, 2.5s) steps(60, end) infinite var(--flap-delay, 0s),
-    siteBirdFacing var(--dur, 96s) steps(1, end) infinite 0s;
+    siteBirdFacing var(--dur, 96s) steps(1, end) infinite var(--delay, 0s);
 }
 .bird-shadow-art.is-gliding {
   background-position: 0 var(--glide-position, 74.359%);
@@ -851,13 +851,11 @@ ul.plain li::before {
 }
 @keyframes siteGlide {
   0%, 100% { transform: translate3d(4vw, 0, 0); }
-  45% { transform: translate3d(calc(100vw - 100% - 4vw), -1vh, 0); }
   50% { transform: translate3d(calc(100vw - 100% - 4vw), -1vh, 0); }
-  95% { transform: translate3d(4vw, 0, 0); }
 }
 @keyframes siteBirdFacing {
-  0%, 45% { transform: scaleX(1); animation-timing-function: steps(1, end); }
-  50%, 95% { transform: scaleX(-1); animation-timing-function: steps(1, end); }
+  0%, 49.999% { transform: scaleX(1); }
+  50%, 99.999% { transform: scaleX(-1); }
   100% { transform: scaleX(1); }
 }
 @keyframes glideBack {
@@ -1152,13 +1150,6 @@ h2 .ico, h3 .ico { color: var(--pink-hot); }
       radial-gradient(72% 44% at 50% 32%, rgba(251, 247, 239, .92), rgba(251, 247, 239, .4) 68%, transparent 86%),
       linear-gradient(180deg, rgba(251, 247, 239, .6) 0%, rgba(251, 247, 239, 0) 30%, rgba(251, 247, 239, .92) 100%);
   }
-}
-
-/* ציפורים רחוקות בנוף */
-.hl-bird { animation: hlBird 34s ease-in-out infinite alternate; }
-@keyframes hlBird {
-  from { transform: translate(0, 0); }
-  to { transform: translate(60px, -22px); }
 }
 
 /* ============================================================

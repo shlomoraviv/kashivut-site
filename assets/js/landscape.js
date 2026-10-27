@@ -22,9 +22,6 @@
     '<linearGradient id="h4g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5e6cc"/><stop offset="1" stop-color="#ead2ab"/></linearGradient>' +
     "</defs>";
 
-  var BIRD =
-    '<g class="hl-bird" style="animation-delay:var(--bd,0s)"><path d="M0 0c4-3 8-3 11 0 3-3 7-3 11 0" fill="none" stroke="#8f9fe0" stroke-width="2" stroke-linecap="round" opacity=".55"/></g>';
-
   function hills() {
     return (
       /* שכבת גבעות רחוקה (כחול רך) */
@@ -60,14 +57,6 @@
     );
   }
 
-  function birds() {
-    return (
-      BIRD.replace("{--bd,0s}", "--bd,0s").replace("{--bd}", "0s")
-    ).replace('<g class="hl-bird" style="animation-delay:var(--bd,0s)">', '<g class="hl-bird" style="--bd:0s">') +
-      BIRD.replace('<g class="hl-bird" style="animation-delay:var(--bd,0s)">', '<g class="hl-bird" style="--bd:-9s">') +
-      BIRD.replace('<g class="hl-bird" style="animation-delay:var(--bd,0s)">', '<g class="hl-bird" style="--bd:-17s">');
-  }
-
   var SCENE =
     SVG_OPEN +
     DEFS +
@@ -75,9 +64,6 @@
     '<rect width="1200" height="620" fill="url(#sky)"/>' +
     /* זוהר שמש */
     '<g class="hl-sun"><circle cx="1060" cy="205" r="150" fill="url(#sunglow)"/><circle cx="1060" cy="205" r="46" fill="#ffe3c4" opacity=".9"/></g>' +
-    /* ציפורים רחוקות */
-    '<g transform="translate(430 150)">' + birds() + "</g>" +
-    '<g transform="translate(700 105) scale(.8)">' + birds() + "</g>" +
     clouds() +
     hills() +
     mist() +
@@ -86,8 +72,6 @@
   function inject() {
     document.querySelectorAll(".hero-landscape").forEach(function (host) {
       host.innerHTML = SCENE;
-      /* כל האתר מציג ציפור אחת בלבד; ציפורי הנוף יצרו מראה של ציפורים שמתחלפות. */
-      host.querySelectorAll(".hl-bird").forEach(function (bird) { bird.remove(); });
     });
   }
 
