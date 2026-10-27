@@ -278,20 +278,20 @@
   var SKY_PRESETS = {
     /* מסך הכניסה: צל רחב, צל בינוני וציפור קטנה במרחק */
     hero: [
-      { s: "shadow", p: "glide", top: "10%", size: 1.2, o: .12, tint: "#465064", dur: 112, delay: -12, flow: 1 },
-      { s: "shadow-md", p: "glide", top: "44%", size: 1.05, o: .11, tint: "#51586a", dur: 146, delay: -58, flow: 1 },
+      { s: "shadow", p: "glide", top: "10%", size: 1.2, o: .24, tint: "#465064", dur: 112, delay: -12, flow: 1 },
+      { s: "shadow-md", p: "glide", top: "44%", size: 1.05, o: .18, tint: "#51586a", dur: 146, delay: -58, flow: 1 },
       { s: "gull", p: "fly", top: "30%", size: .62, o: .5, tint: "#8f9fe0", dur: 124, delay: -30, flow: -1 },
-      { s: "shadow-sm", p: "glide", top: "78%", size: .62, o: .1, tint: "#5c6270", dur: 186, delay: -18, flow: 1 }
+      { s: "shadow-sm", p: "glide", top: "78%", size: .62, o: .13, tint: "#5c6270", dur: 186, delay: -18, flow: 1 }
     ],
     /* זוג: סנונית וצל ציפור קטן */
     pair: [
       { s: "swallow", p: "fly", top: "24%", size: .55, o: .48, tint: "#8f9fe0", dur: 112, delay: -8, flow: 1 },
-      { s: "shadow-sm", p: "glide", top: "70%", size: .58, o: .1, tint: "#5c6270", dur: 190, delay: -34, flow: -1 }
+      { s: "shadow-sm", p: "glide", top: "70%", size: .58, o: .13, tint: "#5c6270", dur: 190, delay: -34, flow: -1 }
     ],
     /* שני צללי ציפורים: גדול שחוצה את המסך, וקטן שגולש לאט */
     drift: [
-      { s: "shadow-md", p: "glide", top: "30%", size: .72, o: .11, tint: "#51586a", dur: 144, delay: -20, flow: -1 },
-      { s: "shadow-sm", p: "glide", top: "66%", size: .5, o: .1, tint: "#5c6270", dur: 198, delay: -6, flow: 1 }
+      { s: "shadow-md", p: "glide", top: "30%", size: .72, o: .18, tint: "#51586a", dur: 144, delay: -20, flow: -1 },
+      { s: "shadow-sm", p: "glide", top: "66%", size: .5, o: .12, tint: "#5c6270", dur: 198, delay: -6, flow: 1 }
     ],
     /* שמיים שקטים: להקה רחוקה בלבד */
     calm: [
@@ -299,26 +299,26 @@
     ],
     /* דמדומים: צל ציפור וסיס גבוה */
     dusk: [
-      { s: "shadow", p: "glide", top: "22%", size: .95, o: .11, tint: "#465064", dur: 122, delay: -64, flow: -1 },
+      { s: "shadow", p: "glide", top: "22%", size: .95, o: .22, tint: "#465064", dur: 122, delay: -64, flow: -1 },
       { s: "swift", p: "soar", top: "52%", size: .45, o: .4, tint: "#b9a7e6", dur: 136, delay: -24, flow: 1 }
     ],
     /* צללי ציפורים — צללים קטנים וקצת גדולים שמפוזרים לאורך העמוד */
     shadows: [
-      { s: "shadow-md", p: "glide", top: "12%", size: 1.05, o: .11, tint: "#51586a", dur: 128, delay: -8, flow: 1 },
-      { s: "shadow-sm", p: "glide", top: "34%", size: .7, o: .1, tint: "#5c6270", dur: 198, delay: -58, flow: -1 },
-      { s: "shadow", p: "glide", top: "62%", size: .9, o: .1, tint: "#465064", dur: 104, delay: -102, flow: -1 },
-      { s: "shadow-sm", p: "glide", top: "84%", size: .6, o: .1, tint: "#5c6270", dur: 212, delay: -24, flow: 1 },
-      { s: "shadow-md", p: "glide", top: "46%", size: 1, o: .11, tint: "#51586a", dur: 142, delay: -64, flow: 1 }
+      { s: "shadow-md", p: "glide", top: "12%", size: 1.05, o: .18, tint: "#51586a", dur: 128, delay: -8, flow: 1 },
+      { s: "shadow-sm", p: "glide", top: "34%", size: .7, o: .12, tint: "#5c6270", dur: 198, delay: -58, flow: -1 },
+      { s: "shadow", p: "glide", top: "62%", size: .9, o: .22, tint: "#465064", dur: 104, delay: -102, flow: -1 },
+      { s: "shadow-sm", p: "glide", top: "84%", size: .6, o: .12, tint: "#5c6270", dur: 212, delay: -24, flow: 1 },
+      { s: "shadow-md", p: "glide", top: "46%", size: 1, o: .18, tint: "#51586a", dur: 142, delay: -64, flow: 1 }
     ],
     /* מנה קטנה: צל גדול אחד וצל קטן אחד */
     "shadows-few": [
-      { s: "shadow", p: "glide", top: "24%", size: 1.1, o: .11, tint: "#465064", dur: 116, delay: -34, flow: 1 },
-      { s: "shadow-sm", p: "glide", top: "72%", size: .68, o: .1, tint: "#5c6270", dur: 202, delay: -76, flow: -1 },
-      { s: "shadow-md", p: "glide", top: "48%", size: .92, o: .11, tint: "#51586a", dur: 136, delay: -98, flow: -1 }
+      { s: "shadow", p: "glide", top: "24%", size: 1.1, o: .22, tint: "#465064", dur: 116, delay: -34, flow: 1 },
+      { s: "shadow-sm", p: "glide", top: "72%", size: .68, o: .13, tint: "#5c6270", dur: 202, delay: -76, flow: -1 },
+      { s: "shadow-md", p: "glide", top: "48%", size: .92, o: .18, tint: "#51586a", dur: 136, delay: -98, flow: -1 }
     ],
     soft: [
       { s: "dove", p: "fly", top: "26%", size: .6, o: .45, tint: "#8f9fe0", dur: 132, delay: -16, flow: -1 },
-      { s: "shadow-sm", p: "glide", top: "72%", size: .54, o: .1, tint: "#5c6270", dur: 206, delay: -46, flow: 1 }
+      { s: "shadow-sm", p: "glide", top: "72%", size: .54, o: .13, tint: "#5c6270", dur: 206, delay: -46, flow: 1 }
     ]
   };
 
@@ -372,7 +372,7 @@
         item.style.setProperty("--end-y", (Math.random() * 4 - 2).toFixed(1) + "vh");
         item.style.setProperty("--bank-a", (flow * -bank).toFixed(1) + "deg");
         item.style.setProperty("--bank-b", (flow * bank * 0.65).toFixed(1) + "deg");
-        var blur = (c.s === "shadow" ? 2.2 : c.s === "shadow-md" ? 1.8 : 1.35) + Math.random() * 0.6;
+        var blur = (c.s === "shadow" ? 1.15 : c.s === "shadow-md" ? 0.9 : 0.65) + Math.random() * 0.45;
         item.style.setProperty("--blur", blur.toFixed(2) + "px");
         item.style.setProperty("--ease", Math.random() < 0.5 ? "cubic-bezier(.42,0,.58,1)" : "cubic-bezier(.37,.04,.63,.98)");
       }
