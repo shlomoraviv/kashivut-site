@@ -737,25 +737,60 @@ ul.plain li::before {
 .s-swallow .wl, .s-swallow .wr { transform-origin: 32px 14px; }
 .s-swift .wl, .s-swift .wr { transform-origin: 32px 15px; }
 .s-dove .wl, .s-dove .wr { transform-origin: 32px 22px; }
-/* שלושת גדלי צל הציפור חולקים מבנה זהה — אותו מוקד סיבוב לכנפיים */
-.s-shadow .wl, .s-shadow .wr, .s-shadow-md .wl, .s-shadow-md .wr, .s-shadow-sm .wl, .s-shadow-sm .wr { transform-origin: 55px 29px; }
-/* צל ציפור — דמות כהה, מטושטשת ורכה, בשלושה גדלים: גדול, בינוני, קטן */
-.sky-item.s-shadow, .sky-item.s-shadow-md { filter: blur(1.5px); }
-.sky-item.s-shadow-sm { filter: blur(1.1px); }
-/* כנפי הצל הגולש נעות בתנופת נופף עדינה ורכה, כמו דאייה אמיתית */
-.s-shadow .wl, .s-shadow-md .wl, .s-shadow-sm .wl { animation-name: flapSoftL; }
-.s-shadow .wr, .s-shadow-md .wr, .s-shadow-sm .wr { animation-name: flapSoftR; }
-@keyframes flapSoftL { 0%, 100% { transform: rotate(3deg); } 50% { transform: rotate(-7deg); } }
-@keyframes flapSoftR { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(7deg); } }
+/* צללים בעלי קו מתאר רך; הטשטוש והכנפיים משתנים קלות לכל ציפור */
+.s-shadow .wl, .s-shadow .wr,
+.s-shadow-md .wl, .s-shadow-md .wr,
+.s-shadow-sm .wl, .s-shadow-sm .wr { transform-origin: 60px 30px; }
+.sky-item.s-shadow, .sky-item.s-shadow-md, .sky-item.s-shadow-sm { filter: blur(var(--blur, 1.8px)); }
+.s-shadow .wl, .s-shadow-md .wl, .s-shadow-sm .wl {
+  animation-name: flapSoftL;
+  animation-delay: var(--flap-delay, 0s);
+}
+.s-shadow .wr, .s-shadow-md .wr, .s-shadow-sm .wr {
+  animation-name: flapSoftR;
+  animation-delay: var(--flap-delay-r, 0s);
+}
+@keyframes flapSoftL {
+  0%, 100% { transform: rotate(4deg); }
+  18% { transform: rotate(-4deg); }
+  36% { transform: rotate(-22deg); }
+  56% { transform: rotate(-12deg); }
+  78% { transform: rotate(13deg); }
+}
+@keyframes flapSoftR {
+  0%, 100% { transform: rotate(-4deg); }
+  18% { transform: rotate(4deg); }
+  36% { transform: rotate(22deg); }
+  56% { transform: rotate(12deg); }
+  78% { transform: rotate(-13deg); }
+}
 /* מפרק הכנף: החלק החיצוני של הכנף ממשיך את התנועה בהשהיה קטנה — כמו נופף אמיתי */
 .sky-item .wo { animation: flapOutL var(--flap, 4s) ease-in-out infinite; animation-delay: calc(var(--flap, 4s) * -0.09); }
 .sky-item .wr .wo { animation-name: flapOutR; }
 @keyframes flapOutL { 0%, 100% { transform: rotate(3deg); } 50% { transform: rotate(-11deg); } }
 @keyframes flapOutR { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(11deg); } }
-.sky-item.s-shadow .wo, .sky-item.s-shadow-md .wo, .sky-item.s-shadow-sm .wo { animation-name: flapSoftOutL; }
-.sky-item.s-shadow .wr .wo, .sky-item.s-shadow-md .wr .wo, .sky-item.s-shadow-sm .wr .wo { animation-name: flapSoftOutR; }
-@keyframes flapSoftOutL { 0%, 100% { transform: rotate(1.6deg); } 50% { transform: rotate(-3.6deg); } }
-@keyframes flapSoftOutR { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(3.6deg); } }
+.sky-item.s-shadow .wo, .sky-item.s-shadow-md .wo, .sky-item.s-shadow-sm .wo {
+  animation-name: flapSoftOutL;
+  animation-delay: var(--outer-delay, 0s);
+}
+.sky-item.s-shadow .wr .wo, .sky-item.s-shadow-md .wr .wo, .sky-item.s-shadow-sm .wr .wo {
+  animation-name: flapSoftOutR;
+  animation-delay: var(--outer-delay-r, 0s);
+}
+@keyframes flapSoftOutL {
+  0%, 100% { transform: rotate(2deg); }
+  20% { transform: rotate(-3deg); }
+  40% { transform: rotate(-16deg); }
+  62% { transform: rotate(-8deg); }
+  84% { transform: rotate(10deg); }
+}
+@keyframes flapSoftOutR {
+  0%, 100% { transform: rotate(-2deg); }
+  20% { transform: rotate(3deg); }
+  40% { transform: rotate(16deg); }
+  62% { transform: rotate(8deg); }
+  84% { transform: rotate(-10deg); }
+}
 /* כל הציפורים רכות ומטושטשות במעט — כמו ציפור אמיתית בשמיים, בלי מראה של אייקון */
 .sky-item.s-gull, .sky-item.s-swallow, .sky-item.s-swift, .sky-item.s-dove { filter: blur(.7px); }
 /* הגוף עצמו מתקדם באוויר: עלייה וירידה עדינה ונטייה קלה של כל הציפור */
@@ -763,6 +798,16 @@ ul.plain li::before {
 @keyframes bob {
   0%, 100% { transform: translateY(1.6%) rotate(-1.1deg); }
   50%      { transform: translateY(-2.4%) rotate(1.3deg); }
+}
+.sky-item.s-shadow .sky-bob, .sky-item.s-shadow-md .sky-bob, .sky-item.s-shadow-sm .sky-bob {
+  animation-name: shadowBob;
+  animation-delay: var(--body-delay, 0s);
+}
+@keyframes shadowBob {
+  0%, 100% { transform: translateY(1.2%) rotate(-.5deg); }
+  24% { transform: translateY(-1.1%) rotate(.6deg); }
+  48% { transform: translateY(-2.4%) rotate(.2deg); }
+  74% { transform: translateY(.5%) rotate(-.8deg); }
 }
 
 /* מסלולי תעופה. שמות המסלולים הכפולים (Back) הם תנועה מימין לשמאל,
@@ -781,18 +826,20 @@ ul.plain li::before {
 }
 /* גלישה שקטה ורחבה — לצל הציפור */
 @keyframes glide {
-  0%   { transform: translate3d(-18vw, 8vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-3deg * var(--dir, 1))); opacity: 0; }
-  12%  { opacity: var(--o, .2); }
-  45%  { transform: translate3d(40vw, -5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(2deg * var(--dir, 1))); }
-  82%  { opacity: var(--o, .2); }
-  100% { transform: translate3d(118vw, 5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-2deg * var(--dir, 1))); opacity: 0; }
+  0%   { transform: translate3d(-18vw, var(--start-y, 4vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-a, -2deg)); opacity: 0; }
+  12%  { opacity: var(--o, .12); }
+  34%  { transform: translate3d(24vw, var(--rise-y, -4vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-b, 2deg)); }
+  62%  { transform: translate3d(67vw, var(--fall-y, 2vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-a, -2deg)); }
+  84%  { opacity: var(--o, .12); }
+  100% { transform: translate3d(118vw, var(--end-y, 3vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-b, 2deg)); opacity: 0; }
 }
 @keyframes glideBack {
-  0%   { transform: translate3d(118vw, 5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-2deg * var(--dir, 1))); opacity: 0; }
-  18%  { opacity: var(--o, .2); }
-  55%  { transform: translate3d(40vw, -5vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(2deg * var(--dir, 1))); }
-  88%  { opacity: var(--o, .2); }
-  100% { transform: translate3d(-18vw, 8vh, 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(calc(-3deg * var(--dir, 1))); opacity: 0; }
+  0%   { transform: translate3d(118vw, var(--start-y, 4vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-a, -2deg)); opacity: 0; }
+  14%  { opacity: var(--o, .12); }
+  39%  { transform: translate3d(76vw, var(--rise-y, -4vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-b, 2deg)); }
+  68%  { transform: translate3d(33vw, var(--fall-y, 2vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-a, -2deg)); }
+  86%  { opacity: var(--o, .12); }
+  100% { transform: translate3d(-18vw, var(--end-y, 3vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-b, 2deg)); opacity: 0; }
 }
 /* דאייה גבוהה — לציפור שמתרוממת ויורדת במרחק */
 @keyframes soar {
