@@ -764,12 +764,12 @@ ul.plain li::before {
 .bird-shadow-art.is-deep-flapping {
   background-image: url("../img/bird-shadow-flight-deep.png?v=deep-flight-1");
   background-size: 100% 6000%;
-  animation: shadowDeepWingCycle var(--flap, 2.5s) steps(60, end) infinite;
+  animation: shadowDeepWingCycle var(--flap, 2.5s) steps(59, end) infinite;
   animation-delay: var(--flap-delay, 0s);
 }
 .sky-item.is-site-bird .bird-shadow-art {
   animation:
-    shadowDeepWingCycle var(--flap, 2.5s) steps(60, end) infinite var(--flap-delay, 0s),
+    shadowDeepWingCycle var(--flap, 2.5s) steps(59, end) infinite var(--flap-delay, 0s),
     siteBirdFacing var(--dur, 96s) steps(1, end) infinite var(--delay, 0s);
 }
 .bird-shadow-art.is-gliding {
