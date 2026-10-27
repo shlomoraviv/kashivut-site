@@ -264,31 +264,13 @@
       + '<path class="fl3" d="M38.2 19.4c2.5-4.2 6.2-4.4 9.3-.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/>'
       + '<path class="fl4" d="M55.2 11.2c2.9-4.8 7.1-5 10.7-.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" fill="none"/>'
       + '</svg>',
-    /* צללים מעוגלים עם קצות נוצות, במבנה של עופות דואים בגדלים ובתנוחות שונות */
-    shadow: '<svg viewBox="0 0 120 70" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'
-      + '<g class="wl"><path d="M58 25 C52 22 46 18 40 15 C35 12 31 11 26 11 C30 16 33 20 38 23 C31 21 25 20 18 21 C24 26 31 29 39 31 C31 31 24 33 19 36 C28 39 40 38 49 34 C53 32 56 30 58 29Z"/>'
-      + '<g class="wo" style="transform-origin:26px 11px"><path d="M27 12 C21 8 15 6 9 5 L14 10 L5 9 L11 14 L2 14 L9 20 L2 21 L10 25 L4 28 L14 31 L11 35 L21 34 C26 33 31 31 36 28 C33 23 29 17 27 12Z"/></g></g>'
-      + '<g class="wr"><path d="M62 25 C68 22 74 18 80 15 C85 12 89 11 94 11 C90 16 87 20 82 23 C89 21 95 20 102 21 C96 26 89 29 81 31 C89 31 96 33 101 36 C92 39 80 38 71 34 C67 32 64 30 62 29Z"/>'
-      + '<g class="wo" style="transform-origin:94px 11px"><path d="M93 12 C99 8 105 6 111 5 L106 10 L115 9 L109 14 L118 14 L111 20 L118 21 L110 25 L116 28 L106 31 L109 35 L99 34 C94 33 89 31 84 28 C87 23 91 17 93 12Z"/></g></g>'
-      + '<path d="M60 5 C62 7 63.5 9 63 12 C62.5 16 66 20 66.5 25 C67.2 31 64.8 36 64.5 41 C64.2 46 68.5 52 68 56 C67.5 59 63 56 60 51 C57 56 52.5 59 52 56 C51.5 52 55.8 46 55.5 41 C55.2 36 52.8 31 53.5 25 C54 20 57.5 16 57 12 C56.5 9 58 7 60 5Z"/>'
-      + '<path d="M58.7 7.5 L60 2.8 L61.3 7.5Z"/></svg>',
-    "shadow-md": '<svg viewBox="0 0 120 70" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'
-      + '<g class="wl"><path d="M58 26 C51 23 45 19 39 16 C34 14 29 14 24 15 C28 19 33 22 39 25 C31 25 25 27 19 30 C28 34 38 34 47 33 C52 32 56 30 58 29Z"/>'
-      + '<g class="wo" style="transform-origin:24px 15px"><path d="M25 15 C19 11 13 9 8 9 L13 14 L5 13 L11 18 L3 18 L9 23 L4 25 L13 29 L10 32 L20 31 C24 30 28 28 32 26 C29 22 27 18 25 15Z"/></g></g>'
-      + '<g class="wr"><path d="M62 26 C69 23 75 19 81 16 C86 14 91 14 96 15 C92 19 87 22 81 25 C89 25 95 27 101 30 C92 34 82 34 73 33 C68 32 64 30 62 29Z"/>'
-      + '<g class="wo" style="transform-origin:96px 15px"><path d="M95 15 C101 11 107 9 112 9 L107 14 L115 13 L109 18 L117 18 L111 23 L116 25 L107 29 L110 32 L100 31 C96 30 92 28 88 26 C91 22 93 18 95 15Z"/></g></g>'
-      + '<path d="M60 7 C62 9 63 11 62.7 14 C62.5 18 65.5 22 65.8 27 C66.2 32 64.2 36 64 40 C63.8 44 67.5 50 66.5 54 C66 56 62.7 53 60 49 C57.3 53 54 56 53.5 54 C52.5 50 56.2 44 56 40 C55.8 36 53.8 32 54.2 27 C54.5 22 57.5 18 57.3 14 C57 11 58 9 60 7Z"/>'
-      + '<path d="M58.8 9 L60 4.5 L61.2 9Z"/></svg>',
-    "shadow-sm": '<svg viewBox="0 0 120 70" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'
-      + '<g class="wl"><path d="M58 25 C51 22 45 19 39 17 C33 15 27 15 21 16 C27 20 33 22 39 24 C30 26 23 29 16 33 C26 34 36 32 45 30 C51 29 55 29 58 29Z"/>'
-      + '<g class="wo" style="transform-origin:21px 16px"><path d="M22 16 C16 12 10 11 5 11 L10 16 L2 16 L8 21 L1 21 L7 26 L3 28 L13 30 C18 29 24 27 29 25 C27 21 24 18 22 16Z"/></g></g>'
-      + '<g class="wr"><path d="M62 25 C69 22 75 19 81 17 C87 15 93 15 99 16 C93 20 87 22 81 24 C90 26 97 29 104 33 C94 34 84 32 75 30 C69 29 65 29 62 29Z"/>'
-      + '<g class="wo" style="transform-origin:99px 16px"><path d="M98 16 C104 12 110 11 115 11 L110 16 L118 16 L112 21 L119 21 L113 26 L117 28 L107 30 C102 29 96 27 91 25 C93 21 96 18 98 16Z"/></g></g>'
-      + '<path d="M60 8 C62 10 63 12 62.5 15 C62 19 65 23 65.2 28 C65.5 33 63.8 37 63.6 41 C63.4 45 66.5 50 65.5 53 C65 55 62 52 60 48 C58 52 55 55 54.5 53 C53.5 50 56.6 45 56.4 41 C56.2 37 54.5 33 54.8 28 C55 23 58 19 57.5 15 C57 12 58 10 60 8Z"/>'
-      + '<path d="M58.8 10 L60 5.8 L61.2 10Z"/></svg>'
+    /* צללית מצולמת של ציפור במעוף, מחולקת לפריימים כדי להניע את הכנפיים */
+    shadow: '<div class="bird-shadow-art"></div>',
+    "shadow-md": '<div class="bird-shadow-art"></div>',
+    "shadow-sm": '<div class="bird-shadow-art"></div>'
   };
-  /* רוחב הבסיס של כל דמות (בפיקסלים) — צללים בגדלים ובמבני כנף שונים */
-  var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, shadow: 108, "shadow-md": 84, "shadow-sm": 52 };
+  /* רוחב הבסיס של כל דמות (בפיקסלים) — צללים בגדלים ובמרחקים שונים */
+  var SKY_W = { dove: 64, gull: 60, swallow: 64, swift: 64, flock: 72, shadow: 124, "shadow-md": 92, "shadow-sm": 58 };
   /* לכל מסלול יש גרסת מראה לתנועה מימין לשמאל */
   var SKY_BACK = { fly: "flyBack", glide: "glideBack" };
 
@@ -370,15 +352,14 @@
       item.style.setProperty("--size", size.toFixed(3));
       item.style.setProperty("--flow", c.flow || 1);
       item.style.setProperty("--dir", c.dir || c.flow || 1);
-      /* קצב נופף: לצללים הגדולים איטי במיוחד, ולציפורים הקטנות עדין */
+      /* קצב כנפיים משתנה עם המרחק; הספרייט המצולם מכיל את שלבי המעוף */
       var isShadow = c.s.indexOf("shadow") === 0;
-      var flap = c.flap || (isShadow ? 4.1 + Math.random() * 2.2 : 4.6 + Math.random() * 2.6);
+      var flap = c.flap || (isShadow
+        ? (c.s === "shadow" ? 1.55 + Math.random() * 0.55 : c.s === "shadow-md" ? 1.8 + Math.random() * 0.65 : 2.05 + Math.random() * 0.7)
+        : 4.6 + Math.random() * 2.6);
       item.style.setProperty("--flap", flap.toFixed(2) + "s");
       var wingPhase = -Math.random() * flap;
       item.style.setProperty("--flap-delay", wingPhase.toFixed(2) + "s");
-      item.style.setProperty("--flap-delay-r", (wingPhase - flap * (0.02 + Math.random() * 0.04)).toFixed(2) + "s");
-      item.style.setProperty("--outer-delay", (wingPhase - flap * (0.08 + Math.random() * 0.04)).toFixed(2) + "s");
-      item.style.setProperty("--outer-delay-r", (wingPhase - flap * (0.1 + Math.random() * 0.04)).toFixed(2) + "s");
       /* תנועת הגוף מקבלת קצב ומופע מעט שונים מפעימת הכנפיים */
       item.style.setProperty("--bob", (flap * (isShadow ? 1.3 + Math.random() * 0.3 : 1)).toFixed(2) + "s");
       if (isShadow) {
