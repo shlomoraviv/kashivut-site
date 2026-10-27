@@ -274,7 +274,7 @@
   var SKY_PRESETS = {
     /* מסך הכניסה: שילוב של דאייה ונפנוף, בקני מידה שונים */
     hero: [
-      { s: "shadow", p: "glide", wing: "flap", flap: 1.05, top: "10%", size: 1.2, o: .24, tint: "#465064", dur: 48, delay: -12, flow: 1 },
+      { s: "shadow", p: "glide", wing: "flap", deepFlight: true, flap: 2.5, top: "10%", size: 1.2, o: .24, tint: "#465064", dur: 48, delay: -12, flow: 1 },
       { s: "shadow-md", p: "glide", wing: "flap", top: "44%", size: 1.05, o: .18, tint: "#51586a", dur: 146, delay: -58, flow: 1 },
       { s: "gull", p: "fly", top: "30%", size: .62, o: .5, tint: "#8f9fe0", dur: 124, delay: -30, flow: -1 },
       { s: "shadow-sm", p: "glide", wing: "flap", top: "78%", size: .62, o: .13, tint: "#5c6270", dur: 186, delay: -18, flow: 1 }
@@ -333,7 +333,7 @@
     }
     plan.forEach(function (c) {
       var item = document.createElement("div");
-      item.className = "sky-item s-" + c.s;
+      item.className = "sky-item s-" + c.s + (c.deepFlight ? " is-deep-flight" : "");
       item.setAttribute("aria-hidden", "true");
       item.style.top = c.top;
       /* גדלים שונים לאורך האתר, עם שינוי קטן בין מסך למסך */
@@ -362,9 +362,10 @@
         item.style.setProperty("--glide-position", ((glideFrame / 39) * 100).toFixed(3) + "%");
       }
       /* תנועת הגוף מקבלת קצב ומופע מעט שונים מפעימת הכנפיים */
-      item.style.setProperty("--bob", (flap * (isShadow ? 1.3 + Math.random() * 0.3 : 1)).toFixed(2) + "s");
+      item.style.setProperty("--bob", (c.deepFlight ? flap : flap * (isShadow ? 1.3 + Math.random() * 0.3 : 1)).toFixed(2) + "s");
       if (isShadow) {
-        item.style.setProperty("--body-delay", (wingPhase - flap * (0.08 + Math.random() * 0.08)).toFixed(2) + "s");
+        var bodyPhase = c.deepFlight ? wingPhase + flap * 0.07 : wingPhase - flap * (0.08 + Math.random() * 0.08);
+        item.style.setProperty("--body-delay", bodyPhase.toFixed(2) + "s");
         var bank = 1 + Math.random() * 3.5;
         var flow = c.flow || 1;
         item.style.setProperty("--start-y", (Math.random() * 4 - 2).toFixed(1) + "vh");
@@ -380,7 +381,7 @@
       if (c.ease) item.style.setProperty("--ease", c.ease);
       /* רצף הצלליות המבוסס על הצילום מחליף בין דאייה לנפנוף; הגוף נע גם בעטיפה החיצונית. */
       var art = isShadow
-        ? '<div class="bird-shadow-art ' + (wingMode === "glide" ? "is-gliding" : "is-flapping") + '"></div>'
+        ? '<div class="bird-shadow-art ' + (c.deepFlight ? "is-deep-flapping" : wingMode === "glide" ? "is-gliding" : "is-flapping") + '"></div>'
         : SKY_ART[c.s];
       item.innerHTML = '<div class="sky-bob">' + art + "</div>";
       layer.appendChild(item);

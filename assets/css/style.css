@@ -750,12 +750,22 @@ ul.plain li::before {
   animation: shadowWingCycle var(--flap, 3.5s) steps(27, end) infinite;
   animation-delay: var(--flap-delay, 0s);
 }
+.bird-shadow-art.is-deep-flapping {
+  background-image: url("../img/bird-shadow-flight-deep.png?v=deep-flight-1");
+  background-size: 100% 6000%;
+  animation: shadowDeepWingCycle var(--flap, 2.5s) steps(60, end) infinite;
+  animation-delay: var(--flap-delay, 0s);
+}
 .bird-shadow-art.is-gliding {
   background-position: 0 var(--glide-position, 74.359%);
 }
 @keyframes shadowWingCycle {
   from { background-position: 0 0; }
   to { background-position: 0 69.231%; }
+}
+@keyframes shadowDeepWingCycle {
+  from { background-position: 0 0; }
+  to { background-position: 0 100%; }
 }
 /* מפרק הכנף: החלק החיצוני של הכנף ממשיך את התנועה בהשהיה קטנה — כמו נופף אמיתי */
 .sky-item .wo { animation: flapOutL var(--flap, 4s) ease-in-out infinite; animation-delay: calc(var(--flap, 4s) * -0.09); }
@@ -773,6 +783,18 @@ ul.plain li::before {
 .sky-item.s-shadow .sky-bob, .sky-item.s-shadow-md .sky-bob, .sky-item.s-shadow-sm .sky-bob {
   animation-name: shadowBob;
   animation-delay: var(--body-delay, 0s);
+}
+.sky-item.is-deep-flight .sky-bob {
+  animation-name: deepFlightBob;
+  animation-delay: var(--body-delay, 0s);
+}
+@keyframes deepFlightBob {
+  0%, 100% { transform: translateY(0) rotate(-.4deg); }
+  26% { transform: translateY(-.4%) rotate(0deg); }
+  39% { transform: translateY(-2.4%) rotate(.55deg); }
+  54% { transform: translateY(-1.1%) rotate(.15deg); }
+  67% { transform: translateY(.2%) rotate(-.35deg); }
+  74%, 91% { transform: translateY(-.15%) rotate(-.25deg); }
 }
 @keyframes shadowBob {
   0%, 100% { transform: translateY(1.2%) rotate(-.5deg); }
