@@ -272,9 +272,9 @@
 
   /* תוכניות תעופה — כל אזור מקבל שילוב אחר של דמויות, צבעים, גדלים ומסלולים */
   var SKY_PRESETS = {
-    /* מסך הכניסה: צל יחיד ואיטי, עם נפנוף עמוק ודאייה רציפה */
+    /* מסך הכניסה: צל יחיד ואיטי שעובר פעם אחת, עם נפנוף עמוק */
     hero: [
-      { s: "shadow", p: "heroGlide", wing: "flap", deepFlight: true, flap: 2.5, top: "10%", size: 1.2, o: .24, tint: "#465064", dur: 96, delay: -12, flow: 1 }
+      { s: "shadow", p: "heroGlide", wing: "flap", deepFlight: true, once: true, flap: 2.5, top: "10%", size: 1.2, o: .24, tint: "#465064", dur: 96, delay: 0, flow: 1 }
     ],
     /* זוג: סנונית וצל ציפור קטן */
     pair: [
@@ -330,7 +330,7 @@
     }
     plan.forEach(function (c) {
       var item = document.createElement("div");
-      item.className = "sky-item s-" + c.s + (c.deepFlight ? " is-deep-flight" : "");
+      item.className = "sky-item s-" + c.s + (c.deepFlight ? " is-deep-flight" : "") + (c.once ? " is-one-time-flight" : "");
       item.setAttribute("aria-hidden", "true");
       item.style.top = c.top;
       /* גדלים שונים לאורך האתר, עם שינוי קטן בין מסך למסך */
@@ -341,7 +341,7 @@
       item.style.setProperty("--path", c.flow === -1 ? (SKY_BACK[c.p] || c.p) : c.p);
       item.style.setProperty("--dur", c.dur + "s");
       /* היסט אקראי קטן — כדי שאותה תוכנית תעופה לא תיראה זהה בשני אזורים */
-      item.style.setProperty("--delay", (c.delay - Math.random() * 55).toFixed(1) + "s");
+      item.style.setProperty("--delay", (c.once ? c.delay : c.delay - Math.random() * 55).toFixed(1) + "s");
       item.style.setProperty("--size", size.toFixed(3));
       item.style.setProperty("--flow", c.flow || 1);
       item.style.setProperty("--dir", c.dir || c.flow || 1);

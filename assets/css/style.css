@@ -724,6 +724,10 @@ ul.plain li::before {
   animation: var(--path, fly) var(--dur, 60s) var(--ease, linear) infinite;
   animation-delay: var(--delay, 0s);
 }
+.sky-item.is-one-time-flight {
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
 .sky-item svg { display: block; width: 100%; height: auto; overflow: visible; }
 .sky-item .wl, .sky-item .wr, .sky-item .wo { transform-box: view-box; }
 /* כנפיים מנופפות — כל ציפור לפי מבנה הכנף שלה */
