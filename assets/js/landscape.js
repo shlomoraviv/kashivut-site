@@ -86,11 +86,8 @@
   function inject() {
     document.querySelectorAll(".hero-landscape").forEach(function (host) {
       host.innerHTML = SCENE;
-      /* בעמוד הפתיחה עם תמונה, הציפור הגדולה מגיעה משכבת ה-hero. ציפורי הרקע הקטנות
-         נראות כמו כנפיים שנשרו ממנה, לכן משאירים אותן רק בנופי ה-hero האחרים. */
-      if (host.parentNode && host.parentNode.classList.contains("has-photo")) {
-        host.querySelectorAll(".hl-bird").forEach(function (bird) { bird.remove(); });
-      }
+      /* כל האתר מציג ציפור אחת בלבד; ציפורי הנוף יצרו מראה של ציפורים שמתחלפות. */
+      host.querySelectorAll(".hl-bird").forEach(function (bird) { bird.remove(); });
     });
   }
 
