@@ -274,7 +274,7 @@
   var SKY_PRESETS = {
     /* מסך הכניסה: שילוב של דאייה ונפנוף, בקני מידה שונים */
     hero: [
-      { s: "shadow", p: "glide", wing: "glide", top: "10%", size: 1.2, o: .24, tint: "#465064", dur: 112, delay: -12, flow: 1 },
+      { s: "shadow", p: "glide", wing: "flap", top: "10%", size: 1.2, o: .24, tint: "#465064", dur: 112, delay: -12, flow: 1 },
       { s: "shadow-md", p: "glide", wing: "flap", top: "44%", size: 1.05, o: .18, tint: "#51586a", dur: 146, delay: -58, flow: 1 },
       { s: "gull", p: "fly", top: "30%", size: .62, o: .5, tint: "#8f9fe0", dur: 124, delay: -30, flow: -1 },
       { s: "shadow-sm", p: "glide", wing: "flap", top: "78%", size: .62, o: .13, tint: "#5c6270", dur: 186, delay: -18, flow: 1 }
