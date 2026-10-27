@@ -272,6 +272,9 @@
 
   /* ציפורים באותו סגנון, במידות ובמיקומים מתחלפים לאורך קטעי העמוד. */
   var SKY_PRESETS = {
+    heroLarge: [
+      { s: "shadow", p: "sectionGlide", deepFlight: true, flap: 2.5, top: "8%", size: 1.02, o: .18, tint: "#465064", dur: 62, delay: -8, flow: 1, ease: "ease-in-out", start: "52%", end: "94%" }
+    ],
     large: [
       { s: "shadow", p: "sectionGlide", deepFlight: true, flap: 2.5, top: "20%", size: 1.15, o: .2, tint: "#465064", dur: 58, delay: -4, flow: 1, ease: "ease-in-out" }
     ],
@@ -279,7 +282,7 @@
       { s: "shadow", p: "sectionGlide", deepFlight: true, flap: 2.5, top: "38%", size: .88, o: .17, tint: "#465064", dur: 66, delay: -19, flow: 1, ease: "ease-in-out" }
     ],
     small: [
-      { s: "shadow", p: "sectionGlide", deepFlight: true, flap: 2.5, top: "68%", size: .62, o: .14, tint: "#465064", dur: 72, delay: -31, flow: 1, ease: "ease-in-out" }
+      { s: "shadow", p: "sectionGlide", deepFlight: true, flap: 2.5, top: "28%", size: .62, o: .14, tint: "#465064", dur: 72, delay: -31, flow: 1, ease: "ease-in-out" }
     ]
   };
 
@@ -311,6 +314,8 @@
       item.style.setProperty("--path", c.flow === -1 ? (SKY_BACK[c.p] || c.p) : c.p);
       item.style.setProperty("--dur", c.dur + "s");
       item.style.setProperty("--delay", c.delay + "s");
+      if (c.start) item.style.setProperty("--flight-start", c.start);
+      if (c.end) item.style.setProperty("--flight-end", c.end);
       item.style.setProperty("--size", size.toFixed(3));
       item.style.setProperty("--flow", c.flow || 1);
       item.style.setProperty("--dir", c.dir || c.flow || 1);
@@ -358,7 +363,7 @@
     var hosts = Array.prototype.slice.call(document.querySelectorAll("main > .hero, main > .page-hero, main > .section"));
     var presets = ["large", "small", "medium", "small", "large"];
     hosts.slice(0, presets.length).forEach(function (host, index) {
-      mountSky(host, presets[index]);
+      mountSky(host, host.classList.contains("hero") ? "heroLarge" : presets[index]);
     });
   })();
 

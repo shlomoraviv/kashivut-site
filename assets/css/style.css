@@ -836,12 +836,12 @@ ul.plain li::before {
   100% { transform: translate3d(118vw, var(--end-y, 3vh), 0) scale(var(--size, 1)) scaleX(var(--dir, 1)) rotate(var(--bank-b, 2deg)); }
 }
 @keyframes sectionGlide {
-  0%, 100% { left: 6%; }
-  50% { left: calc(94% - var(--bird-width, 124px)); }
+  0%, 100% { left: var(--flight-start, 6%); }
+  50% { left: calc(var(--flight-end, 94%) - var(--bird-width, 124px)); }
 }
 @keyframes sectionGlideBack {
-  0%, 100% { left: calc(94% - var(--bird-width, 124px)); }
-  50% { left: 6%; }
+  0%, 100% { left: calc(var(--flight-end, 94%) - var(--bird-width, 124px)); }
+  50% { left: var(--flight-start, 6%); }
 }
 @keyframes siteBirdFacing {
   0%, 49.999% { transform: scaleX(1); }
